@@ -17,7 +17,7 @@ function buildSitemapXml() {
     { length: ICON_PAGE_SITEMAP_PAGE_COUNT },
     (_, index) => [
       '<sitemap>',
-      `<loc>${SITE_URL}/icons/page-sitemaps/sitemap/${index}.xml</loc>`,
+      `<loc>${SITE_URL}/icons/icon-sitemap-${index}.xml</loc>`,
       `<lastmod>${snapshot.generatedAt}</lastmod>`,
       '</sitemap>',
     ].join(''),

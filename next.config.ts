@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: "/icons/icon-sitemap-:id(\\d+)\\.xml",
+        destination: "/icons/page-sitemaps/sitemap/:id.xml",
+      },
+    ];
+  },
   async redirects() {
     return [
       {
