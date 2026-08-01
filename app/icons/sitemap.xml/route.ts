@@ -1,6 +1,6 @@
 import snapshot from '../../../data/icon-search.snapshot.json'
 import {
-  ICON_SITEMAP_PAGE_COUNT,
+  ICON_PAGE_SITEMAP_PAGE_COUNT,
   ICON_SITEMAP_TOTAL,
 } from '../../../lib/icon-sitemap'
 import { SITE_URL } from '../../../lib/seo'
@@ -14,10 +14,10 @@ function buildSitemapXml() {
   if (cachedXml) return cachedXml
 
   const sitemaps = Array.from(
-    { length: ICON_SITEMAP_PAGE_COUNT },
+    { length: ICON_PAGE_SITEMAP_PAGE_COUNT },
     (_, index) => [
       '<sitemap>',
-      `<loc>${SITE_URL}/icons/icon-sitemaps/${index + 1}.xml</loc>`,
+      `<loc>${SITE_URL}/icons/page-sitemaps/sitemap/${index}.xml</loc>`,
       `<lastmod>${snapshot.generatedAt}</lastmod>`,
       '</sitemap>',
     ].join(''),

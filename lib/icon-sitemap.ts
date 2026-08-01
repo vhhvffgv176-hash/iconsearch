@@ -10,6 +10,10 @@ export const ICON_SITEMAP_TOTAL = snapshot.totalIcons
 export const ICON_SITEMAP_PAGE_COUNT = Math.ceil(
   ICON_SITEMAP_TOTAL / ICON_SITEMAP_PAGE_SIZE,
 )
+export const ICON_PAGE_SITEMAP_PAGE_SIZE = 5_000
+export const ICON_PAGE_SITEMAP_PAGE_COUNT = Math.ceil(
+  ICON_SITEMAP_TOTAL / ICON_PAGE_SITEMAP_PAGE_SIZE,
+)
 
 type RawSitemapIcon = {
   library?: string
@@ -47,6 +51,30 @@ function getCanonicalLibrarySlug(library: string): string {
   const slug = resolveLibraryMeta(library)?.slug || library
   librarySlugCache.set(library, slug)
   return slug
+}
+
+export function buildIconPageSitemapEntries(pageIndex: number) {
+  if (
+    !Number.isInteger(pageIndex)
+    || pageIndex < 0
+    || pageIndex >= ICON_PAGE_SITEMAP_PAGE_COUNT
+  ) {
+    return []
+  }
+
+  const icons = loadSitemapIcons()
+  const start = pageIndex * ICON_PAGE_SITEMAP_PAGE_SIZE
+  const pageIcons = icons.slice(start, start + ICON_PAGE_SITEMAP_PAGE_SIZE)
+
+  return pageIcons.map((icon) => {
+    const canonicalLibrary = encodeURIComponent(getCanonicalLibrarySlug(icon.library))
+    const name = encodeURIComponent(icon.name)
+
+    return {
+      url: `${SITE_URL}/icons/${canonicalLibrary}/${name}`,
+      lastModified: snapshot.generatedAt,
+    }
+  })
 }
 
 export function buildIconSitemapPage(pageNumber: number): string | null {
