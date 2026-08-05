@@ -1,4 +1,5 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
+import { tmpdir } from 'os'
 import path from 'path'
 import { NextResponse } from 'next/server'
 import { publicOptions, publicJson } from '@/lib/device-auth'
@@ -13,9 +14,9 @@ const SVG_HEADERS = {
   'Access-Control-Allow-Methods': 'GET, OPTIONS',
 }
 
-const CACHE_DIR = process.env.VERCEL
-  ? path.join('/tmp', '.cache', 'svgs')
-  : path.join(/* turbopackIgnore: true */ process.cwd(), '.cache', 'svgs')
+// Keep the runtime cache outside the project tree so output tracing cannot
+// accidentally bundle the entire repository into this server function.
+const CACHE_DIR = path.join(tmpdir(), 'iconsearch', 'svgs')
 
 function isSafeSegment(value: string) {
   return /^[a-z0-9][a-z0-9._-]*$/i.test(value)
@@ -23,13 +24,6 @@ function isSafeSegment(value: string) {
 
 function normalizeName(name: string) {
   return name.replace(/\.svg$/i, '').replace(/_/g, '-').trim()
-}
-
-function resolveWithin(root: string, fileName: string) {
-  const resolvedRoot = path.resolve(root)
-  const resolvedFile = path.resolve(resolvedRoot, fileName)
-  const rootPrefix = `${resolvedRoot}${path.sep}`.toLowerCase()
-  return resolvedFile.toLowerCase().startsWith(rootPrefix) ? resolvedFile : ''
 }
 
 function sanitizeSvg(svg: string): string {
@@ -54,21 +48,32 @@ function sanitizeSvg(svg: string): string {
 
 function findLocalSvgFile(library: string, name: string): string {
   if (library === 'patternfly-icons') {
-    const root = path.join(process.cwd(), 'node_modules', '@patternfly', 'react-icons', 'dist', 'static')
-    const candidate = resolveWithin(root, `${name}.svg`)
-    if (candidate && existsSync(candidate)) return candidate
+    const candidate = path.join(
+      process.cwd(),
+      'node_modules',
+      '@patternfly',
+      'react-icons',
+      'dist',
+      'static',
+      `${name}.svg`,
+    )
+    if (existsSync(candidate)) return candidate
   }
 
   if (library === 'bootstrap-icons') {
-    const root = path.join(process.cwd(), 'node_modules', 'bootstrap-icons', 'icons')
-    const candidate = resolveWithin(root, `${name}.svg`)
-    if (candidate && existsSync(candidate)) return candidate
+    const candidate = path.join(
+      process.cwd(),
+      'node_modules',
+      'bootstrap-icons',
+      'icons',
+      `${name}.svg`,
+    )
+    if (existsSync(candidate)) return candidate
   }
 
   if (library === 'untitled-ui-icons') {
-    const root = path.join(process.cwd(), 'public', 'untitled-ui-icons')
-    const candidate = resolveWithin(root, `${name}.svg`)
-    if (candidate && existsSync(candidate)) return candidate
+    const candidate = path.join(process.cwd(), 'public', 'untitled-ui-icons', `${name}.svg`)
+    if (existsSync(candidate)) return candidate
   }
 
   return ''
