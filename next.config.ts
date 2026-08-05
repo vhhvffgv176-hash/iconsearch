@@ -1,4 +1,18 @@
 import type { NextConfig } from "next";
+import allLibrariesData from "./data/all-libraries.json";
+
+type LibraryRoute = {
+  id: string;
+  slug: string;
+};
+
+const libraryAliasRedirects = (allLibrariesData as LibraryRoute[])
+  .filter((library) => library.id !== library.slug)
+  .map((library) => ({
+    source: `/icons/${library.id}`,
+    destination: `/icons/${library.slug}`,
+    permanent: true,
+  }));
 
 const nextConfig: NextConfig = {
   async redirects() {
@@ -43,6 +57,7 @@ const nextConfig: NextConfig = {
         destination: "/icons/:slug",
         permanent: true,
       },
+      ...libraryAliasRedirects,
       {
         source: "/icons/react-icons",
         destination: "/react-icons",

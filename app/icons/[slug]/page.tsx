@@ -9,14 +9,7 @@ import CollectionPageClient from './CollectionPageClient'
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-  const paramsSet = new Set<string>()
-  
-  allLibraries.forEach((lib) => {
-    paramsSet.add(lib.slug)
-    paramsSet.add(lib.id)
-  })
-
-  return Array.from(paramsSet).map((slug) => ({ slug }))
+  return allLibraries.map((library) => ({ slug: library.slug }))
 }
 
 type RawDbIcon = {
