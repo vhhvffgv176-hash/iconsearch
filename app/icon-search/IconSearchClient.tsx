@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useRef, useState, useCallback, memo } from 'react'
 import { useSearchParams } from 'next/navigation'
-import Link from 'next/link'
 import type { Subscription, User } from '@supabase/supabase-js'
 import { generateZipPackage } from '../../lib/exporter'
 import { ICON_PREVIEW_CACHE_VERSION, getBestIconPreviewUrl, getCleanSvgUrl, getIconPreviewCandidates } from '../../lib/icon-preview'
@@ -192,38 +191,16 @@ function readSearchState(params: SearchParamReader | null) {
   }
 }
 
-function getSlugForLibrary(library: string): string {
-  if (library === 'lucide-icons') return 'lucide-icons'
-  if (library === 'heroicons') return 'heroicons'
-  if (library === 'tabler-icons') return 'tabler-icons'
-  if (library === 'patternfly-icons') return 'patternfly-icons'
-  if (library === 'untitled-ui-icons') return 'untitled-ui-icons'
-  if (library === 'phosphor-icons') return 'phosphor-icons'
-  if (library === 'remix-icon') return 'remix-icon'
-  if (library === 'feather-icons') return 'feather-icons'
-  if (library === 'bootstrap-icons') return 'bootstrap-icons'
-  if (library === 'radix-icons') return 'radix-icons'
-
-  if (library.startsWith('iconify-fa')) return 'font-awesome'
-  if (library.startsWith('iconify-material') || library === 'iconify-ic') return 'material-icons'
-  if (library === 'iconify-simple-icons') return 'simple-icons'
-  if (library === 'iconoir' || library === 'iconify-iconoir') return 'iconoir'
-  if (library === 'ionicons' || library === 'iconify-ion') return 'ionicons'
-  if (library === 'octicons' || library === 'iconify-octicon') return 'octicons'
-  if (library === 'ant-design-icons' || library === 'iconify-ant-design') return 'ant-design-icons'
-
-  if (library.startsWith('iconify-')) return library.replace(/^iconify-/, '')
-  return library
-}
-
 const workingUrlCache = new Map<string, string>()
 
 const IconCard = memo(({
   icon,
-  color
+  color,
+  onSelect,
 }: {
   icon: Icon
   color: string
+  onSelect: (icon: Icon) => void
 }) => {
   const [fallbackIndex, setFallbackIndex] = useState(0)
   const [failed, setFailed] = useState(false)
@@ -238,8 +215,6 @@ const IconCard = memo(({
     }
     return candidates[fallbackIndex] || getCleanSvgUrl(icon.svgUrl, icon.library)
   }, [previewCacheKey, candidates, fallbackIndex, icon.svgUrl, icon.library])
-
-  const librarySlug = useMemo(() => getSlugForLibrary(icon.library), [icon.library])
 
   const onError = useCallback(() => {
     if (workingUrlCache.has(previewCacheKey)) {
@@ -270,8 +245,10 @@ const IconCard = memo(({
   }, [previewCacheKey, src, failed])
 
   return (
-    <Link
-      href={`/icons/${librarySlug}/${icon.name}`}
+    <button
+      type="button"
+      aria-label={`Customize ${icon.displayName || icon.name}`}
+      onClick={() => onSelect(icon)}
       style={{
         background: 'rgba(24,24,27,0.8)',
         border: '1px solid var(--border)',
@@ -282,7 +259,8 @@ const IconCard = memo(({
         flexDirection: 'column',
         gap: '10px',
         alignItems: 'center',
-        textDecoration: 'none',
+        color: 'inherit',
+        font: 'inherit',
         transition: 'all 0.16s ease',
       }}
       onMouseEnter={(e) => {
@@ -335,7 +313,7 @@ const IconCard = memo(({
           {icon.legalSafe ? 'legal-safe' : 'restricted'}
         </div>
       </div>
-    </Link>
+    </button>
   )
 })
 IconCard.displayName = 'IconCard'
@@ -1298,6 +1276,7 @@ export default function IconSearchClient({ initialData }: { initialData?: ApiRes
                 key={icon.id}
                 icon={icon}
                 color={color}
+                onSelect={setSelectedIcon}
               />
             )
           })}

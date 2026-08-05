@@ -1,20 +1,48 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  async rewrites() {
+  async redirects() {
     return [
       {
         source: "/icons/icon-sitemap-index.xml",
-        destination: "/icons/sitemap-index.xml",
+        destination: "/sitemap.xml",
+        permanent: true,
+      },
+      {
+        source: "/icons/sitemap-index.xml",
+        destination: "/sitemap.xml",
+        permanent: true,
+      },
+      {
+        source: "/icons/sitemap.xml",
+        destination: "/sitemap.xml",
+        permanent: true,
       },
       {
         source: "/icons/icon-sitemap-:id(\\d+)\\.xml",
-        destination: "/icons/page-sitemaps/sitemap/:id.xml",
+        destination: "/sitemap.xml",
+        permanent: true,
       },
-    ];
-  },
-  async redirects() {
-    return [
+      {
+        source: "/icons/icon-sitemaps/:page",
+        destination: "/sitemap.xml",
+        permanent: true,
+      },
+      {
+        source: "/icon-sitemaps/:page",
+        destination: "/sitemap.xml",
+        permanent: true,
+      },
+      {
+        source: "/icons/page-sitemaps/sitemap/:id",
+        destination: "/sitemap.xml",
+        permanent: true,
+      },
+      {
+        source: "/icons/:slug((?!category|collection|icon-sitemaps|page-sitemaps)[^/]+)/:iconName",
+        destination: "/icons/:slug",
+        permanent: true,
+      },
       {
         source: "/icons/react-icons",
         destination: "/react-icons",

@@ -23,9 +23,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: disallowPaths,
       },
     ],
-    sitemap: [
-      `${SITE_URL}/sitemap.xml`,
-      `${SITE_URL}/icons/icon-sitemap-index.xml`,
-    ],
+    sitemap: `${SITE_URL}/sitemap.xml`,
   }
 }

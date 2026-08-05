@@ -6,13 +6,12 @@ import { allLibraries, resolveLibraryMeta, type IconLibraryMeta } from '../../..
 import { createPageMetadata, SITE_URL } from '../../../lib/seo'
 import CollectionPageClient from './CollectionPageClient'
 
-export const dynamicParams = true
+export const dynamicParams = false
 
 export async function generateStaticParams() {
-  const topLibraries = allLibraries.slice(0, 80)
   const paramsSet = new Set<string>()
   
-  topLibraries.forEach((lib) => {
+  allLibraries.forEach((lib) => {
     paramsSet.add(lib.slug)
     paramsSet.add(lib.id)
   })

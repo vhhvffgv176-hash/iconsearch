@@ -346,8 +346,10 @@ export default function CollectionPageClient({ meta, icons }: Props) {
                         style={{ objectFit: 'contain' }}
                       />
                     </button>
-                    <Link
-                      href={`/icons/${encodeURIComponent(meta.slug)}/${encodeURIComponent(icon.name)}`}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedIcon(icon)}
+                      aria-label={`Customize ${icon.displayName || icon.name}`}
                       style={{
                       fontSize: '11px',
                       color: '#475569',
@@ -357,10 +359,13 @@ export default function CollectionPageClient({ meta, icons }: Props) {
                       textOverflow: 'ellipsis',
                       whiteSpace: 'nowrap',
                       fontFamily: 'var(--font-mono, monospace)',
-                      textDecoration: 'none',
+                      background: 'transparent',
+                      border: 0,
+                      padding: 0,
+                      cursor: 'pointer',
                     }}>
                       {icon.displayName || icon.name}
-                    </Link>
+                    </button>
                   </div>
                 )
               })}
