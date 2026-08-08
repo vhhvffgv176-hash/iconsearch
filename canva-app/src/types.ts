@@ -1,9 +1,3 @@
-export type StoredSession = {
-  token: string;
-  access?: Record<string, unknown>;
-  savedAt: string;
-};
-
 export type IconSearchIcon = {
   id: string;
   name: string;
@@ -21,4 +15,13 @@ export type SearchResult = {
   icons: IconSearchIcon[];
   total: number;
   iconifySets?: string[];
+};
+
+export type AccountAccess = {
+  email: string;
+  product: string;
+  tier: string;
+  status: string;
+  founderNumber?: number;
+  expiresAt?: string;
 };

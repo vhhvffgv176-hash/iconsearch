@@ -18,6 +18,9 @@ export async function GET(request: Request) {
   if (requestedProduct !== session.session.product) {
     return publicJson({ error: 'This session is not valid for the requested product.' }, { status: 403 })
   }
+  if (session.scopes && !session.scopes.includes('icons:read')) {
+    return publicJson({ error: 'This OAuth grant does not include icon search access.' }, { status: 403 })
+  }
 
   return searchIcons(request)
 }

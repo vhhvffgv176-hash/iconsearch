@@ -1,4 +1,5 @@
 const path = require("node:path");
+const { transform } = require("@formatjs/ts-transformer");
 const { optimize } = require("webpack");
 
 module.exports = (_env, argv) => {
@@ -28,6 +29,15 @@ module.exports = (_env, argv) => {
             loader: "ts-loader",
             options: {
               transpileOnly: false,
+              getCustomTransformers() {
+                return {
+                  before: [
+                    transform({
+                      overrideIdFn: "[sha512:contenthash:base64:6]",
+                    }),
+                  ],
+                };
+              },
             },
           },
         },

@@ -606,6 +606,31 @@ select:focus-visible {
   gap: 16px;
 }
 
+.connect-action-stack label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.connect-action-stack input {
+  width: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 12px;
+  background: rgba(9, 9, 11, 0.42);
+  color: var(--text);
+  font: inherit;
+  padding: 13px 14px;
+  outline: none;
+}
+
+.connect-action-stack input:focus {
+  border-color: rgba(165, 180, 252, 0.72);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.16);
+}
+
 .connect-account-box {
   display: flex;
   align-items: center;
@@ -643,6 +668,29 @@ select:focus-visible {
 }
 
 .connect-primary-button:disabled {
+  opacity: 0.62;
+  cursor: not-allowed;
+}
+
+.connect-secondary-button {
+  width: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.28);
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 15px;
+  padding: 15px 20px;
+  transition: border-color 0.18s ease, background 0.18s ease, opacity 0.18s ease;
+}
+
+.connect-secondary-button:hover:not(:disabled) {
+  border-color: rgba(165, 180, 252, 0.58);
+  background: rgba(99, 102, 241, 0.12);
+}
+
+.connect-secondary-button:disabled {
   opacity: 0.62;
   cursor: not-allowed;
 }

@@ -138,6 +138,48 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, redirectTo }
     }
   }
 
+  const handlePasswordReset = async () => {
+    setErrorMsg('')
+    setInfoMsg('')
+
+    if (!email.trim()) {
+      setErrorMsg('Enter your email address first.')
+      return
+    }
+    if (!isConfigured) {
+      setErrorMsg('Supabase must be configured before password reset can be used.')
+      return
+    }
+
+    const supabase = await createClient()
+    if (!supabase) {
+      setErrorMsg('Failed to initialize Supabase client.')
+      return
+    }
+
+    const requestedNext = redirectTo || `${window.location.pathname}${window.location.search}`
+    const safeNext = requestedNext.startsWith('/') && !requestedNext.startsWith('//')
+      ? requestedNext
+      : '/account'
+    const resetPage = new URL('/auth/reset-password', window.location.origin)
+    resetPage.searchParams.set('next', safeNext)
+    const callback = new URL('/auth/callback', window.location.origin)
+    callback.searchParams.set('next', `${resetPage.pathname}${resetPage.search}`)
+
+    setLoading(true)
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+        redirectTo: callback.toString(),
+      })
+      if (error) setErrorMsg(getDisplayAuthError(error.message))
+      else setInfoMsg('Check your email for a secure password reset link.')
+    } catch (resetError) {
+      setErrorMsg(resetError instanceof Error ? resetError.message : 'Could not start password reset.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div style={{
       position: 'fixed',
@@ -309,6 +351,26 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, redirectTo }
                 e.target.style.boxShadow = 'none'
               }}
             />
+            {!isSignUp ? (
+              <button
+                type="button"
+                disabled={loading}
+                onClick={() => void handlePasswordReset()}
+                style={{
+                  display: 'block',
+                  margin: '8px 0 0 auto',
+                  padding: 0,
+                  border: 0,
+                  background: 'transparent',
+                  color: '#c4b5fd',
+                  cursor: loading ? 'not-allowed' : 'pointer',
+                  fontSize: '12px',
+                  textDecoration: 'underline',
+                }}
+              >
+                Forgot password?
+              </button>
+            ) : null}
           </div>
 
           <div>

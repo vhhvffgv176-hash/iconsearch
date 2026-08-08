@@ -1,9 +1,6 @@
-import type { IconSearchIcon, SearchResult, StoredSession } from "./types";
+import type { AccountAccess, IconSearchIcon, SearchResult } from "./types";
 
 export const API_BASE = "https://iconsearch.info";
-export const PRODUCT = "canva";
-export const SESSION_KEY = "iconsearch:canva:session";
-export const PENDING_KEY = "iconsearch:canva:pending-device-code";
 
 export const NAMED_LIBRARIES = [
   ["lucide-icons", "Lucide Icons"],
@@ -31,91 +28,26 @@ export const LIBRARIES = [
   ...NAMED_LIBRARIES,
 ] as const;
 
-export function readSession(): StoredSession | null {
-  try {
-    const value = window.localStorage.getItem(SESSION_KEY);
-    if (!value) return null;
-    const parsed = JSON.parse(value) as Partial<StoredSession>;
-    return typeof parsed.token === "string" && parsed.token ? (parsed as StoredSession) : null;
-  } catch {
-    return null;
-  }
-}
-
-export function saveSession(session: StoredSession) {
-  window.localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-}
-
-export function clearSession() {
-  window.localStorage.removeItem(SESSION_KEY);
-  window.localStorage.removeItem(PENDING_KEY);
-}
-
-export function readPendingDeviceCode() {
-  return window.localStorage.getItem(PENDING_KEY) || "";
-}
-
-export function savePendingDeviceCode(code: string) {
-  window.localStorage.setItem(PENDING_KEY, code);
-}
-
-export function clearPendingDeviceCode() {
-  window.localStorage.removeItem(PENDING_KEY);
-}
-
-export async function startSignIn() {
-  const response = await fetch(`${API_BASE}/api/device/start`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", accept: "application/json" },
-    body: JSON.stringify({ product: PRODUCT, clientName: "Canva" }),
-  });
-  const payload = await readJsonObject(response);
-  if (!response.ok) throw new Error(stringFrom(payload.error) || "Could not start IconSearch sign-in.");
-
-  return {
-    deviceCode: stringFrom(payload.deviceCode),
-    verificationUriComplete: stringFrom(payload.verificationUriComplete),
-  };
-}
-
-export async function finishSignIn(deviceCode: string): Promise<StoredSession | "pending"> {
-  const response = await fetch(`${API_BASE}/api/device/status`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", accept: "application/json" },
-    body: JSON.stringify({ deviceCode }),
-  });
-  const payload = await readJsonObject(response);
-  if (!response.ok) throw new Error(stringFrom(payload.error) || "Could not complete IconSearch sign-in.");
-  if (stringFrom(payload.status) !== "authorized") return "pending";
-
-  const token = stringFrom(payload.token);
-  if (!token) throw new Error("The approved IconSearch session did not include a token.");
-
-  return {
-    token,
-    access: asRecord(payload.access),
-    savedAt: new Date().toISOString(),
-  };
-}
-
 export async function searchIcons({
-  token,
   query,
   library,
   legalOnly,
+  page,
   signal,
+  accessToken,
 }: {
-  token: string;
   query: string;
   library: string;
   legalOnly: boolean;
+  page?: number;
   signal?: AbortSignal;
+  accessToken?: string;
 }): Promise<SearchResult> {
-  const url = new URL(`${API_BASE}/api/extension/icon-search`);
+  const url = new URL(`${API_BASE}${accessToken ? "/api/extension/icon-search" : "/api/icon-search"}`);
   const cleanQuery = query.trim();
   if (cleanQuery) url.searchParams.set("q", cleanQuery);
   url.searchParams.set("limit", "36");
-  url.searchParams.set("page", "1");
+  url.searchParams.set("page", String(Math.max(1, Math.floor(page || 1))));
   url.searchParams.set("sort", cleanQuery ? "relevance" : "popular");
   url.searchParams.set("legalOnly", legalOnly ? "1" : "0");
   applyLibraryParams(url, library);
@@ -123,8 +55,12 @@ export async function searchIcons({
   const response = await fetch(url.toString(), {
     headers: {
       accept: "application/json",
-      authorization: `Bearer ${token}`,
-      "x-iconsearch-product": PRODUCT,
+      ...(accessToken
+        ? {
+            authorization: `Bearer ${accessToken}`,
+            "x-iconsearch-product": "canva",
+          }
+        : {}),
     },
     signal,
   });
@@ -144,6 +80,28 @@ export async function searchIcons({
     icons,
     total: numberFrom(payload.total, icons.length),
     iconifySets,
+  };
+}
+
+export async function fetchAccountAccess(accessToken: string): Promise<AccountAccess> {
+  const response = await fetch(`${API_BASE}/api/entitlements/me`, {
+    headers: {
+      accept: "application/json",
+      authorization: `Bearer ${accessToken}`,
+      "x-iconsearch-product": "canva",
+    },
+  });
+  const payload = await readJsonObject(response);
+  if (!response.ok) throw new Error(stringFrom(payload.error) || `IconSearch returned ${response.status}.`);
+
+  const access = asRecord(payload.access);
+  return {
+    email: stringFrom(access.email),
+    product: stringFrom(access.product),
+    tier: stringFrom(access.tier),
+    status: stringFrom(access.status),
+    founderNumber: optionalNumberFrom(access.founderNumber),
+    expiresAt: stringFrom(access.expiresAt) || undefined,
   };
 }
 
@@ -265,4 +223,8 @@ function stringFrom(value: unknown): string {
 
 function numberFrom(value: unknown, fallback: number): number {
   return typeof value === "number" && Number.isFinite(value) ? value : fallback;
+}
+
+function optionalNumberFrom(value: unknown): number | undefined {
+  return typeof value === "number" && Number.isFinite(value) ? value : undefined;
 }
