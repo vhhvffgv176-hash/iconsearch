@@ -1,4 +1,5 @@
 import type { AccountAccess, IconSearchIcon, LibraryOption, SearchResult } from "./types";
+import { FALLBACK_LIBRARY_OPTIONS } from "./libraries";
 
 export const API_BASE = "https://iconsearch.info";
 
@@ -46,7 +47,10 @@ export async function searchIcons({
     : [];
 
   const facets = asRecord(payload.facets);
-  const libraryOptions = normalizeLibraryOptions(facets.libraryOptions);
+  const apiLibraryOptions = normalizeLibraryOptions(facets.libraryOptions);
+  const libraryOptions = apiLibraryOptions.length
+    ? apiLibraryOptions
+    : FALLBACK_LIBRARY_OPTIONS;
 
   return {
     icons,
@@ -98,7 +102,12 @@ export async function fetchSvgMarkup(icon: IconSearchIcon): Promise<string> {
 
 function applyLibraryParams(url: URL, value: string) {
   if (value === "all") return;
-  url.searchParams.set("lib", value);
+  const aliases: Record<string, string> = {
+    "iconify-ant-design": "ant-design-icons",
+    "iconify-ion": "ionicons",
+    "iconify-octicon": "octicons",
+  };
+  url.searchParams.set("lib", aliases[value] || value);
 }
 
 function normalizeLibraryOptions(value: unknown): LibraryOption[] {
