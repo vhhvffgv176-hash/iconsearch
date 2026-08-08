@@ -71,17 +71,9 @@
     "defaultMessage": "Find open-source SVG icons and add them to your design.",
     "description": "Short explanation beneath the app heading."
   },
-  "eTwhyc": {
-    "defaultMessage": "Iconify: {collectionName}",
-    "description": "Library filter option showing the name of an Iconify collection."
-  },
   "fdRB7e": {
     "defaultMessage": "No icons found. Try another search.",
     "description": "Empty state shown when no icons match the current filters."
-  },
-  "gpKH+s": {
-    "defaultMessage": "Iconify collections",
-    "description": "Group label for Iconify collections in the library filter."
   },
   "hxRKdn": {
     "defaultMessage": "All libraries ({count, number}+ icons)",
@@ -118,10 +110,6 @@
   "vTjpIe": {
     "defaultMessage": "Disconnect IconSearch account",
     "description": "Button label that disconnects an IconSearch account from Canva."
-  },
-  "wokN42": {
-    "defaultMessage": "Icon libraries",
-    "description": "Group label for the primary icon libraries in the library filter."
   },
   "zAWvGK": {
     "defaultMessage": "Connect IconSearch account",

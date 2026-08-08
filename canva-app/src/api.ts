@@ -1,32 +1,6 @@
-import type { AccountAccess, IconSearchIcon, SearchResult } from "./types";
+import type { AccountAccess, IconSearchIcon, LibraryOption, SearchResult } from "./types";
 
 export const API_BASE = "https://iconsearch.info";
-
-export const NAMED_LIBRARIES = [
-  ["lucide-icons", "Lucide Icons"],
-  ["heroicons", "Heroicons"],
-  ["tabler-icons", "Tabler Icons"],
-  ["patternfly-icons", "PatternFly Icons"],
-  ["untitled-ui-icons", "Untitled UI Icons"],
-  ["phosphor-icons", "Phosphor Icons"],
-  ["remix-icon", "Remix Icon"],
-  ["feather-icons", "Feather Icons"],
-  ["bootstrap-icons", "Bootstrap Icons"],
-  ["radix-icons", "Radix Icons"],
-  ["iconoir", "Iconoir"],
-  ["ionicons", "Ionicons"],
-  ["octicons", "Octicons"],
-  ["ant-design-icons", "Ant Design Icons"],
-  ["devicons", "Devicons"],
-  ["teenyicons", "Teenyicons"],
-  ["circum-icons", "Circum Icons"],
-  ["elusive-icons", "Elusive Icons"],
-] as const;
-
-export const LIBRARIES = [
-  ["all", "All libraries (355,000+ icons)"],
-  ...NAMED_LIBRARIES,
-] as const;
 
 export async function searchIcons({
   query,
@@ -72,14 +46,12 @@ export async function searchIcons({
     : [];
 
   const facets = asRecord(payload.facets);
-  const iconifySets = Array.isArray(facets.iconifySets)
-    ? facets.iconifySets.filter((set): set is string => typeof set === "string")
-    : [];
+  const libraryOptions = normalizeLibraryOptions(facets.libraryOptions);
 
   return {
     icons,
     total: numberFrom(payload.total, icons.length),
-    iconifySets,
+    libraryOptions,
   };
 }
 
@@ -126,16 +98,20 @@ export async function fetchSvgMarkup(icon: IconSearchIcon): Promise<string> {
 
 function applyLibraryParams(url: URL, value: string) {
   if (value === "all") return;
-  if (value === "iconify") {
-    url.searchParams.set("lib", "iconify");
-    return;
-  }
-  if (value.startsWith("iconify:")) {
-    url.searchParams.set("lib", "iconify");
-    url.searchParams.set("iconifySet", value.slice("iconify:".length));
-    return;
-  }
   url.searchParams.set("lib", value);
+}
+
+function normalizeLibraryOptions(value: unknown): LibraryOption[] {
+  if (!Array.isArray(value)) return [];
+
+  const unique = new Map<string, LibraryOption>();
+  value.forEach((entry) => {
+    const item = asRecord(entry);
+    const id = stringFrom(item.id);
+    const name = stringFrom(item.name);
+    if (id && name && !unique.has(id)) unique.set(id, { id, name });
+  });
+  return [...unique.values()];
 }
 
 function normalizeIcon(value: unknown): IconSearchIcon | undefined {
@@ -191,16 +167,6 @@ function sanitizeSvgForCanva(svg: string): string {
 async function readJsonObject(response: Response): Promise<Record<string, unknown>> {
   const value = (await response.json().catch(() => ({}))) as unknown;
   return asRecord(value);
-}
-
-const acronymParts = new Set(["ai", "bi", "fa", "gis", "ic", "mdi", "svg", "ui", "carbon", "uil", "uis"]);
-
-export function formatIconifyTitle(id: string): string {
-  return id
-    .replace(/^iconify-/, "")
-    .split("-")
-    .map((part) => (acronymParts.has(part) ? part.toUpperCase() : `${part.charAt(0).toUpperCase()}${part.slice(1)}`))
-    .join(" ");
 }
 
 function formatIconTitle(value: string): string {

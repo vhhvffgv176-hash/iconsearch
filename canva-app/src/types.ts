@@ -14,7 +14,12 @@ export type IconSearchIcon = {
 export type SearchResult = {
   icons: IconSearchIcon[];
   total: number;
-  iconifySets?: string[];
+  libraryOptions: LibraryOption[];
+};
+
+export type LibraryOption = {
+  id: string;
+  name: string;
 };
 
 export type AccountAccess = {

@@ -23,13 +23,11 @@ import { notification } from "@canva/platform";
 import type { Oauth } from "@canva/user";
 import { FormattedMessage, useIntl } from "react-intl";
 import {
-  NAMED_LIBRARIES,
   fetchAccountAccess,
   fetchSvgMarkup,
-  formatIconifyTitle,
   searchIcons,
 } from "./api";
-import type { AccountAccess, IconSearchIcon } from "./types";
+import type { AccountAccess, IconSearchIcon, LibraryOption } from "./types";
 
 const ICON_SIZE = 192;
 const OAUTH_SCOPE = new Set(["icons:read", "offline_access"]);
@@ -41,18 +39,13 @@ type Status =
   | { kind: "inserted"; iconName: string };
 
 type ErrorKind = "search" | "insert";
-type LibrarySelectEntry = SelectOption<string> | {
-  label: string;
-  options: SelectOption<string>[];
-};
-
 export function App({ oauth }: { oauth: Oauth }) {
   const intl = useIntl();
   const [query, setQuery] = useState("");
   const [library, setLibrary] = useState("all");
   const [legalOnly, setLegalOnly] = useState(true);
   const [icons, setIcons] = useState<IconSearchIcon[]>([]);
-  const [iconifySets, setIconifySets] = useState<string[]>([]);
+  const [availableLibraries, setAvailableLibraries] = useState<LibraryOption[]>([]);
   const [selectedId, setSelectedId] = useState("");
   const [busyIconId, setBusyIconId] = useState("");
   const [loading, setLoading] = useState(true);
@@ -142,8 +135,8 @@ export function App({ oauth }: { oauth: Oauth }) {
     [icons, selectedId],
   );
 
-  const libraryOptions = useMemo<LibrarySelectEntry[]>(() => {
-    const options: LibrarySelectEntry[] = [
+  const libraryOptions = useMemo<SelectOption<string>[]>(() => {
+    return [
       {
         value: "all",
         label: intl.formatMessage(
@@ -154,36 +147,9 @@ export function App({ oauth }: { oauth: Oauth }) {
           { count: 355000 },
         ),
       },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Icon libraries",
-          description: "Group label for the primary icon libraries in the library filter.",
-        }),
-        options: NAMED_LIBRARIES.map(([value, label]) => ({ value, label })),
-      },
+      ...availableLibraries.map(({ id, name }) => ({ value: id, label: name })),
     ];
-
-    if (iconifySets.length) {
-      options.push({
-        label: intl.formatMessage({
-          defaultMessage: "Iconify collections",
-          description: "Group label for Iconify collections in the library filter.",
-        }),
-        options: iconifySets.map((setName) => ({
-          value: `iconify:${setName}`,
-          label: intl.formatMessage(
-            {
-              defaultMessage: "Iconify: {collectionName}",
-              description: "Library filter option showing the name of an Iconify collection.",
-            },
-            { collectionName: formatIconifyTitle(setName) },
-          ),
-        })),
-      });
-    }
-
-    return options;
-  }, [iconifySets, intl]);
+  }, [availableLibraries, intl]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -204,7 +170,7 @@ export function App({ oauth }: { oauth: Oauth }) {
         }))
         .then((result) => {
           setIcons(result.icons);
-          setIconifySets(result.iconifySets || []);
+          setAvailableLibraries(result.libraryOptions);
           setNextPage(2);
           setHasMore(result.icons.length > 0 && result.icons.length < result.total);
           setSelectedId((current) => (
@@ -254,7 +220,7 @@ export function App({ oauth }: { oauth: Oauth }) {
       const seen = new Set(icons.map((icon) => icon.id));
       const additions = result.icons.filter((icon) => !seen.has(icon.id));
       const combined = [...icons, ...additions];
-      setIconifySets(result.iconifySets || []);
+      setAvailableLibraries(result.libraryOptions);
       setIcons(combined);
       setHasMore(result.icons.length > 0 && combined.length < result.total);
       setNextPage(requestedPage + 1);

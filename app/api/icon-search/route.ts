@@ -3,11 +3,22 @@ import { readFileSync, existsSync } from 'fs'
 import { join } from 'path'
 import { gunzipSync } from 'zlib'
 import {
+  allLibraries,
   ICONIFY_COLLECTION_COUNT,
   ICONIFY_ICON_COUNT,
   NAMED_LIBRARY_COUNT,
   SEARCHABLE_ICON_COUNT,
 } from '../../../data/library-catalog'
+
+const LIBRARY_OPTIONS = allLibraries
+  .map(({ id, name }) => ({ id, name }))
+  .sort((left, right) => left.name.localeCompare(right.name))
+
+const LIBRARY_FILTER_ALIASES: Record<string, string> = {
+  'iconify-ant-design': 'ant-design-icons',
+  'iconify-ion': 'ionicons',
+  'iconify-octicon': 'octicons',
+}
 
 let cachedIcons: SearchIcon[] | null = null
 let cachedPopular: SearchIcon[] | null = null
@@ -337,6 +348,7 @@ export async function GET(request: Request) {
       },
       facets: {
         libraries: facets?.libraries || [],
+        libraryOptions: LIBRARY_OPTIONS,
         licenses: facets?.licenses || [],
         iconifySets: facets?.iconifySets || [],
         legalSafeCount,
@@ -370,11 +382,12 @@ export async function GET(request: Request) {
           filtered = filtered.filter(icon => icon.library.toLowerCase() === normalized)
         }
       } else {
-        const cleanLib = lib.toLowerCase().replace(/^iconify-/, '')
+        const requestedLibrary = LIBRARY_FILTER_ALIASES[lib.toLowerCase()] || lib.toLowerCase()
+        const cleanLib = requestedLibrary.replace(/^iconify-/, '')
         filtered = filtered.filter(icon => {
           const iconLib = icon.library.toLowerCase()
           const iconClean = iconLib.replace(/^iconify-/, '')
-          return iconLib === lib.toLowerCase() || iconClean === cleanLib
+          return iconLib === requestedLibrary || iconClean === cleanLib
         })
       }
     }
@@ -510,6 +523,7 @@ export async function GET(request: Request) {
     },
     facets: {
       libraries: facets?.libraries || [],
+      libraryOptions: LIBRARY_OPTIONS,
       licenses: facets?.licenses || [],
       iconifySets: facets?.iconifySets || [],
       legalSafeCount,
