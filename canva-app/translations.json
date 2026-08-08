@@ -11,6 +11,10 @@
     "defaultMessage": "Add selected icon to design",
     "description": "Primary button label for inserting the selected icon into the design."
   },
+  "7v7Jv4": {
+    "defaultMessage": "Search is available without an account. Connect IconSearch before adding an icon to your design.",
+    "description": "Explanation that search is public while inserting an icon requires an IconSearch account."
+  },
   "8DGIi2": {
     "defaultMessage": "Load more icons",
     "description": "Button label that loads the next page of icon search results."
@@ -83,10 +87,6 @@
     "defaultMessage": "All libraries ({count, number}+ icons)",
     "description": "Option label that searches every available icon library."
   },
-  "j7gXj/": {
-    "defaultMessage": "You can search and add icons without an account. Connect only if you want account features.",
-    "description": "Explanation that IconSearch authentication is optional and deferred."
-  },
   "k2Cfoz": {
     "defaultMessage": "Search",
     "description": "Label for the icon search field."
@@ -130,5 +130,9 @@
   "zN3doh": {
     "defaultMessage": "Select {iconName}",
     "description": "Accessible label for choosing an icon result."
+  },
+  "zlnIYM": {
+    "defaultMessage": "Connect account to add this icon",
+    "description": "Button label that starts account authorization before an icon can be inserted."
   }
 }

@@ -285,7 +285,7 @@ export function App({ oauth }: { oauth: Oauth }) {
   useEffect(() => () => loadMoreControllerRef.current?.abort(), []);
 
   async function insertIcon(icon: IconSearchIcon | undefined) {
-    if (!icon) return;
+    if (!icon || !account) return;
     setBusyIconId(icon.id);
     setError(null);
     setStatus({ kind: "preparing", iconName: icon.displayName });
@@ -407,8 +407,8 @@ export function App({ oauth }: { oauth: Oauth }) {
                 <>
                   <Text size="small" tone="secondary">
                     <FormattedMessage
-                      defaultMessage="You can search and add icons without an account. Connect only if you want account features."
-                      description="Explanation that IconSearch authentication is optional and deferred."
+                      defaultMessage="Search is available without an account. Connect IconSearch before adding an icon to your design."
+                      description="Explanation that search is public while inserting an icon requires an IconSearch account."
                     />
                   </Text>
                   <Button
@@ -527,15 +527,22 @@ export function App({ oauth }: { oauth: Oauth }) {
                 </Columns>
                 <Button
                   variant="primary"
-                  loading={busyIconId === selectedIcon.id}
-                  disabled={Boolean(busyIconId)}
-                  onClick={() => void insertIcon(selectedIcon)}
+                  loading={busyIconId === selectedIcon.id || accountBusy}
+                  disabled={Boolean(busyIconId) || accountBusy || accountChecking}
+                  onClick={() => account
+                    ? void insertIcon(selectedIcon)
+                    : void connectAccount()}
                   stretch
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Add selected icon to design",
-                    description: "Primary button label for inserting the selected icon into the design.",
-                  })}
+                  {account
+                    ? intl.formatMessage({
+                        defaultMessage: "Add selected icon to design",
+                        description: "Primary button label for inserting the selected icon into the design.",
+                      })
+                    : intl.formatMessage({
+                        defaultMessage: "Connect account to add this icon",
+                        description: "Button label that starts account authorization before an icon can be inserted.",
+                      })}
                 </Button>
               </Rows>
             </Box>

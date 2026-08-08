@@ -41,15 +41,15 @@ Development URL before submitting the version for review.
 - Live paginated search against `https://iconsearch.info/api/icon-search`.
 - Library and commercial-safety filters.
 - SVG asset upload with `aiDisclosure: "none"`.
-- Insert selected icon into the current Canva design.
+- Public icon search with account authorization required before insertion.
 - Canva App UI Kit theming for both light and dark mode.
 - Extracted, translatable interface strings.
 
 ## Account Authentication
 
-The public icon-search workflow does not require an IconSearch account. The
-optional **Connect IconSearch account** button uses Canva's `@canva/user` OAuth
-popup, so credentials are never collected inside the app iframe.
+Searching and browsing do not require an IconSearch account. Inserting an icon
+requires the user to connect through Canva's `@canva/user` OAuth popup, so
+credentials are never collected inside the app iframe.
 
 The IconSearch OAuth provider supports authorization code + PKCE, rotating
 refresh tokens, and grant revocation. Before testing the account flow:
