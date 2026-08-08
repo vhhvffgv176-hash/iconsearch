@@ -459,59 +459,61 @@ export function App({ oauth }: { oauth: Oauth }) {
           </Rows>
 
           {selectedIcon ? (
-            <Box background="neutralSubtle" border="ui" borderRadius="standard" padding="1u">
-              <Rows spacing="1u">
-                <Columns spacing="1u" alignY="center">
-                  <Column width="1/3">
-                    <ImageCard
-                      thumbnailUrl={selectedIcon.svgUrl}
-                      alt={selectedAlt}
-                      thumbnailAspectRatio={1}
-                      thumbnailPadding="1u"
-                      thumbnailBackground="contrastOnLight"
-                      borderRadius="standard"
-                    />
-                  </Column>
-                  <Column width="2/3">
-                    <Rows spacing="0.5u">
-                      <Title size="small" lineClamp={2}>{selectedIcon.displayName}</Title>
-                      <Text size="small" tone="secondary" lineClamp={2}>
-                        <FormattedMessage
-                          defaultMessage="{library} · {license}"
-                          description="Metadata beneath the selected icon showing its library and license."
-                          values={{
-                            library: selectedIcon.libraryName,
-                            license: selectedIcon.license || intl.formatMessage({
-                              defaultMessage: "Open source",
-                              description: "Fallback license label for an open-source icon.",
-                            }),
-                          }}
-                        />
-                      </Text>
-                    </Rows>
-                  </Column>
-                </Columns>
-                <Button
-                  variant="primary"
-                  loading={busyIconId === selectedIcon.id || accountBusy}
-                  disabled={Boolean(busyIconId) || accountBusy || accountChecking}
-                  onClick={() => account
-                    ? void insertIcon(selectedIcon)
-                    : void connectAccount()}
-                  stretch
-                >
-                  {account
-                    ? intl.formatMessage({
-                        defaultMessage: "Add selected icon to design",
-                        description: "Primary button label for inserting the selected icon into the design.",
-                      })
-                    : intl.formatMessage({
-                        defaultMessage: "Connect account to add this icon",
-                        description: "Button label that starts account authorization before an icon can be inserted.",
-                      })}
-                </Button>
-              </Rows>
-            </Box>
+            <div className="selected-icon-panel">
+              <Box background="neutralSubtle" border="ui" borderRadius="standard" padding="1u">
+                <Rows spacing="1u">
+                  <Columns spacing="1u" alignY="center">
+                    <Column width="1/3">
+                      <ImageCard
+                        thumbnailUrl={selectedIcon.svgUrl}
+                        alt={selectedAlt}
+                        thumbnailAspectRatio={1}
+                        thumbnailPadding="1u"
+                        thumbnailBackground="contrastOnDark"
+                        borderRadius="standard"
+                      />
+                    </Column>
+                    <Column width="2/3">
+                      <Rows spacing="0.5u">
+                        <Title size="small" lineClamp={2}>{selectedIcon.displayName}</Title>
+                        <Text size="small" tone="secondary" lineClamp={2}>
+                          <FormattedMessage
+                            defaultMessage="{library} · {license}"
+                            description="Metadata beneath the selected icon showing its library and license."
+                            values={{
+                              library: selectedIcon.libraryName,
+                              license: selectedIcon.license || intl.formatMessage({
+                                defaultMessage: "Open source",
+                                description: "Fallback license label for an open-source icon.",
+                              }),
+                            }}
+                          />
+                        </Text>
+                      </Rows>
+                    </Column>
+                  </Columns>
+                  <Button
+                    variant="primary"
+                    loading={busyIconId === selectedIcon.id || accountBusy}
+                    disabled={Boolean(busyIconId) || accountBusy || accountChecking}
+                    onClick={() => account
+                      ? void insertIcon(selectedIcon)
+                      : void connectAccount()}
+                    stretch
+                  >
+                    {account
+                      ? intl.formatMessage({
+                          defaultMessage: "Add selected icon to design",
+                          description: "Primary button label for inserting the selected icon into the design.",
+                        })
+                      : intl.formatMessage({
+                          defaultMessage: "Connect account to add this icon",
+                          description: "Button label that starts account authorization before an icon can be inserted.",
+                        })}
+                  </Button>
+                </Rows>
+              </Box>
+            </div>
           ) : null}
 
           {loading && icons.length === 0 ? (
@@ -557,7 +559,7 @@ export function App({ oauth }: { oauth: Oauth }) {
                     )}
                     thumbnailAspectRatio={1}
                     thumbnailPadding="1u"
-                    thumbnailBackground="contrastOnLight"
+                    thumbnailBackground="contrastOnDark"
                     borderRadius="standard"
                     selectable
                     selected={icon.id === selectedIcon?.id}
