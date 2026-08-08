@@ -118,7 +118,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 "description": `An independent discovery platform for ${NAMED_LIBRARY_COUNT} open-source SVG icon libraries.`,
                 "logo": {
                   "@type": "ImageObject",
-                  "url": `${SITE_URL}/iconsearch-logo-900.png`,
+                  "url": `${SITE_URL}/iconsearch-logomark-900.png`,
                   "width": 900,
                   "height": 900
                 }

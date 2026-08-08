@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
 import type { User } from '@supabase/supabase-js'
 import AuthModal from '@/app/components/AuthModal'
@@ -124,7 +125,15 @@ export default function ConnectClient({ product, code, authError }: ConnectClien
       <div className="connect-bg-orb connect-bg-orb-two" aria-hidden="true" />
 
       <Link href="/" className="connect-brand" aria-label="IconSearch home">
-        <span className="connect-brand-mark">IS</span>
+        <Image
+          src="/iconsearch-logo-128.png"
+          width={34}
+          height={34}
+          className="connect-brand-mark"
+          alt=""
+          aria-hidden="true"
+          priority
+        />
         <span>IconSearch</span>
       </Link>
 

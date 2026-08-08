@@ -42,14 +42,31 @@
 - **Simulator code:** Production source no longer reports a usable SDK simulator state when `webflow` is unavailable; insertion remains disabled outside Designer.
 - **Sanitizer allowance:** `ADD_ATTR: ["target"]` was removed.
 
+## August 2026 review remediation
+
+- **Consistent app icon:** The Marketplace `icon-900.png`, Workspace app icon,
+  Designer header, and account-pairing screen now use the same canonical blue
+  `IS` IconSearch logomark. The bundle check fails if the interface or exported
+  Marketplace images diverge from the shared brand masters.
+- **Existing reviewer email:** Sign-up no longer turns an “already registered”
+  response into a password sign-in attempt. Existing accounts are sent to a
+  clear sign-in/password-reset path instead of showing the misleading
+  “Invalid login credentials” error beneath the Sign Up button.
+- **Review credentials:** Before submitting, set `WEBFLOW_REVIEW_EMAIL` and
+  `WEBFLOW_REVIEW_PASSWORD` to the exact credentials entered in Webflow’s form,
+  provide a server-side Supabase secret locally, and run
+  `npm run review:webflow-account` from the repository root. The script safely
+  creates or refreshes that single `@webflow.com` account and verifies a real
+  password login without printing the password.
+
 ## Publication checklist
 
 - Register the app in the Webflow App dashboard and enable a Designer Extension.
-- Provide the review team with an active IconSearch reviewer account or another fully featured review-access method.
+- Run `npm run review:webflow-account` with the exact credentials supplied in the review form and keep that account active until review is complete.
 - Keep all IconSearch device-auth and search backend services live throughout review.
 - Run `npm test` and complete the reviewer test flow in both the local extension and an uploaded Workspace version.
 - Capture current listing images from the real Designer panel; do not use mock insertion results.
-- Supply a 512×512 app avatar and 3–5 current screenshots at 1280×846.
+- Upload the same `marketplace/icon-900.png` to the Marketplace listing and the app’s Workspace settings, and supply 3–5 current screenshots at 1280×846.
 - Add accurate IconSearch support, privacy policy, and terms URLs from the production site.
 - Explain the account-pairing flow and explicit-search behavior in the submission review notes and demo.
 - Run `npm run bundle` from a clean checkout and verify the zip contains no `.map` files or `sourceMappingURL` comments.

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import type { User } from '@supabase/supabase-js'
 import { createClient, isSupabaseConfigured } from '@/lib/supabase'
 
@@ -12,11 +13,22 @@ interface AuthModalProps {
 }
 
 function getDisplayAuthError(message: string) {
-  if (message.toLowerCase().includes('database error saving new user')) {
+  const normalizedMessage = message.toLowerCase()
+
+  if (normalizedMessage.includes('database error saving new user')) {
     return 'Account creation is temporarily unavailable. Please try again shortly.'
   }
 
+  if (normalizedMessage.includes('invalid login credentials')) {
+    return 'That email and password do not match. If this account was used for an earlier review, reset its password below.'
+  }
+
   return message
+}
+
+function isExistingAccountError(message: string) {
+  const normalizedMessage = message.toLowerCase()
+  return normalizedMessage.includes('already registered') || normalizedMessage.includes('already been registered')
 }
 
 export default function AuthModal({ isOpen, onClose, onAuthSuccess, redirectTo }: AuthModalProps) {
@@ -57,12 +69,18 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, redirectTo }
     }
 
     setLoading(true)
+    const normalizedEmail = email.trim().toLowerCase()
+
+    const showExistingAccountRecovery = () => {
+      setIsSignUp(false)
+      setPassword('')
+      setInfoMsg('An IconSearch account already exists for this email. Sign in with its password or use “Forgot password?” to set a new one securely.')
+    }
 
     try {
       if (isSignUp) {
-        // Sign Up
         const { data, error } = await supabase.auth.signUp({
-          email,
+          email: normalizedEmail,
           password,
           options: {
             emailRedirectTo: getCallbackUrl(),
@@ -70,19 +88,16 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, redirectTo }
         })
 
         if (error) {
-          if (error.message.toLowerCase().includes('already registered') || error.message.toLowerCase().includes('already been registered')) {
-            const signInRes = await supabase.auth.signInWithPassword({ email, password })
-            if (signInRes.error) {
-              setErrorMsg(getDisplayAuthError(signInRes.error.message))
-            } else if (signInRes.data?.user) {
-              onAuthSuccess(signInRes.data.user)
-              onClose()
-            }
+          if (isExistingAccountError(error.message)) {
+            showExistingAccountRecovery()
           } else {
             setErrorMsg(getDisplayAuthError(error.message))
           }
+        } else if (data?.user && Array.isArray(data.user.identities) && data.user.identities.length === 0) {
+          // Supabase can deliberately return an obfuscated user for an existing
+          // email. Never reinterpret that response as a password login attempt.
+          showExistingAccountRecovery()
         } else if (data?.user && !data.session) {
-          // Typically email verification is enabled by default in Supabase
           setInfoMsg('Registration successful! Please check your email inbox to confirm your account.')
         } else if (data?.session) {
           onAuthSuccess(data.session.user)
@@ -91,7 +106,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, redirectTo }
       } else {
         // Sign In
         const { data, error } = await supabase.auth.signInWithPassword({
-          email,
+          email: normalizedEmail,
           password,
         })
 
@@ -241,6 +256,14 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, redirectTo }
 
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+          <Image
+            src="/iconsearch-logo-128.png"
+            width={48}
+            height={48}
+            alt="IconSearch"
+            priority
+            style={{ display: 'block', margin: '0 auto 12px', borderRadius: '12px' }}
+          />
           <h2 style={{
             fontSize: '24px',
             fontWeight: 800,
@@ -249,9 +272,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, redirectTo }
             margin: '0 0 8px 0',
             fontFamily: 'JetBrains Mono, monospace',
           }}>
-            <span style={{ color: 'rgba(139, 92, 246, 1)' }}>&lt;</span>
-            {isSignUp ? 'Join Hub' : 'Welcome Back'}
-            <span style={{ color: 'rgba(139, 92, 246, 1)' }}>/&gt;</span>
+            {isSignUp ? 'Create IconSearch account' : 'Welcome back'}
           </h2>
           <p style={{
             fontSize: '13px',
@@ -259,7 +280,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, redirectTo }
             margin: 0,
           }}>
             {isSignUp 
-              ? 'Create a cloud account to sync your custom workspaces.' 
+              ? 'Create an account to use IconSearch across integrations.'
               : 'Sign in to access your cloud-saved icon packs and presets.'}
           </p>
         </div>
@@ -328,6 +349,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, redirectTo }
             <input suppressHydrationWarning 
               type="email"
               required
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
@@ -389,6 +411,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, redirectTo }
               type="password"
               required
               minLength={8}
+              autoComplete={isSignUp ? 'new-password' : 'current-password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
@@ -538,7 +561,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, redirectTo }
           fontSize: '13px',
           color: 'var(--text-muted, #94a3b8)',
         }}>
-          {isSignUp ? 'Already have an account?' : 'New to Icon Hub?'}
+          {isSignUp ? 'Already have an account?' : 'New to IconSearch?'}
           <button suppressHydrationWarning
             onClick={() => {
               setIsSignUp(!isSignUp)

@@ -49,31 +49,19 @@ body {
   gap: 10px;
 }
 
-.brand-mark {
+.app-logo {
   width: 28px;
   height: 28px;
-  border-radius: 6px;
-  background: var(--blue);
-  color: #ffffff;
-  display: grid;
-  place-items: center;
-  font-weight: 800;
-  font-size: 13px;
+  flex: 0 0 auto;
+  border-radius: 7px;
+  object-fit: contain;
 }
 
-.brand-mark-large {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  font-size: 18px;
-  font-weight: 900;
+.app-logo-large {
+  width: 48px;
+  height: 48px;
   margin: 0 auto 12px;
-}
-
-.app-logo {
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
+  border-radius: 12px;
 }
 
 .app-title {

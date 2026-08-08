@@ -19,6 +19,7 @@ node_modules/
 # local scratch/debug scripts
 /scratch/
 /.cache/
+/.codex-dev/
 
 
 # next.js

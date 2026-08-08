@@ -403,7 +403,7 @@ export function App() {
       {/* HEADER */}
       <header className="app-header">
         <div className="brand-section">
-          <div className="brand-mark">IS</div>
+          <img className="app-logo" src="./iconsearch-logo.png" alt="" aria-hidden="true" />
           <div>
             <h1 className="app-title">IconSearch</h1>
             <p className="app-subtitle">Webflow Designer Extension</p>
@@ -423,7 +423,7 @@ export function App() {
       {/* CONNECT SCREEN FIRST (If not signed in) */}
       {!token ? (
         <div className="auth-card">
-          <div className="brand-mark brand-mark-large">IS</div>
+          <img className="app-logo app-logo-large" src="./iconsearch-logo.png" alt="IconSearch" />
           <h2 className="auth-title">Connect IconSearch Account</h2>
           <p className="auth-description">
             Sign in to pair your IconSearch account and search 355,000+ vector icons inside Webflow.

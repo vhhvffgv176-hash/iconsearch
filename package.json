@@ -14,7 +14,8 @@
     "package:chrome": "powershell -ExecutionPolicy Bypass -File scripts/package-chrome-extension.ps1",
     "sync:penpot": "node scripts/sync-penpot-plugin.mjs",
     "check:penpot": "node scripts/check-penpot-plugin.mjs",
-    "test:penpot": "npm run sync:penpot && npm run check:penpot && node scripts/test-penpot-plugin.mjs"
+    "test:penpot": "npm run sync:penpot && npm run check:penpot && node scripts/test-penpot-plugin.mjs",
+    "review:webflow-account": "node scripts/prepare-webflow-review-account.mjs"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

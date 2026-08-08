@@ -547,11 +547,7 @@ select:focus-visible {
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  display: grid;
-  place-items: center;
-  color: white;
-  background: linear-gradient(135deg, #818cf8, #4f46e5);
-  font: 700 13px/1 'JetBrains Mono', monospace;
+  object-fit: contain;
   box-shadow: 0 14px 34px rgba(79, 70, 229, 0.35);
 }
 

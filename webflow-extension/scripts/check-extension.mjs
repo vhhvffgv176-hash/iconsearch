@@ -33,7 +33,13 @@ const builtJavaScript = contents.get("public/index.js");
 const builtCss = contents.get("public/index.css");
 const allText = [...contents.values()].join("\n");
 const publicFiles = await readdir(resolve(root, "public"), { recursive: true });
-const expectedPublicFiles = new Set(["index.css", "index.html", "index.js"]);
+const expectedPublicFiles = new Set(["iconsearch-logo.png", "index.css", "index.html", "index.js"]);
+const extensionLogo = await readFile(resolve(root, "public/iconsearch-logo.png"));
+const canonicalExtensionLogo = await readFile(resolve(root, "../public/iconsearch-logo-128.png"));
+const marketplace512 = await readFile(resolve(root, "marketplace/icon-512.png"));
+const canonical512 = await readFile(resolve(root, "../public/iconsearch-logomark-512.png"));
+const marketplace900 = await readFile(resolve(root, "marketplace/icon-900.png"));
+const canonical900 = await readFile(resolve(root, "../public/iconsearch-logomark-900.png"));
 
 assert(manifest.name === "IconSearch", "webflow.json must use the IconSearch product name");
 assert(manifest.apiVersion === "2", "webflow.json must target Designer API version 2");
@@ -67,6 +73,8 @@ assert(!appSource.includes("getIdToken"), "extension must not request a Webflow 
 assert(!webflowApiSource.includes("getIdToken"), "Webflow API wrapper must not request a Webflow ID token");
 assert(!appSource.includes("verificationUriComplete"), "extension must not trust a server-supplied redirect URL");
 assert(!appSource.includes("window.open"), "authorization navigation must require an explicit link click");
+assert(appSource.includes('src="./iconsearch-logo.png"'), "extension UI must use the canonical IconSearch logo asset");
+assert(!appSource.includes('className="brand-mark"'), "extension UI must not substitute a text badge for the app icon");
 assert(!/\bstyle\s*=\s*\{\{/.test(appSource), "React inline style props are not CSP compatible");
 assert(appSource.includes('type="submit"'), "icon searches must be gated by an explicit form submission");
 assert(!webflowApiSource.includes("SDK simulator"), "production source must not include SDK simulator fallbacks");
@@ -80,6 +88,11 @@ assert(!builtJavaScript.includes("sourceMappingURL"), "production JavaScript mus
 assert(!builtCss.includes("sourceMappingURL"), "production CSS must not reference a source map");
 assert(!builtJavaScript.includes("getIdToken"), "production bundle must not request a Webflow ID token");
 assert(!builtJavaScript.includes("SDK simulator"), "production bundle must not contain simulator messaging");
+assert(extensionLogo.equals(canonicalExtensionLogo), "extension logo must match the website IconSearch logomark byte-for-byte");
+assert(marketplace512.equals(canonical512), "512px Marketplace icon must match the canonical IconSearch logomark");
+assert(marketplace900.equals(canonical900), "900px Marketplace icon must match the canonical IconSearch logomark");
+assertPngDimensions(marketplace512, 512, 512, "512px Marketplace icon");
+assertPngDimensions(marketplace900, 900, 900, "900px Marketplace icon");
 
 const secretPatterns = [
   /SUPABASE_SERVICE_ROLE/i,
@@ -103,4 +116,10 @@ function assert(condition, message) {
   if (!condition) {
     throw new Error(message);
   }
+}
+
+function assertPngDimensions(buffer, expectedWidth, expectedHeight, label) {
+  assert(buffer.subarray(1, 4).toString("ascii") === "PNG", `${label} must be a PNG file`);
+  assert(buffer.readUInt32BE(16) === expectedWidth, `${label} must be ${expectedWidth}px wide`);
+  assert(buffer.readUInt32BE(20) === expectedHeight, `${label} must be ${expectedHeight}px tall`);
 }

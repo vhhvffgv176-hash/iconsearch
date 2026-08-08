@@ -11,6 +11,7 @@ const releaseFiles = [
   ["public/index.css", "index.css"],
   ["public/index.html", "index.html"],
   ["public/index.js", "index.js"],
+  ["public/iconsearch-logo.png", "iconsearch-logo.png"],
   ["webflow.json", "webflow.json"],
 ];
 
