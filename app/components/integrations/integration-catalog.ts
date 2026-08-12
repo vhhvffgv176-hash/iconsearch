@@ -33,7 +33,13 @@ export type IntegrationIcon =
   | 'brush'
   | 'gem'
 
-type IntegrationStatus = 'Package ready' | 'Local build' | 'Development preview' | 'Development build'
+type IntegrationStatus = 'Marketplace live' | 'Package ready' | 'Local build' | 'Development preview' | 'Development build'
+
+type IntegrationPrimaryAction = {
+  label: string
+  href: string
+  external?: boolean
+}
 
 export type IntegrationConfig = {
   slug: IntegrationSlug
@@ -45,6 +51,10 @@ export type IntegrationConfig = {
   mark: string
   status: IntegrationStatus
   statusTone: 'ready' | 'local' | 'development'
+  primaryAction?: IntegrationPrimaryAction
+  workflowTitle?: string
+  setupLabel?: string
+  setupTitle?: string
   eyebrow: string
   title: string
   description: string
@@ -108,11 +118,19 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     platform: 'Webflow',
     icon: 'layout',
     mark: 'WF',
-    status: 'Development build',
-    statusTone: 'development',
-    eyebrow: 'DESIGNER-SIDE ICONS',
-    title: 'Place styled SVG icons directly in Webflow Designer.',
-    description: 'Sign in explicitly, search the live IconSearch catalog on demand, adjust size and color, then insert a sanitized SVG asset inside the selected canvas container.',
+    status: 'Marketplace live',
+    statusTone: 'ready',
+    primaryAction: {
+      label: 'Install from Webflow',
+      href: 'https://webflow.com/apps/detail/iconsearch',
+      external: true,
+    },
+    workflowTitle: 'From Marketplace install to a live canvas icon.',
+    setupLabel: 'OFFICIAL MARKETPLACE APP',
+    setupTitle: 'Install IconSearch',
+    eyebrow: 'LIVE ON WEBFLOW MARKETPLACE',
+    title: 'Add customizable SVG icons directly to Webflow Designer.',
+    description: 'Install the official IconSearch app from Webflow Marketplace, search the live catalog on demand, adjust size and color, then insert a sanitized SVG asset inside the selected canvas container.',
     accent: '#146ef5',
     accentMuted: 'rgba(20, 110, 245, 0.16)',
     previewContext: 'IconSearch - Webflow Designer',
@@ -122,18 +140,18 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     account: 'IconSearch sign-in',
     dragAndDrop: false,
     styleControls: true,
-    capabilities: ['Designer API v2', 'Sanitized SVG uploads', 'Explicit search and insertion'],
+    capabilities: ['Official Marketplace app', 'Designer API v2', 'Sanitized SVG insertion'],
     features: [
       { title: 'User-initiated access', text: 'Account pairing starts only after Sign in is selected, and the catalog remains idle until the user presses Search.' },
       { title: 'Style before insertion', text: 'Set a precise pixel size, choose a custom color, or use a quick swatch before creating the SVG asset.' },
       { title: 'Native container insertion', text: 'Upload the selected icon as a Webflow asset and insert an accessible Image element inside the selected canvas container.' },
       { title: 'Hardened SVG pipeline', text: 'External resources, unsafe links, embedded images, style blocks, and non-fragment URL references are removed before upload.' },
     ],
-    workflow: ['Open the extension and sign in to IconSearch', 'Select a canvas container', 'Submit a search and choose an icon', 'Set size and color, then insert the sanitized asset'],
-    requirements: ['Node.js 22.13 or newer', 'A Webflow workspace with App development access', 'An IconSearch reviewer or test account', 'Design and asset-management capabilities on a test site'],
-    setup: 'cd webflow-extension\nnpm install\nnpm run dev',
-    releaseTitle: 'Security-hardened resubmission build ready.',
-    releaseText: 'The strict TypeScript build, malicious-SVG tests, CSP checks, and production bundle audit pass locally. An uploaded in-Designer test, current listing screenshots, reviewer access, and Webflow Marketplace review remain before public availability.',
+    workflow: ['Install IconSearch from Webflow Marketplace', 'Open the app in Designer and sign in', 'Select a canvas container, then search and choose an icon', 'Set size and color, then insert the sanitized asset'],
+    requirements: ['A Webflow workspace', 'A site open in Webflow Designer', 'A free IconSearch account', 'Design and asset-management access on the site'],
+    setup: 'https://webflow.com/apps/detail/iconsearch',
+    releaseTitle: 'Officially live on Webflow Marketplace.',
+    releaseText: 'IconSearch has completed Webflow review and is publicly available. Install the official app to search, customize, and insert sanitized SVG icons without leaving Webflow Designer.',
   },
   'sketch-plugin': {
     slug: 'sketch-plugin',

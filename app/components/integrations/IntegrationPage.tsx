@@ -52,7 +52,7 @@ const platformIcons: Record<IntegrationIcon, LucideIcon> = {
   gem: Gem,
 }
 
-type PreviewScene = 'design' | 'slides' | 'command' | 'code' | 'agent' | 'components' | 'creative' | 'content' | 'commerce'
+type PreviewScene = IntegrationSlug
 
 type PreviewProfile = {
   logoSrc: string
@@ -70,7 +70,7 @@ type PreviewProfile = {
 const previewProfiles: Record<IntegrationSlug, PreviewProfile> = {
   'penpot-plugin': {
     logoSrc: '/integration-logos/penpot.svg',
-    scene: 'design',
+    scene: 'penpot-plugin',
     query: 'cursor, frame, component',
     selectedName: 'Cursor Pen',
     selectedLibrary: 'Lucide',
@@ -87,7 +87,7 @@ const previewProfiles: Record<IntegrationSlug, PreviewProfile> = {
   },
   'webflow-extension': {
     logoSrc: '/integration-logos/webflow.svg',
-    scene: 'design',
+    scene: 'webflow-extension',
     query: 'layout, hero, navigation',
     selectedName: 'Layout',
     selectedLibrary: 'Untitled UI',
@@ -104,7 +104,7 @@ const previewProfiles: Record<IntegrationSlug, PreviewProfile> = {
   },
   'sketch-plugin': {
     logoSrc: '/integration-logos/sketch.svg',
-    scene: 'design',
+    scene: 'sketch-plugin',
     query: 'diamond, layers, symbol',
     selectedName: 'Diamond',
     selectedLibrary: 'Lucide',
@@ -121,7 +121,7 @@ const previewProfiles: Record<IntegrationSlug, PreviewProfile> = {
   },
   'powerpoint-addin': {
     logoSrc: '/integration-logos/powerpoint.svg',
-    scene: 'slides',
+    scene: 'powerpoint-addin',
     query: 'presentation, chart, growth',
     selectedName: 'Presentation',
     selectedLibrary: 'Lucide',
@@ -138,7 +138,7 @@ const previewProfiles: Record<IntegrationSlug, PreviewProfile> = {
   },
   'google-slides-addon': {
     logoSrc: '/integration-logos/google-slides.svg',
-    scene: 'slides',
+    scene: 'google-slides-addon',
     query: 'launch, image, roadmap',
     selectedName: 'Launch',
     selectedLibrary: 'Phosphor',
@@ -155,7 +155,7 @@ const previewProfiles: Record<IntegrationSlug, PreviewProfile> = {
   },
   'raycast-extension': {
     logoSrc: '/integration-logos/raycast.svg',
-    scene: 'command',
+    scene: 'raycast-extension',
     query: 'quick action, lightning',
     selectedName: 'Quick Action',
     selectedLibrary: 'Lucide',
@@ -172,7 +172,7 @@ const previewProfiles: Record<IntegrationSlug, PreviewProfile> = {
   },
   'tailwind-plugin': {
     logoSrc: '/integration-logos/tailwind.svg',
-    scene: 'code',
+    scene: 'tailwind-plugin',
     query: 'wind, utility, classes',
     selectedName: 'Tailwind',
     selectedLibrary: 'Simple Icons',
@@ -189,7 +189,7 @@ const previewProfiles: Record<IntegrationSlug, PreviewProfile> = {
   },
   'mcp-server': {
     logoSrc: '/integration-logos/mcp.svg',
-    scene: 'agent',
+    scene: 'mcp-server',
     query: 'tool, agent, protocol',
     selectedName: 'Tool Call',
     selectedLibrary: 'Lucide',
@@ -206,7 +206,7 @@ const previewProfiles: Record<IntegrationSlug, PreviewProfile> = {
   },
   'jetbrains-plugin': {
     logoSrc: '/integration-logos/jetbrains.svg',
-    scene: 'code',
+    scene: 'jetbrains-plugin',
     query: 'code, class, component',
     selectedName: 'Code',
     selectedLibrary: 'Lucide',
@@ -223,7 +223,7 @@ const previewProfiles: Record<IntegrationSlug, PreviewProfile> = {
   },
   'storybook-addon': {
     logoSrc: '/integration-logos/storybook.svg',
-    scene: 'components',
+    scene: 'storybook-addon',
     query: 'component, controls, story',
     selectedName: 'Component',
     selectedLibrary: 'Lucide',
@@ -240,7 +240,7 @@ const previewProfiles: Record<IntegrationSlug, PreviewProfile> = {
   },
   'canva-app': {
     logoSrc: '/integration-logos/canva.svg',
-    scene: 'creative',
+    scene: 'canva-app',
     query: 'sparkle, social, sticker',
     selectedName: 'Sparkle',
     selectedLibrary: 'Iconoir',
@@ -257,7 +257,7 @@ const previewProfiles: Record<IntegrationSlug, PreviewProfile> = {
   },
   'wordpress-plugin': {
     logoSrc: '/integration-logos/wordpress.svg',
-    scene: 'content',
+    scene: 'wordpress-plugin',
     query: 'article, heading, callout',
     selectedName: 'Article',
     selectedLibrary: 'Lucide',
@@ -274,7 +274,7 @@ const previewProfiles: Record<IntegrationSlug, PreviewProfile> = {
   },
   'shopify-extension': {
     logoSrc: '/integration-logos/shopify.svg',
-    scene: 'commerce',
+    scene: 'shopify-extension',
     query: 'product, cart, delivery',
     selectedName: 'Shopping Bag',
     selectedLibrary: 'Lucide',
@@ -291,7 +291,7 @@ const previewProfiles: Record<IntegrationSlug, PreviewProfile> = {
   },
   'adobe-plugin': {
     logoSrc: '/integration-logos/adobe.svg',
-    scene: 'creative',
+    scene: 'adobe-plugin',
     query: 'brush, vector, creative',
     selectedName: 'Brush',
     selectedLibrary: 'Lucide',
@@ -308,7 +308,7 @@ const previewProfiles: Record<IntegrationSlug, PreviewProfile> = {
   },
   'obsidian-plugin': {
     logoSrc: '/integration-logos/obsidian.svg',
-    scene: 'content',
+    scene: 'obsidian-plugin',
     query: 'note, link, knowledge',
     selectedName: 'Knowledge Note',
     selectedLibrary: 'Lucide',
@@ -337,6 +337,11 @@ export default function IntegrationPage({ config }: { config: IntegrationConfig 
     '--integration-accent': config.accent,
     '--integration-accent-muted': config.accentMuted,
   } as CSSProperties
+  const primaryAction = config.primaryAction ?? {
+    label: 'View local setup',
+    href: '#local-setup',
+    external: false,
+  }
 
   return (
     <main className={styles.page} style={pageStyle}>
@@ -361,8 +366,13 @@ export default function IntegrationPage({ config }: { config: IntegrationConfig 
           <h1>{config.title}</h1>
           <p>{config.description}</p>
           <div className={styles.actions}>
-            <a className={styles.primaryAction} href="#local-setup">
-              View local setup
+            <a
+              className={styles.primaryAction}
+              href={primaryAction.href}
+              target={primaryAction.external ? '_blank' : undefined}
+              rel={primaryAction.external ? 'noopener noreferrer' : undefined}
+            >
+              {primaryAction.label}
               <ArrowRight size={17} />
             </a>
             <Link className={styles.secondaryAction} href="/icon-search">
@@ -376,7 +386,7 @@ export default function IntegrationPage({ config }: { config: IntegrationConfig 
           </div>
         </div>
 
-        <div className={styles.workspace} aria-label={`${config.name} interface preview`}>
+        <div className={styles.workspace} data-platform={config.slug} aria-label={`${config.name} interface preview`}>
           <div className={styles.workspaceBar}>
             <div className={styles.windowDots} aria-hidden="true"><span /><span /><span /></div>
             <strong>{config.previewContext}</strong>
@@ -403,19 +413,6 @@ export default function IntegrationPage({ config }: { config: IntegrationConfig 
                 <span>All styles <ChevronDown size={13} /></span>
                 <span><ShieldCheck size={13} /> Legal-safe</span>
               </div>
-              <div className={styles.resultMeta}>
-                <span>Popular results</span>
-                <span>{iconCount} available</span>
-              </div>
-              <div className={styles.iconGrid}>
-                {preview.cards.map(({ name, library, Icon }, index) => (
-                  <article className={index === 0 ? styles.selectedIconCard : styles.iconCard} key={name}>
-                    <span><Icon size={27} strokeWidth={1.8} /></span>
-                    <strong>{name}</strong>
-                    <small>{library}</small>
-                  </article>
-                ))}
-              </div>
               <div className={styles.hostPreview} data-scene={preview.scene}>
                 <div className={styles.hostPreviewHeader}>
                   <span>{preview.sceneLabel}</span>
@@ -432,6 +429,19 @@ export default function IntegrationPage({ config }: { config: IntegrationConfig 
                   </span>
                   <code className={styles.sceneCode}>{config.output}</code>
                 </div>
+              </div>
+              <div className={styles.resultMeta}>
+                <span>Popular results</span>
+                <span>{iconCount} available</span>
+              </div>
+              <div className={styles.iconGrid}>
+                {preview.cards.map(({ name, library, Icon }, index) => (
+                  <article className={index === 0 ? styles.selectedIconCard : styles.iconCard} key={name}>
+                    <span><Icon size={27} strokeWidth={1.8} /></span>
+                    <strong>{name}</strong>
+                    <small>{library}</small>
+                  </article>
+                ))}
               </div>
             </div>
 
@@ -498,7 +508,7 @@ export default function IntegrationPage({ config }: { config: IntegrationConfig 
       <section className={styles.setupSection} id="local-setup">
         <div className={styles.workflowColumn}>
           <span className={styles.sectionLabel}>{'// WORKFLOW'}</span>
-          <h2>From local setup to a real icon.</h2>
+          <h2>{config.workflowTitle ?? 'From local setup to a real icon.'}</h2>
           <div className={styles.workflowList}>
             {config.workflow.map((step, index) => (
               <div key={step}><strong>{String(index + 1).padStart(2, '0')}</strong><p>{step}</p></div>
@@ -508,7 +518,7 @@ export default function IntegrationPage({ config }: { config: IntegrationConfig 
 
         <div className={styles.setupColumn}>
           <div className={styles.setupHeading}>
-            <div><span>LOCAL DEVELOPMENT</span><strong>{config.platform}</strong></div>
+            <div><span>{config.setupLabel ?? 'LOCAL DEVELOPMENT'}</span><strong>{config.setupTitle ?? config.platform}</strong></div>
             <Code2 size={22} />
           </div>
           <pre><code>{config.setup}</code></pre>

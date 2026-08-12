@@ -546,7 +546,9 @@
   white-space: nowrap;
 }
 
-.hostPreview[data-scene="design"] .hostSurface {
+.hostPreview[data-scene="penpot-plugin"] .hostSurface,
+.hostPreview[data-scene="webflow-extension"] .hostSurface,
+.hostPreview[data-scene="sketch-plugin"] .hostSurface {
   background-color: #f8fafc;
   background-image:
     linear-gradient(#dfe6ef 1px, transparent 1px),
@@ -554,8 +556,12 @@
   background-size: 18px 18px;
 }
 
-.hostPreview[data-scene="design"] .sceneArtwork::before,
-.hostPreview[data-scene="design"] .sceneArtwork::after {
+.hostPreview[data-scene="penpot-plugin"] .sceneArtwork::before,
+.hostPreview[data-scene="penpot-plugin"] .sceneArtwork::after,
+.hostPreview[data-scene="webflow-extension"] .sceneArtwork::before,
+.hostPreview[data-scene="webflow-extension"] .sceneArtwork::after,
+.hostPreview[data-scene="sketch-plugin"] .sceneArtwork::before,
+.hostPreview[data-scene="sketch-plugin"] .sceneArtwork::after {
   content: "";
   position: absolute;
   width: 5px;
@@ -564,24 +570,30 @@
   background: #ffffff;
 }
 
-.hostPreview[data-scene="design"] .sceneArtwork::before {
+.hostPreview[data-scene="penpot-plugin"] .sceneArtwork::before,
+.hostPreview[data-scene="webflow-extension"] .sceneArtwork::before,
+.hostPreview[data-scene="sketch-plugin"] .sceneArtwork::before {
   top: -4px;
   left: -4px;
 }
 
-.hostPreview[data-scene="design"] .sceneArtwork::after {
+.hostPreview[data-scene="penpot-plugin"] .sceneArtwork::after,
+.hostPreview[data-scene="webflow-extension"] .sceneArtwork::after,
+.hostPreview[data-scene="sketch-plugin"] .sceneArtwork::after {
   right: -4px;
   bottom: -4px;
 }
 
-.hostPreview[data-scene="slides"] .hostSurface {
+.hostPreview[data-scene="powerpoint-addin"] .hostSurface,
+.hostPreview[data-scene="google-slides-addon"] .hostSurface {
   grid-template-columns: minmax(0, 1fr);
   place-items: center;
   background: #dbe2ea;
   padding: 18px;
 }
 
-.hostPreview[data-scene="slides"] .sceneArtwork {
+.hostPreview[data-scene="powerpoint-addin"] .sceneArtwork,
+.hostPreview[data-scene="google-slides-addon"] .sceneArtwork {
   width: min(250px, 78%);
   height: 112px;
   justify-content: end;
@@ -595,18 +607,20 @@
   box-shadow: 0 8px 22px rgba(15, 23, 42, 0.17);
 }
 
-.hostPreview[data-scene="slides"] .sceneCopy {
+.hostPreview[data-scene="powerpoint-addin"] .sceneCopy,
+.hostPreview[data-scene="google-slides-addon"] .sceneCopy {
   position: absolute;
   top: 46px;
   left: calc(50% - min(125px, 39%) + 22px);
   max-width: 120px;
 }
 
-.hostPreview[data-scene="slides"] .sceneCopy strong {
+.hostPreview[data-scene="powerpoint-addin"] .sceneCopy strong,
+.hostPreview[data-scene="google-slides-addon"] .sceneCopy strong {
   font-size: 12px;
 }
 
-.hostPreview[data-scene="command"] .hostSurface {
+.hostPreview[data-scene="raycast-extension"] .hostSurface {
   grid-template-columns: 52px minmax(0, 1fr);
   min-height: 152px;
   background:
@@ -615,7 +629,7 @@
   padding: 35px 24px 24px;
 }
 
-.hostPreview[data-scene="command"] .sceneArtwork {
+.hostPreview[data-scene="raycast-extension"] .sceneArtwork {
   width: 48px;
   height: 48px;
   border-color: rgba(255, 255, 255, 0.16);
@@ -624,23 +638,24 @@
   box-shadow: 0 0 30px var(--integration-accent-muted);
 }
 
-.hostPreview[data-scene="command"] .sceneCopy {
+.hostPreview[data-scene="raycast-extension"] .sceneCopy {
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.07);
   padding: 13px;
 }
 
-.hostPreview[data-scene="command"] .sceneCopy strong {
+.hostPreview[data-scene="raycast-extension"] .sceneCopy strong {
   color: #ffffff;
 }
 
-.hostPreview[data-scene="command"] .sceneCopy small {
+.hostPreview[data-scene="raycast-extension"] .sceneCopy small {
   color: #a1a1aa;
 }
 
-.hostPreview[data-scene="code"] .hostSurface,
-.hostPreview[data-scene="agent"] .hostSurface {
+.hostPreview[data-scene="tailwind-plugin"] .hostSurface,
+.hostPreview[data-scene="jetbrains-plugin"] .hostSurface,
+.hostPreview[data-scene="mcp-server"] .hostSurface {
   grid-template-columns: 50px minmax(0, 1fr);
   align-items: start;
   background: #111827;
@@ -648,8 +663,9 @@
   padding-bottom: 42px;
 }
 
-.hostPreview[data-scene="code"] .sceneArtwork,
-.hostPreview[data-scene="agent"] .sceneArtwork {
+.hostPreview[data-scene="tailwind-plugin"] .sceneArtwork,
+.hostPreview[data-scene="jetbrains-plugin"] .sceneArtwork,
+.hostPreview[data-scene="mcp-server"] .sceneArtwork {
   width: 48px;
   height: 48px;
   border-color: rgba(255, 255, 255, 0.12);
@@ -658,29 +674,32 @@
   box-shadow: none;
 }
 
-.hostPreview[data-scene="code"] .sceneCopy strong,
-.hostPreview[data-scene="agent"] .sceneCopy strong {
+.hostPreview[data-scene="tailwind-plugin"] .sceneCopy strong,
+.hostPreview[data-scene="jetbrains-plugin"] .sceneCopy strong,
+.hostPreview[data-scene="mcp-server"] .sceneCopy strong {
   color: #f8fafc;
   font-family: var(--font-mono), "JetBrains Mono", monospace;
 }
 
-.hostPreview[data-scene="code"] .sceneCopy small,
-.hostPreview[data-scene="agent"] .sceneCopy small {
+.hostPreview[data-scene="tailwind-plugin"] .sceneCopy small,
+.hostPreview[data-scene="jetbrains-plugin"] .sceneCopy small,
+.hostPreview[data-scene="mcp-server"] .sceneCopy small {
   color: #94a3b8;
 }
 
-.hostPreview[data-scene="code"] .sceneCode,
-.hostPreview[data-scene="agent"] .sceneCode {
+.hostPreview[data-scene="tailwind-plugin"] .sceneCode,
+.hostPreview[data-scene="jetbrains-plugin"] .sceneCode,
+.hostPreview[data-scene="mcp-server"] .sceneCode {
   display: block;
 }
 
-.hostPreview[data-scene="agent"] .hostSurface {
+.hostPreview[data-scene="mcp-server"] .hostSurface {
   background:
     radial-gradient(circle at 92% 20%, var(--integration-accent-muted), transparent 30%),
     #07111f;
 }
 
-.hostPreview[data-scene="components"] .hostSurface {
+.hostPreview[data-scene="storybook-addon"] .hostSurface {
   grid-template-columns: minmax(0, 1fr);
   place-items: center;
   background-color: #f8fafc;
@@ -688,7 +707,7 @@
   background-size: 13px 13px;
 }
 
-.hostPreview[data-scene="components"] .sceneArtwork {
+.hostPreview[data-scene="storybook-addon"] .sceneArtwork {
   width: 150px;
   height: 58px;
   border: 0;
@@ -696,18 +715,20 @@
   color: #ffffff;
 }
 
-.hostPreview[data-scene="components"] .sceneCopy {
+.hostPreview[data-scene="storybook-addon"] .sceneCopy {
   display: none;
 }
 
-.hostPreview[data-scene="creative"] .hostSurface {
+.hostPreview[data-scene="canva-app"] .hostSurface,
+.hostPreview[data-scene="adobe-plugin"] .hostSurface {
   grid-template-columns: 90px minmax(0, 1fr);
   background:
     radial-gradient(circle at 20% 25%, rgba(255, 255, 255, 0.46), transparent 18%),
     linear-gradient(135deg, var(--integration-accent), #6d28d9 74%, #111827);
 }
 
-.hostPreview[data-scene="creative"] .sceneArtwork {
+.hostPreview[data-scene="canva-app"] .sceneArtwork,
+.hostPreview[data-scene="adobe-plugin"] .sceneArtwork {
   width: 82px;
   height: 82px;
   border-color: rgba(255, 255, 255, 0.52);
@@ -716,16 +737,20 @@
   backdrop-filter: blur(8px);
 }
 
-.hostPreview[data-scene="creative"] .sceneCopy strong,
-.hostPreview[data-scene="creative"] .sceneCopy small {
+.hostPreview[data-scene="canva-app"] .sceneCopy strong,
+.hostPreview[data-scene="canva-app"] .sceneCopy small,
+.hostPreview[data-scene="adobe-plugin"] .sceneCopy strong,
+.hostPreview[data-scene="adobe-plugin"] .sceneCopy small {
   color: #ffffff;
 }
 
-.hostPreview[data-scene="creative"] .sceneCopy strong {
+.hostPreview[data-scene="canva-app"] .sceneCopy strong,
+.hostPreview[data-scene="adobe-plugin"] .sceneCopy strong {
   font-size: 18px;
 }
 
-.hostPreview[data-scene="content"] .hostSurface {
+.hostPreview[data-scene="wordpress-plugin"] .hostSurface,
+.hostPreview[data-scene="obsidian-plugin"] .hostSurface {
   grid-template-columns: 64px minmax(0, 1fr);
   max-width: 92%;
   min-height: 132px;
@@ -739,7 +764,8 @@
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
 }
 
-.hostPreview[data-scene="content"] .sceneArtwork {
+.hostPreview[data-scene="wordpress-plugin"] .sceneArtwork,
+.hostPreview[data-scene="obsidian-plugin"] .sceneArtwork {
   width: 56px;
   height: 56px;
   background: var(--integration-accent-muted);
@@ -747,12 +773,12 @@
   box-shadow: none;
 }
 
-.hostPreview[data-scene="commerce"] .hostSurface {
+.hostPreview[data-scene="shopify-extension"] .hostSurface {
   grid-template-columns: 100px minmax(0, 1fr);
   background: #eef3f0;
 }
 
-.hostPreview[data-scene="commerce"] .sceneArtwork {
+.hostPreview[data-scene="shopify-extension"] .sceneArtwork {
   width: 92px;
   height: 98px;
   border: 0;
@@ -762,7 +788,7 @@
   color: var(--integration-accent);
 }
 
-.hostPreview[data-scene="commerce"] .sceneCopy::after {
+.hostPreview[data-scene="shopify-extension"] .sceneCopy::after {
   content: "$48.00";
   display: inline-block;
   margin-top: 11px;
@@ -772,6 +798,344 @@
   padding: 5px 9px;
   font-size: 10px;
   font-weight: 900;
+}
+
+/* Each host gets its own product-language scene instead of a recolored generic mockup. */
+.workspace[data-platform="penpot-plugin"] .workspaceBar {
+  background: #f0fdfa;
+}
+
+.workspace[data-platform="penpot-plugin"] .previewRail {
+  background: #182423;
+}
+
+.hostPreview[data-scene="penpot-plugin"] .hostSurface {
+  background-color: #f5fffd;
+  background-image:
+    radial-gradient(circle at 75% 28%, rgba(45, 212, 191, 0.2), transparent 24%),
+    linear-gradient(#ccece6 1px, transparent 1px),
+    linear-gradient(90deg, #ccece6 1px, transparent 1px);
+  background-size: auto, 16px 16px, 16px 16px;
+}
+
+.hostPreview[data-scene="penpot-plugin"] .sceneArtwork {
+  border-radius: 28px 8px 28px 8px;
+  transform: rotate(-4deg);
+  color: #0f766e;
+}
+
+.workspace[data-platform="webflow-extension"] .workspaceBar {
+  border-bottom-color: #146ef5;
+  background: #eaf2ff;
+}
+
+.workspace[data-platform="webflow-extension"] .previewRail {
+  background: #0d1117;
+}
+
+.hostPreview[data-scene="webflow-extension"] .hostSurface {
+  grid-template-columns: 170px minmax(0, 1fr);
+  background: #eef3f8;
+}
+
+.hostPreview[data-scene="webflow-extension"] .sceneArtwork {
+  width: 164px;
+  height: 94px;
+  align-items: end;
+  justify-content: start;
+  background:
+    linear-gradient(90deg, #146ef5 28%, transparent 28%) 13px 14px / 78px 7px no-repeat,
+    linear-gradient(90deg, #cbd5e1 68%, transparent 68%) 13px 30px / 122px 5px no-repeat,
+    linear-gradient(135deg, rgba(20, 110, 245, 0.18), #ffffff 62%);
+  padding: 13px;
+  color: #146ef5;
+}
+
+.workspace[data-platform="sketch-plugin"] .workspaceBar {
+  background: #fff8dc;
+}
+
+.workspace[data-platform="sketch-plugin"] .previewRail {
+  background: #242126;
+}
+
+.hostPreview[data-scene="sketch-plugin"] .hostSurface {
+  background:
+    radial-gradient(circle at 26% 44%, rgba(244, 180, 0, 0.24), transparent 30%),
+    #29272d;
+}
+
+.hostPreview[data-scene="sketch-plugin"] .sceneArtwork {
+  width: 72px;
+  height: 72px;
+  margin-left: 16px;
+  border-color: #f4b400;
+  border-radius: 18px;
+  transform: rotate(45deg);
+  color: #7c5d00;
+}
+
+.hostPreview[data-scene="sketch-plugin"] .sceneArtwork svg {
+  transform: rotate(-45deg);
+}
+
+.hostPreview[data-scene="sketch-plugin"] .sceneCopy strong {
+  color: #ffffff;
+}
+
+.hostPreview[data-scene="sketch-plugin"] .sceneCopy small {
+  color: #b9b4c2;
+}
+
+.workspace[data-platform="powerpoint-addin"] .workspaceBar {
+  background: #fff0eb;
+}
+
+.hostPreview[data-scene="powerpoint-addin"] .sceneArtwork {
+  justify-content: end;
+  background:
+    linear-gradient(90deg, #d24726 0 12px, transparent 12px),
+    linear-gradient(145deg, rgba(210, 71, 38, 0.16), transparent 58%),
+    #ffffff;
+  color: #d24726;
+}
+
+.hostPreview[data-scene="powerpoint-addin"] .hostSurface::after {
+  content: "01 / 12";
+  position: absolute;
+  right: 24px;
+  bottom: 20px;
+  color: #9a3412;
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.workspace[data-platform="google-slides-addon"] .workspaceBar {
+  background: #fff8dc;
+}
+
+.hostPreview[data-scene="google-slides-addon"] .sceneArtwork {
+  justify-content: center;
+  border-left: 18px solid #f9ab00;
+  background:
+    radial-gradient(circle at 72% 28%, rgba(249, 171, 0, 0.22), transparent 22%),
+    #ffffff;
+  color: #f9ab00;
+}
+
+.hostPreview[data-scene="google-slides-addon"] .hostSurface::before {
+  content: "SLIDE 4";
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  color: #805500;
+  font-size: 8px;
+  font-weight: 900;
+  transform: rotate(-90deg);
+}
+
+.workspace[data-platform="raycast-extension"] .workspaceBar {
+  background: #fff0f4;
+}
+
+.hostPreview[data-scene="raycast-extension"] .hostSurface::after {
+  content: "⌘  K";
+  position: absolute;
+  top: 13px;
+  right: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 5px;
+  color: #fda4af;
+  padding: 3px 7px;
+  font-size: 8px;
+}
+
+.workspace[data-platform="tailwind-plugin"] .workspaceBar {
+  background: #ecfeff;
+}
+
+.hostPreview[data-scene="tailwind-plugin"] .hostSurface {
+  background:
+    linear-gradient(90deg, rgba(34, 211, 238, 0.1) 1px, transparent 1px) 0 0 / 28px 28px,
+    #0b1220;
+}
+
+.hostPreview[data-scene="tailwind-plugin"] .sceneArtwork {
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.12);
+  color: #22d3ee;
+}
+
+.hostPreview[data-scene="tailwind-plugin"] .sceneCode {
+  color: #67e8f9;
+}
+
+.workspace[data-platform="mcp-server"] .workspaceBar {
+  background: #eff6ff;
+}
+
+.hostPreview[data-scene="mcp-server"] .sceneArtwork {
+  border-style: dashed;
+  border-radius: 999px;
+}
+
+.hostPreview[data-scene="mcp-server"] .hostSurface::before,
+.hostPreview[data-scene="mcp-server"] .hostSurface::after {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--integration-accent);
+  box-shadow: 0 0 18px var(--integration-accent);
+}
+
+.hostPreview[data-scene="mcp-server"] .hostSurface::before {
+  top: 24px;
+  right: 25px;
+}
+
+.hostPreview[data-scene="mcp-server"] .hostSurface::after {
+  bottom: 27px;
+  right: 72px;
+}
+
+.workspace[data-platform="jetbrains-plugin"] .workspaceBar {
+  background: #f4efff;
+}
+
+.hostPreview[data-scene="jetbrains-plugin"] .hostSurface {
+  background:
+    linear-gradient(90deg, #09090b 0 28px, transparent 28px),
+    repeating-linear-gradient(180deg, transparent 0 17px, rgba(167, 139, 250, 0.1) 17px 18px),
+    #16141d;
+}
+
+.hostPreview[data-scene="jetbrains-plugin"] .sceneArtwork {
+  border-radius: 4px;
+  background: linear-gradient(135deg, #ec4899, #8b5cf6 50%, #111827 51%);
+  color: #ffffff;
+}
+
+.workspace[data-platform="storybook-addon"] .workspaceBar {
+  background: #fff0f8;
+}
+
+.hostPreview[data-scene="storybook-addon"] .sceneArtwork {
+  border-radius: 999px;
+  box-shadow: 0 14px 30px rgba(255, 71, 133, 0.24);
+}
+
+.hostPreview[data-scene="storybook-addon"] .hostSurface::after {
+  content: "Controls  ·  Docs  ·  Interactions";
+  position: absolute;
+  right: 12px;
+  bottom: 9px;
+  color: #9d174d;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.workspace[data-platform="canva-app"] .workspaceBar {
+  background: linear-gradient(90deg, #eafcff, #f6edff);
+}
+
+.hostPreview[data-scene="canva-app"] .sceneArtwork {
+  border-radius: 50% 25% 55% 35%;
+  transform: rotate(-8deg);
+}
+
+.hostPreview[data-scene="canva-app"] .hostSurface::after {
+  content: "";
+  position: absolute;
+  right: 28px;
+  bottom: 18px;
+  width: 42px;
+  height: 42px;
+  border: 10px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+}
+
+.workspace[data-platform="wordpress-plugin"] .workspaceBar {
+  background: #edf8ff;
+}
+
+.hostPreview[data-scene="wordpress-plugin"] .hostSurface {
+  border-left: 8px solid #21759b;
+  background:
+    linear-gradient(#dbeafe 1px, transparent 1px) 104px 85px / calc(100% - 132px) 16px no-repeat,
+    #ffffff;
+}
+
+.hostPreview[data-scene="wordpress-plugin"] .hostSurface::after {
+  content: "+ ADD BLOCK";
+  position: absolute;
+  right: 18px;
+  top: 14px;
+  color: #21759b;
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.workspace[data-platform="shopify-extension"] .workspaceBar {
+  background: #f1f8ed;
+}
+
+.hostPreview[data-scene="shopify-extension"] .hostSurface::after {
+  content: "FREE SHIPPING";
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #2d5a18;
+  padding: 4px 7px;
+  font-size: 7px;
+  font-weight: 900;
+}
+
+.workspace[data-platform="adobe-plugin"] .workspaceBar {
+  background: #fff1f0;
+}
+
+.hostPreview[data-scene="adobe-plugin"] .hostSurface {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(135deg, #1b1111, #5f1515 58%, #ff4b3e);
+}
+
+.hostPreview[data-scene="adobe-plugin"] .sceneArtwork {
+  border-radius: 4px;
+  background: #ffebe8;
+  color: #e11d48;
+  transform: rotate(3deg);
+}
+
+.workspace[data-platform="obsidian-plugin"] .workspaceBar {
+  background: #f4efff;
+}
+
+.hostPreview[data-scene="obsidian-plugin"] .hostSurface {
+  border-color: #332c42;
+  background:
+    radial-gradient(circle at 78% 32%, rgba(167, 139, 250, 0.28), transparent 20%),
+    linear-gradient(125deg, transparent 58%, rgba(167, 139, 250, 0.16) 59% 60%, transparent 61%),
+    #1e1b26;
+}
+
+.hostPreview[data-scene="obsidian-plugin"] .sceneArtwork {
+  border-color: #6d5b87;
+  border-radius: 999px;
+  background: #2b2636;
+  color: #a78bfa;
+}
+
+.hostPreview[data-scene="obsidian-plugin"] .sceneCopy strong {
+  color: #f5f3ff;
+}
+
+.hostPreview[data-scene="obsidian-plugin"] .sceneCopy small {
+  color: #b8adc9;
 }
 
 .inspector {
