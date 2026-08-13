@@ -836,7 +836,7 @@ try {
         library: 'untitled-ui-icons',
         libraryName: 'Untitled UI Icons',
         npmPackage: '@untitledui/icons',
-        license: 'MIT',
+        license: 'Untitled UI License',
         tags: [...toTags(name), 'untitled', 'ui', 'design', 'system', 'saas', 'dashboard', 'product', 'interface'],
         reactImport: `import { ${componentName} } from '@untitledui/icons'`,
         reactUsage: `<${componentName} size={24} color="currentColor" />`,

@@ -9,6 +9,11 @@ import {
   NAMED_LIBRARY_COUNT,
   SEARCHABLE_ICON_COUNT,
 } from '../../../data/library-catalog'
+import {
+  getIconSourceSetId,
+  ICON_SOURCE_SET_COUNT,
+  ICON_SOURCE_SET_OPTIONS,
+} from '../../../lib/icon-source-sets'
 
 const LIBRARY_OPTIONS = allLibraries
   .map(({ id, name }) => ({ id, name }))
@@ -51,14 +56,6 @@ const LIBRARY_POPULARITY: Record<string, number> = {
   'circum-icons': 1,
   'elusive-icons': 1,
 }
-
-const ICONIFY_PREVIEW_PREFIXES: Record<string, string> = {
-  teenyicons: 'teenyicons',
-  'circum-icons': 'circum',
-  'elusive-icons': 'el',
-}
-
-const ICONIFY_PREVIEW_PRIMARY_LIBRARIES = new Set(Object.keys(ICONIFY_PREVIEW_PREFIXES))
 
 type Facets = {
   libraries: string[]
@@ -114,31 +111,6 @@ function isRateLimited(ip: string): boolean {
   
   record.count++
   return record.count > MAX_REQUESTS
-}
-
-function toHttpUrl(url: unknown): string {
-  const value = typeof url === 'string' ? url.trim() : ''
-  if (!value) return ''
-  if (value.startsWith('//')) return `https:${value}`
-  return /^https?:\/\//i.test(value) ? value : ''
-}
-
-function addUniqueUrl(urls: string[], seen: Set<string>, url: unknown) {
-  const value = toHttpUrl(url)
-  if (!value || seen.has(value)) return
-  seen.add(value)
-  urls.push(value)
-}
-
-function addIconifyPreviewUrls(urls: string[], seen: Set<string>, library: string, name: string) {
-  const prefix = ICONIFY_PREVIEW_PREFIXES[library]
-  if (!prefix || !name) return
-
-  const dashedName = name.replace(/_/g, '-')
-  const underscoredName = name.replace(/-/g, '_')
-  for (const iconName of [name, dashedName, underscoredName]) {
-    addUniqueUrl(urls, seen, `https://api.iconify.design/${prefix}/${iconName}.svg`)
-  }
 }
 
 function normalizePreviewUrls(icon: NormalizableIcon) {
@@ -301,6 +273,7 @@ export async function GET(request: Request) {
   const query = searchParams.get('q')?.toLowerCase().trim() || ''
   const lib = searchParams.get('lib') || 'all'
   const iconifySet = searchParams.get('iconifySet') || 'all'
+  const sourceSet = searchParams.get('sourceSet') || 'all'
   const style = searchParams.get('style') || 'all'
   const category = searchParams.get('category') || 'all'
   const legalOnly = searchParams.get('legalOnly') !== '0'
@@ -313,7 +286,7 @@ export async function GET(request: Request) {
   const allIcons = loadIcons()
 
   // Fast-path: when no filters are active, serve directly from pre-computed cached arrays
-  const noFilters = !query && !idsParam && lib === 'all' && style === 'all' && category === 'all' && iconifySet === 'all'
+  const noFilters = !query && !idsParam && lib === 'all' && style === 'all' && category === 'all' && iconifySet === 'all' && sourceSet === 'all'
   if (noFilters) {
     let source: SearchIcon[]
     if (legalOnly && sort === 'popular') {
@@ -345,12 +318,14 @@ export async function GET(request: Request) {
         namedLibraries: NAMED_LIBRARY_COUNT,
         iconifyIcons: ICONIFY_ICON_COUNT,
         iconifyCollections: ICONIFY_COLLECTION_COUNT,
+        sourceSets: ICON_SOURCE_SET_COUNT,
       },
       facets: {
         libraries: facets?.libraries || [],
         libraryOptions: LIBRARY_OPTIONS,
         licenses: facets?.licenses || [],
         iconifySets: facets?.iconifySets || [],
+        sourceSets: ICON_SOURCE_SET_OPTIONS,
         legalSafeCount,
         legalOnlyApplied: legalOnly,
       }
@@ -371,6 +346,11 @@ export async function GET(request: Request) {
   } else {
     if (legalOnly) {
       filtered = filtered.filter(icon => Boolean(icon.legalSafe))
+    }
+
+    if (sourceSet !== 'all') {
+      const normalizedSourceSet = sourceSet.toLowerCase()
+      filtered = filtered.filter(icon => getIconSourceSetId(icon.library) === normalizedSourceSet)
     }
     
     // 1. Library Filter
@@ -520,12 +500,14 @@ export async function GET(request: Request) {
       namedLibraries: NAMED_LIBRARY_COUNT,
       iconifyIcons: ICONIFY_ICON_COUNT,
       iconifyCollections: ICONIFY_COLLECTION_COUNT,
+      sourceSets: ICON_SOURCE_SET_COUNT,
     },
     facets: {
       libraries: facets?.libraries || [],
       libraryOptions: LIBRARY_OPTIONS,
       licenses: facets?.licenses || [],
       iconifySets: facets?.iconifySets || [],
+      sourceSets: ICON_SOURCE_SET_OPTIONS,
       legalSafeCount,
       legalOnlyApplied: legalOnly,
     }

@@ -12,8 +12,6 @@ type ExtensionPreferences = {
   "defaultFormat": "react" | "svg" | "vue" | "svelte" | "tailwind" | "url",
   /** Classes - Classes added to generated React, SVG, Vue, Svelte, and Tailwind snippets. */
   "tailwindClasses": string,
-  /** Legal-Safe Results - Only show icons marked legal-safe by IconSearch. */
-  "legalOnly": boolean,
   /** Default Style - Style filter applied when the command opens. */
   "defaultStyle": "all" | "stroke" | "solid" | "duotone" | "twotone" | "sharp"
 }

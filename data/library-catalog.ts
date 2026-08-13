@@ -20,7 +20,7 @@ import allLibrariesData from './all-libraries.json'
 export const SEARCHABLE_ICON_COUNT = snapshot.totalIcons || 355_702
 export const LEGAL_SAFE_ICON_COUNT = snapshot.commercialSafeIcons || 259_070
 export const ICONIFY_ICON_COUNT = SEARCHABLE_ICON_COUNT
-export const ICONIFY_COLLECTION_COUNT = 242
+export const ICONIFY_COLLECTION_COUNT = 229
 
 export const allLibraries: IconLibraryMeta[] = allLibrariesData as IconLibraryMeta[]
 
@@ -83,4 +83,3 @@ export function formatCollectionName(id: string): string {
 
 // Deprecated alias for backwards compatibility during migration
 export const formatIconifyCollectionName = formatCollectionName
-

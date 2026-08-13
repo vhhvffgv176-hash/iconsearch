@@ -46,6 +46,34 @@ function sanitizeSvg(svg: string): string {
   return clean
 }
 
+function customizeSvg(svg: string, request: Request) {
+  const { searchParams } = new URL(request.url)
+  const requestedSize = Number.parseInt(searchParams.get('width') || '', 10)
+  const size = Number.isFinite(requestedSize) ? Math.min(512, Math.max(8, requestedSize)) : null
+  const requestedColor = searchParams.get('color') || ''
+  const color = /^#[0-9a-f]{6}$/i.test(requestedColor) ? requestedColor.toUpperCase() : ''
+
+  let customized = svg
+  if (size) {
+    customized = setSvgRootAttribute(customized, 'width', String(size))
+    customized = setSvgRootAttribute(customized, 'height', String(size))
+  }
+  if (color) {
+    customized = setSvgRootAttribute(customized, 'color', color).replace(/currentColor/gi, color)
+  }
+  return customized
+}
+
+function setSvgRootAttribute(svg: string, name: string, value: string) {
+  const attributePattern = new RegExp(`\\s${name}\\s*=\\s*(?:"[^"]*"|'[^']*'|[^\\s>]+)`, 'i')
+  const attribute = ` ${name}="${value}"`
+  return svg.replace(/<svg\b[^>]*>/i, (openingTag) =>
+    attributePattern.test(openingTag)
+      ? openingTag.replace(attributePattern, attribute)
+      : openingTag.replace(/^<svg\b/i, `<svg${attribute}`),
+  )
+}
+
 function findLocalSvgFile(library: string, name: string): string {
   if (library === 'patternfly-icons') {
     const candidate = path.join(
@@ -235,20 +263,20 @@ export async function GET(
   const localFile = findLocalSvgFile(library, name)
   if (localFile) {
     const rawContent = readFileSync(localFile, 'utf8')
-    return new NextResponse(sanitizeSvg(rawContent), { status: 200, headers: SVG_HEADERS })
+    return new NextResponse(customizeSvg(sanitizeSvg(rawContent), request), { status: 200, headers: SVG_HEADERS })
   }
 
   // 4. Resolve from server disk cache
   const cachePath = path.join(CACHE_DIR, library, `${name}.svg`)
   if (existsSync(cachePath)) {
     const cachedContent = readFileSync(cachePath, 'utf8')
-    return new NextResponse(cachedContent, { status: 200, headers: SVG_HEADERS })
+    return new NextResponse(customizeSvg(cachedContent, request), { status: 200, headers: SVG_HEADERS })
   }
 
   // 5. Upstream server-side fetch & cache
   const fetchedContent = await fetchAndCacheUpstream(library, name)
   if (fetchedContent) {
-    return new NextResponse(fetchedContent, { status: 200, headers: SVG_HEADERS })
+    return new NextResponse(customizeSvg(fetchedContent, request), { status: 200, headers: SVG_HEADERS })
   }
 
   return publicJson({ error: 'Icon SVG not found.' }, { status: 404 })

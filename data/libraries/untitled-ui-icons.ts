@@ -1,19 +1,19 @@
 export const untitledUiIconsData = {
   name: "Untitled UI Icons",
   slug: "untitled-ui-icons",
-  tagline: "1,179 MIT-licensed React icons for SaaS dashboards and product UI",
+  tagline: "1,179 licensed React icons for SaaS dashboards and product UI",
   description: {
     intro: "Untitled UI Icons is the official React icon package from the Untitled UI ecosystem. It focuses on clean 24px outline symbols that feel at home in SaaS apps, admin dashboards, settings panels, onboarding flows, marketing sites, and product-led interfaces.",
     detail: "The collection sits in a useful middle ground: more product-focused than Feather, smaller and more curated than Tabler, and less enterprise-heavy than PatternFly. Names like Home01, SearchMd, Settings01, ChartBreakoutSquare, and CreditCard01 make the library especially comfortable for teams building modern web applications.",
     focus: "Untitled UI Icons is strongest when you want a polished product interface vocabulary: navigation, charts, files, folders, users, payments, arrows, communications, status, security, and layout controls. It is not a brand-logo library and it is not a multi-style icon family.",
     technical: "The npm package ships typed React components, ESM/CJS builds, and per-icon component modules. Icons accept size and color props, default to a 24px viewBox, and use currentColor-friendly SVG strokes. IconSearch also generates static SVG previews from the React components so search, detail pages, and plugins can render them without depending on Iconify.",
-    verdict: "Choose Untitled UI Icons when your app needs crisp, modern, SaaS-ready outline icons with a permissive MIT license. Choose Tabler if you need maximum icon volume, Phosphor if you need multiple weights, or PatternFly if your product is closer to enterprise console design."
+    verdict: "Choose Untitled UI Icons when your app needs crisp, modern, SaaS-ready outline icons and your use complies with the upstream license. Choose Tabler if you need maximum icon volume, Phosphor if you need multiple weights, or PatternFly if your product is closer to enterprise console design."
   },
   stats: {
     iconCount: 1179,
     stars: 0,
     weeklyDownloads: 242135,
-    license: "MIT",
+    license: "Untitled UI License",
     firstRelease: "2025",
     latestVersion: "0.0.22",
     bundleSize: "~2.7 MB unpacked; tree-shakable per icon",
@@ -85,7 +85,7 @@ export function DashboardShortcuts() {
     { title: "Strong SaaS interface fit", detail: "The icons are especially good for product dashboards, account settings, billing flows, charts, empty states, navigation, and admin-style UI." },
     { title: "Official typed React package", detail: "The package ships React components and TypeScript declarations, so usage is straightforward in React and Next.js projects." },
     { title: "Tree-shakable ESM modules", detail: "You can import individual icons and keep the final app bundle focused on only the symbols you actually use." },
-    { title: "MIT licensed", detail: "The package metadata lists MIT, which is permissive for personal, commercial, and internal product use as long as the license notice is preserved." },
+    { title: "Project use allowed", detail: "The bundled license allows use in personal and commercial projects, subject to its restrictions on redistributing original or modified icons." },
     { title: "Local static previews in IconSearch", detail: "IconSearch renders the package components into SVG files during the icon database build, so previews do not rely on Iconify coverage." },
   ],
   cons: [
@@ -110,7 +110,7 @@ export function DashboardShortcuts() {
   faqs: [
     {
       q: "Is Untitled UI Icons free for commercial use?",
-      a: "Yes. The installed npm package metadata lists the license as MIT, which allows use in commercial products as long as the license notice is preserved."
+      a: "Yes, the bundled license allows use in commercial projects, but it prohibits selling, sublicensing, or redistributing the icons in original or modified form. Review the upstream license before use."
     },
     {
       q: "Does Untitled UI Icons work in Next.js?",

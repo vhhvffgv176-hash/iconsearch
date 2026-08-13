@@ -6,7 +6,12 @@ import {
   PRODUCT,
   SEARCH_API_URL,
 } from "./constants";
-import type { IconSearchIcon, SearchResult, SearchStyle } from "./types";
+import type {
+  IconSearchIcon,
+  SearchResult,
+  SearchStyle,
+  SourceSetOption,
+} from "./types";
 
 type ApiResponse = {
   icons?: unknown;
@@ -21,9 +26,8 @@ type ApiResponse = {
 type SearchOptions = {
   token: string;
   query: string;
-  library: string;
+  sourceSet: string;
   style: SearchStyle;
-  legalOnly: boolean;
   page: number;
   limit?: number;
   signal?: AbortSignal;
@@ -48,8 +52,7 @@ export async function searchIcons(
   url.searchParams.set("limit", String(options.limit || PAGE_SIZE));
   url.searchParams.set("page", String(Math.max(1, options.page)));
   url.searchParams.set("sort", query ? "relevance" : "popular");
-  url.searchParams.set("legalOnly", options.legalOnly ? "1" : "0");
-  applyLibraryParams(url, options.library);
+  applySourceSetParam(url, options.sourceSet);
   if (options.style !== "all") url.searchParams.set("style", options.style);
 
   const response = await fetch(url.toString(), {
@@ -88,8 +91,10 @@ export async function searchIcons(
         ? Math.ceil(total / limit)
         : 0;
   const facets = isRecord(payload.facets) ? payload.facets : {};
-  const iconifySets = Array.isArray(facets.iconifySets)
-    ? facets.iconifySets.filter((set): set is string => typeof set === "string")
+  const sourceSets = Array.isArray(facets.sourceSets)
+    ? facets.sourceSets
+        .map(normalizeSourceSet)
+        .filter((set): set is SourceSetOption => Boolean(set))
     : [];
 
   return {
@@ -97,35 +102,23 @@ export async function searchIcons(
     total,
     page: typeof payload.page === "number" ? payload.page : options.page,
     totalPages,
-    iconifySets,
+    sourceSets,
   };
 }
 
-export function applyLibraryParams(url: URL, value: string) {
+export function applySourceSetParam(url: URL, value: string) {
   if (value === "all") return;
-  if (value === "iconify") {
-    url.searchParams.set("lib", "iconify");
-    return;
-  }
-  if (value.startsWith("iconify:")) {
-    url.searchParams.set("lib", "iconify");
-    url.searchParams.set("iconifySet", value.slice("iconify:".length));
-    return;
-  }
-  url.searchParams.set("lib", value);
+  url.searchParams.set("sourceSet", value);
 }
 
 export function formatLibraryName(library: string): string {
   const found = NAMED_LIBRARIES.find(([id]) => id === library);
   if (found) return found[1];
-  if (library.startsWith("iconify-"))
-    return `${formatIconifySet(library.replace(/^iconify-/, ""))} (Iconify)`;
-  return library;
+  return formatSourceSet(library);
 }
 
-export function formatIconifySet(value: string): string {
+export function formatSourceSet(value: string): string {
   return value
-    .replace(/^iconify-/, "")
     .split("-")
     .map((part) =>
       ACRONYM_PARTS.has(part)
@@ -133,6 +126,13 @@ export function formatIconifySet(value: string): string {
         : `${part.charAt(0).toUpperCase()}${part.slice(1)}`,
     )
     .join(" ");
+}
+
+function normalizeSourceSet(value: unknown): SourceSetOption | undefined {
+  if (!isRecord(value)) return undefined;
+  const id = stringFrom(value.id);
+  const name = stringFrom(value.name);
+  return id && name ? { id, name } : undefined;
 }
 
 function normalizeIcon(value: unknown): IconSearchIcon | undefined {
@@ -159,7 +159,17 @@ function normalizeIcon(value: unknown): IconSearchIcon | undefined {
       stringFrom(value.licenseUrl) ||
       stringFrom(value.license_url) ||
       `${API_BASE}/licenses`,
-    legalSafe: value.legalSafe === true,
+    sourceSetId: stringFrom(value.sourceSetId) || library,
+    authorName: stringFrom(value.authorName) || undefined,
+    authorUrl: stringFrom(value.authorUrl) || undefined,
+    licenseNotice:
+      stringFrom(value.licenseNotice) ||
+      `${stringFrom(value.libraryName) || formatLibraryName(library)}. License: ${stringFrom(value.license) || "Unknown"}. Review the upstream license before use.`,
+    usageRequirements:
+      stringFrom(value.usageRequirements) ||
+      "Review the upstream license before use.",
+    commercialUseAllowed: value.commercialUseAllowed === true,
+    exportAllowed: value.exportAllowed !== false,
     sourceUrl:
       stringFrom(value.sourceUrl) ||
       stringFrom(value.source_url) ||
@@ -172,51 +182,40 @@ function normalizeIcon(value: unknown): IconSearchIcon | undefined {
       ? value.tags.filter((tag): tag is string => typeof tag === "string")
       : [],
   };
-
-  icon.previewUrls = getPreviewUrls(icon);
-  icon.sourceUrl ||= icon.previewUrls[0];
-
-  return icon;
 }
 
-function getPreviewUrls(icon: IconSearchIcon): string[] {
+function getPreviewUrls(
+  icon: Record<string, unknown>,
+  library: string,
+  name: string,
+): string[] {
   const urls = new Set<string>();
-  const name = icon.name || "";
-  const library = icon.library || "";
-  const dashedName = name.replace(/_/g, "-");
 
-  const add = (url: string) => {
-    if (url) urls.add(url.startsWith("/") ? `${API_BASE}${url}` : url);
+  const add = (value: unknown) => {
+    const url = stringFrom(value).trim();
+    if (!url) return;
+    if (url.startsWith("/")) {
+      urls.add(`${API_BASE}${url}`);
+      return;
+    }
+    if (url.startsWith("//")) {
+      urls.add(`https:${url}`);
+      return;
+    }
+    if (url.startsWith("https://") || url.startsWith("http://")) urls.add(url);
   };
 
   add(icon.svgUrl);
+  if (Array.isArray(icon.previewUrls)) icon.previewUrls.forEach(add);
 
-  if (library && dashedName) {
-    add(`${API_BASE}/api/svg/${encodeURIComponent(library)}/${encodeURIComponent(dashedName)}`);
+  const normalizedName = name.replace(/_/g, "-");
+  if (library && normalizedName) {
+    add(
+      `${API_BASE}/api/svg/${encodeURIComponent(library)}/${encodeURIComponent(normalizedName)}`,
+    );
   }
 
   return Array.from(urls);
-}
-
-function cleanSvgUrl(url: string, library: string): string {
-  if (!url) return "";
-  if (url.startsWith("//")) return `https:${url}`;
-  if (library === "tabler-icons" && url.includes("@tabler/icons/icons/")) {
-    return url.replace("@tabler/icons/icons/", "@tabler/icons@2.47.0/icons/");
-  }
-  if (
-    library === "phosphor-icons" &&
-    url.includes("@phosphor-icons/core/assets/")
-  ) {
-    return url.replace(
-      "@phosphor-icons/core/assets/",
-      "@phosphor-icons/core@2.1.1/assets/",
-    );
-  }
-  if (library === "lucide-icons" && url.includes("lucide-static/icons/")) {
-    return url.replace("lucide-static/icons/", "lucide-static@0.415.0/icons/");
-  }
-  return url;
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -225,10 +224,6 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function stringFrom(value: unknown): string {
   return typeof value === "string" ? value : "";
-}
-
-function isHttpUrl(value: string): boolean {
-  return value.startsWith("https://") || value.startsWith("http://");
 }
 
 function formatIconTitle(value: string): string {
