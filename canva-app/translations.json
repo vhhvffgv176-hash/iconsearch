@@ -1,7 +1,11 @@
 {
-  "2egXA/": {
-    "defaultMessage": "Inserted {iconName}.",
-    "description": "Success notification shown after an icon is added to the design."
+  "0CexUb": {
+    "defaultMessage": "Select icon {number}",
+    "description": "Accessible label for choosing an icon result."
+  },
+  "5S8r2/": {
+    "defaultMessage": "Library: {library}. License: {license}.",
+    "description": "Metadata beneath the selected icon identifying its source library and open-source license. Library names and legal license identifiers are proper names and remain unchanged."
   },
   "5SmLI1": {
     "defaultMessage": "Icon library",
@@ -19,17 +23,21 @@
     "defaultMessage": "Load more icons",
     "description": "Button label that loads the next page of icon search results."
   },
-  "8TUutd": {
-    "defaultMessage": "Preparing {iconName}…",
+  "Bmhor2": {
+    "defaultMessage": "The selected icon was added to your design.",
+    "description": "Success notification shown after an icon is added to the design."
+  },
+  "FjybQB": {
+    "defaultMessage": "Preparing the selected icon…",
     "description": "Status message shown while an icon is prepared for insertion."
   },
   "MwLj9F": {
     "defaultMessage": "Search icons",
     "description": "Main heading at the top of the Canva app."
   },
-  "Pq55qK": {
-    "defaultMessage": "Inserted {iconName}.",
-    "description": "Status message shown after an icon is added to the design."
+  "P56tFQ": {
+    "defaultMessage": "Preview of the selected icon",
+    "description": "Alternative text for the selected icon preview."
   },
   "Q25Gkt": {
     "defaultMessage": "Loading icons…",
@@ -43,25 +51,17 @@
     "defaultMessage": "{count, number} matching icons",
     "description": "Status message showing the number of icon results that match the current filters."
   },
-  "WlkQUa": {
-    "defaultMessage": "Preview of {iconName}",
-    "description": "Alternative text for an icon result preview."
-  },
   "XaJ60C": {
     "defaultMessage": "Open source",
     "description": "Fallback license label for an open-source icon."
-  },
-  "XdxCo1": {
-    "defaultMessage": "{library} · {license}",
-    "description": "Metadata beneath the selected icon showing its library and license."
   },
   "adWfRK": {
     "defaultMessage": "Searching…",
     "description": "Short status message shown while icon results are loading."
   },
-  "d9xEZ0": {
-    "defaultMessage": "{iconName} icon",
-    "description": "Accessible alternative text for an icon inserted into a Canva design."
+  "d66rrA": {
+    "defaultMessage": "IconSearch icon",
+    "description": "Asset name assigned to an icon uploaded to the user's Canva design."
   },
   "dKzCDG": {
     "defaultMessage": "Try home, arrow, or logo",
@@ -70,6 +70,10 @@
   "eRWmQ7": {
     "defaultMessage": "Find open-source SVG icons and add them to your design.",
     "description": "Short explanation beneath the app heading."
+  },
+  "en2FVu": {
+    "defaultMessage": "Selected icon",
+    "description": "Heading beside the preview of the currently selected icon."
   },
   "fdRB7e": {
     "defaultMessage": "No icons found. Try another search.",
@@ -87,13 +91,21 @@
     "defaultMessage": "Connected as {email}",
     "description": "Account status showing the email address connected to IconSearch."
   },
+  "mXDiGl": {
+    "defaultMessage": "Icon {number}",
+    "description": "Label beneath an icon search result. The number identifies its position in the current result list."
+  },
+  "nWtmWR": {
+    "defaultMessage": "Preview of icon {number}",
+    "description": "Alternative text for an icon result preview."
+  },
+  "o0wANc": {
+    "defaultMessage": "Icon added from IconSearch",
+    "description": "Accessible alternative text for an icon inserted into a Canva design."
+  },
   "oJ5WsC": {
     "defaultMessage": "The selected icon could not be added. Please try again.",
     "description": "Error shown when an icon cannot be inserted into the Canva design."
-  },
-  "pattM8": {
-    "defaultMessage": "Preview of {iconName}",
-    "description": "Alternative text for the selected icon preview."
   },
   "qaY+KF": {
     "defaultMessage": "Show commercial-safe icons only",
@@ -111,13 +123,13 @@
     "defaultMessage": "Disconnect IconSearch account",
     "description": "Button label that disconnects an IconSearch account from Canva."
   },
+  "z7d1y/": {
+    "defaultMessage": "The selected icon was added to your design.",
+    "description": "Status message shown after an icon is added to the design."
+  },
   "zAWvGK": {
     "defaultMessage": "Connect IconSearch account",
     "description": "Button label that starts the IconSearch OAuth authorization popup."
-  },
-  "zN3doh": {
-    "defaultMessage": "Select {iconName}",
-    "description": "Accessible label for choosing an icon result."
   },
   "zlnIYM": {
     "defaultMessage": "Connect account to add this icon",

@@ -35,8 +35,8 @@ const OAUTH_SCOPE = new Set(["icons:read", "offline_access"]);
 type Status =
   | { kind: "loading" }
   | { kind: "matches"; count: number }
-  | { kind: "preparing"; iconName: string }
-  | { kind: "inserted"; iconName: string };
+  | { kind: "preparing" }
+  | { kind: "inserted" };
 
 type ErrorKind = "search" | "insert";
 export function App({ oauth }: { oauth: Oauth }) {
@@ -254,7 +254,7 @@ export function App({ oauth }: { oauth: Oauth }) {
     if (!icon || !account) return;
     setBusyIconId(icon.id);
     setError(null);
-    setStatus({ kind: "preparing", iconName: icon.displayName });
+    setStatus({ kind: "preparing" });
 
     try {
       const svg = await fetchSvgMarkup(icon);
@@ -264,7 +264,10 @@ export function App({ oauth }: { oauth: Oauth }) {
         url: dataUrl,
         thumbnailUrl: dataUrl,
         mimeType: "image/svg+xml",
-        name: `${icon.displayName} icon`,
+        name: intl.formatMessage({
+          defaultMessage: "IconSearch icon",
+          description: "Asset name assigned to an icon uploaded to the user's Canva design.",
+        }),
         aiDisclosure: "none",
         width: ICON_SIZE,
         height: ICON_SIZE,
@@ -276,13 +279,10 @@ export function App({ oauth }: { oauth: Oauth }) {
         type: "image",
         ref: asset.ref,
         altText: {
-          text: intl.formatMessage(
-            {
-              defaultMessage: "{iconName} icon",
-              description: "Accessible alternative text for an icon inserted into a Canva design.",
-            },
-            { iconName: icon.displayName },
-          ),
+          text: intl.formatMessage({
+            defaultMessage: "Icon added from IconSearch",
+            description: "Accessible alternative text for an icon inserted into a Canva design.",
+          }),
           decorative: false,
         },
         top: 120,
@@ -292,15 +292,12 @@ export function App({ oauth }: { oauth: Oauth }) {
       };
 
       await addElementAtPoint(element);
-      setStatus({ kind: "inserted", iconName: icon.displayName });
+      setStatus({ kind: "inserted" });
       void notification.addToast({
-        messageText: intl.formatMessage(
-          {
-            defaultMessage: "Inserted {iconName}.",
-            description: "Success notification shown after an icon is added to the design.",
-          },
-          { iconName: icon.displayName },
-        ),
+        messageText: intl.formatMessage({
+          defaultMessage: "The selected icon was added to your design.",
+          description: "Success notification shown after an icon is added to the design.",
+        }),
       });
     } catch {
       setError("insert");
@@ -310,13 +307,10 @@ export function App({ oauth }: { oauth: Oauth }) {
   }
 
   const selectedAlt = selectedIcon
-    ? intl.formatMessage(
-        {
-          defaultMessage: "Preview of {iconName}",
-          description: "Alternative text for the selected icon preview.",
-        },
-        { iconName: selectedIcon.displayName },
-      )
+    ? intl.formatMessage({
+        defaultMessage: "Preview of the selected icon",
+        description: "Alternative text for the selected icon preview.",
+      })
     : "";
 
   return (
@@ -475,11 +469,16 @@ export function App({ oauth }: { oauth: Oauth }) {
                     </Column>
                     <Column width="2/3">
                       <Rows spacing="0.5u">
-                        <Title size="small" lineClamp={2}>{selectedIcon.displayName}</Title>
+                        <Title size="small" lineClamp={2}>
+                          <FormattedMessage
+                            defaultMessage="Selected icon"
+                            description="Heading beside the preview of the currently selected icon."
+                          />
+                        </Title>
                         <Text size="small" tone="secondary" lineClamp={2}>
                           <FormattedMessage
-                            defaultMessage="{library} · {license}"
-                            description="Metadata beneath the selected icon showing its library and license."
+                            defaultMessage="Library: {library}. License: {license}."
+                            description="Metadata beneath the selected icon identifying its source library and open-source license. Library names and legal license identifiers are proper names and remain unchanged."
                             values={{
                               library: selectedIcon.libraryName,
                               license: selectedIcon.license || intl.formatMessage({
@@ -539,23 +538,23 @@ export function App({ oauth }: { oauth: Oauth }) {
 
           {icons.length ? (
             <Grid columns={3} spacing="1u">
-              {icons.map((icon) => (
+              {icons.map((icon, index) => (
                 <Rows key={icon.id} spacing="0.5u">
                   <ImageCard
                     thumbnailUrl={icon.svgUrl}
                     alt={intl.formatMessage(
                       {
-                        defaultMessage: "Preview of {iconName}",
+                        defaultMessage: "Preview of icon {number}",
                         description: "Alternative text for an icon result preview.",
                       },
-                      { iconName: icon.displayName },
+                      { number: index + 1 },
                     )}
                     ariaLabel={intl.formatMessage(
                       {
-                        defaultMessage: "Select {iconName}",
+                        defaultMessage: "Select icon {number}",
                         description: "Accessible label for choosing an icon result.",
                       },
-                      { iconName: icon.displayName },
+                      { number: index + 1 },
                     )}
                     thumbnailAspectRatio={1}
                     thumbnailPadding="1u"
@@ -567,7 +566,11 @@ export function App({ oauth }: { oauth: Oauth }) {
                     onClick={() => setSelectedId(icon.id)}
                   />
                   <Text size="small" lineClamp={2} alignment="center">
-                    {icon.displayName}
+                    <FormattedMessage
+                      defaultMessage="Icon {number}"
+                      description="Label beneath an icon search result. The number identifies its position in the current result list."
+                      values={{ number: index + 1 }}
+                    />
                   </Text>
                 </Rows>
               ))}
@@ -636,9 +639,8 @@ function StatusMessage({ status, error }: { status: Status; error: ErrorKind | n
     return (
       <Text tone="secondary">
         <FormattedMessage
-          defaultMessage="Preparing {iconName}…"
+          defaultMessage="Preparing the selected icon…"
           description="Status message shown while an icon is prepared for insertion."
-          values={{ iconName: status.iconName }}
         />
       </Text>
     );
@@ -648,9 +650,8 @@ function StatusMessage({ status, error }: { status: Status; error: ErrorKind | n
     return (
       <Text tone="secondary">
         <FormattedMessage
-          defaultMessage="Inserted {iconName}."
+          defaultMessage="The selected icon was added to your design."
           description="Status message shown after an icon is added to the design."
-          values={{ iconName: status.iconName }}
         />
       </Text>
     );
