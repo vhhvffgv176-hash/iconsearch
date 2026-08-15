@@ -337,11 +337,7 @@ export default function IntegrationPage({ config }: { config: IntegrationConfig 
     '--integration-accent': config.accent,
     '--integration-accent-muted': config.accentMuted,
   } as CSSProperties
-  const primaryAction = config.primaryAction ?? {
-    label: 'View local setup',
-    href: '#local-setup',
-    external: false,
-  }
+  const isLive = config.status === 'Marketplace live'
 
   return (
     <main className={styles.page} style={pageStyle}>
@@ -366,15 +362,17 @@ export default function IntegrationPage({ config }: { config: IntegrationConfig 
           <h1>{config.title}</h1>
           <p>{config.description}</p>
           <div className={styles.actions}>
-            <a
-              className={styles.primaryAction}
-              href={primaryAction.href}
-              target={primaryAction.external ? '_blank' : undefined}
-              rel={primaryAction.external ? 'noopener noreferrer' : undefined}
-            >
-              {primaryAction.label}
-              <ArrowRight size={17} />
-            </a>
+            {config.primaryAction && (
+              <a
+                className={styles.primaryAction}
+                href={config.primaryAction.href}
+                target={config.primaryAction.external ? '_blank' : undefined}
+                rel={config.primaryAction.external ? 'noopener noreferrer' : undefined}
+              >
+                {config.primaryAction.label}
+                <ArrowRight size={17} />
+              </a>
+            )}
             <Link className={styles.secondaryAction} href="/icon-search">
               Search icons
             </Link>
@@ -505,35 +503,15 @@ export default function IntegrationPage({ config }: { config: IntegrationConfig 
         </div>
       </section>
 
-      <section className={styles.setupSection} id="local-setup">
-        <div className={styles.workflowColumn}>
-          <span className={styles.sectionLabel}>{'// WORKFLOW'}</span>
-          <h2>{config.workflowTitle ?? 'From local setup to a real icon.'}</h2>
-          <div className={styles.workflowList}>
-            {config.workflow.map((step, index) => (
-              <div key={step}><strong>{String(index + 1).padStart(2, '0')}</strong><p>{step}</p></div>
-            ))}
-          </div>
-        </div>
-
-        <div className={styles.setupColumn}>
-          <div className={styles.setupHeading}>
-            <div><span>{config.setupLabel ?? 'LOCAL DEVELOPMENT'}</span><strong>{config.setupTitle ?? config.platform}</strong></div>
-            <Code2 size={22} />
-          </div>
-          <pre><code>{config.setup}</code></pre>
-          <div className={styles.requirements}>
-            <strong>Requirements</strong>
-            {config.requirements.map((requirement) => <span key={requirement}><Check size={14} />{requirement}</span>)}
-          </div>
-        </div>
-      </section>
-
       <section className={styles.releaseSection}>
         <div>
           <span>{'// RELEASE STATUS'}</span>
-          <h2>{config.releaseTitle}</h2>
-          <p>{config.releaseText}</p>
+          <h2>{isLive ? config.releaseTitle : `${config.name} is launching soon.`}</h2>
+          <p>
+            {isLive
+              ? config.releaseText
+              : `We are preparing IconSearch for ${config.platform} for a public marketplace release. Until then, search and customize the same icon catalog on IconSearch.`}
+          </p>
         </div>
         <span className={styles.releaseBadge}>
           {logoSrc ? <NextImage className={styles.releaseLogo} src={logoSrc} alt="" width={16} height={16} unoptimized /> : <PlatformIcon size={18} />}

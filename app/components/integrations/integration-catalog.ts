@@ -33,7 +33,7 @@ export type IntegrationIcon =
   | 'brush'
   | 'gem'
 
-type IntegrationStatus = 'Marketplace live' | 'Package ready' | 'Local build' | 'Development preview' | 'Development build'
+type IntegrationStatus = 'Marketplace live' | 'Launching soon'
 
 type IntegrationPrimaryAction = {
   label: string
@@ -85,8 +85,8 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     logoSrc: '/integration-logos/penpot.svg',
     socialImage: '/og-penpot.png',
     mark: 'PP',
-    status: 'Package ready',
-    statusTone: 'ready',
+    status: 'Launching soon',
+    statusTone: 'development',
     eyebrow: 'OPEN-SOURCE DESIGN ICONS',
     title: 'Place editable SVG icons directly on the Penpot canvas.',
     description: 'Connect only when you are ready, search the live IconSearch catalog, tune size and color, then insert a sanitized SVG as a native, selected Penpot vector group.',
@@ -159,8 +159,8 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     platform: 'Sketch',
     icon: 'gem',
     mark: 'SK',
-    status: 'Package ready',
-    statusTone: 'ready',
+    status: 'Launching soon',
+    statusTone: 'development',
     eyebrow: 'EDITABLE CANVAS ICONS',
     title: 'Place editable SVG icons directly into Sketch documents.',
     description: 'Search across the live IconSearch catalog, refine by library and style, set color, size, and selection-relative placement, then insert a native editable SVG group.',
@@ -192,7 +192,7 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     platform: 'Microsoft PowerPoint',
     icon: 'presentation',
     mark: 'PP',
-    status: 'Development build',
+    status: 'Launching soon',
     statusTone: 'development',
     eyebrow: 'SLIDE-SIDE ICON SEARCH',
     title: 'Insert presentation-ready icons without leaving PowerPoint.',
@@ -225,7 +225,7 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     platform: 'Google Slides',
     icon: 'presentation',
     mark: 'GS',
-    status: 'Development build',
+    status: 'Launching soon',
     statusTone: 'development',
     eyebrow: 'SLIDE-SIDE ICON SEARCH',
     title: 'Insert polished icons directly into Google Slides.',
@@ -258,8 +258,8 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     platform: 'Raycast',
     icon: 'command',
     mark: 'RA',
-    status: 'Package ready',
-    statusTone: 'ready',
+    status: 'Launching soon',
+    statusTone: 'development',
     eyebrow: 'FAST DESKTOP SEARCH',
     title: 'Find the right icon without leaving Raycast.',
     description: 'Search the live IconSearch catalog, inspect a clean preview, and copy or paste production-ready icon output into the app in front.',
@@ -290,8 +290,8 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     platform: 'Tailwind CSS',
     icon: 'wind',
     mark: 'TW',
-    status: 'Package ready',
-    statusTone: 'ready',
+    status: 'Launching soon',
+    statusTone: 'development',
     eyebrow: 'UTILITY-FIRST ICONS',
     title: 'Use open-source icons as Tailwind utilities.',
     description: 'Add icons with a single class, then control their size and color with the same Tailwind utilities already used across your interface.',
@@ -322,8 +322,8 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     platform: 'MCP clients',
     icon: 'radio',
     mark: 'MC',
-    status: 'Local build',
-    statusTone: 'local',
+    status: 'Launching soon',
+    statusTone: 'development',
     eyebrow: 'ICONS FOR AI WORKFLOWS',
     title: 'Give AI tools a reliable icon search.',
     description: 'Connect IconSearch to MCP-compatible clients so agents can search the live catalog and return exact React, SVG, Vue, Svelte, Tailwind, or URL output.',
@@ -354,7 +354,7 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     platform: 'JetBrains IDEs',
     icon: 'blocks',
     mark: 'JB',
-    status: 'Development build',
+    status: 'Launching soon',
     statusTone: 'development',
     eyebrow: 'EDITOR TOOL WINDOW',
     title: 'Search and insert icons inside JetBrains IDEs.',
@@ -386,8 +386,8 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     platform: 'Storybook',
     icon: 'book',
     mark: 'SB',
-    status: 'Package ready',
-    statusTone: 'ready',
+    status: 'Launching soon',
+    statusTone: 'development',
     eyebrow: 'COMPONENT WORKBENCH',
     title: 'Choose icons beside the components that use them.',
     description: 'Search IconSearch from a Storybook panel and copy production-ready snippets without breaking the component development loop.',
@@ -418,7 +418,7 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     platform: 'Canva',
     icon: 'image',
     mark: 'CA',
-    status: 'Development preview',
+    status: 'Launching soon',
     statusTone: 'development',
     eyebrow: 'DESIGN-SIDE SEARCH',
     title: 'Insert clean SVG icons into Canva designs.',
@@ -450,7 +450,7 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     platform: 'WordPress',
     icon: 'panel',
     mark: 'WP',
-    status: 'Development build',
+    status: 'Launching soon',
     statusTone: 'development',
     eyebrow: 'GUTENBERG SIDEBAR',
     title: 'Drop styled icons into WordPress content.',
@@ -482,7 +482,7 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     platform: 'Shopify',
     icon: 'shop',
     mark: 'SH',
-    status: 'Development build',
+    status: 'Launching soon',
     statusTone: 'development',
     eyebrow: 'THEME APP EXTENSION',
     title: 'Build flexible icon rows in Shopify themes.',
@@ -514,7 +514,7 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     platform: 'Adobe Express',
     icon: 'brush',
     mark: 'AE',
-    status: 'Development preview',
+    status: 'Launching soon',
     statusTone: 'development',
     eyebrow: 'EXPRESS ADD-ON',
     title: 'Search, style, and drag icons into Adobe Express.',
@@ -546,7 +546,7 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     platform: 'Obsidian',
     icon: 'gem',
     mark: 'OB',
-    status: 'Development build',
+    status: 'Launching soon',
     statusTone: 'development',
     eyebrow: 'PORTABLE NOTE ASSETS',
     title: 'Place styled SVG icons into Obsidian notes.',
@@ -576,11 +576,16 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
 
 export function createIntegrationMetadata(config: IntegrationConfig): Metadata {
   const iconCount = SEARCHABLE_ICON_COUNT.toLocaleString('en-US')
-  const description = `${config.description} Search ${iconCount} icons from ${NAMED_LIBRARY_COUNT} open-source libraries without leaving ${config.platform}.`
+  const isLive = config.status === 'Marketplace live'
+  const description = isLive
+    ? `${config.description} Search ${iconCount} icons from ${NAMED_LIBRARY_COUNT} open-source libraries without leaving ${config.platform}.`
+    : `IconSearch for ${config.platform} is launching soon. Search and customize ${iconCount} icons from ${NAMED_LIBRARY_COUNT} open-source libraries on IconSearch while we prepare the public release.`
   const socialImage = config.socialImage || DEFAULT_OG_IMAGE
 
   return createPageMetadata({
-    title: `IconSearch ${config.name} — Search and Insert Free SVG Icons`,
+    title: isLive
+      ? `IconSearch ${config.name} — Search and Insert Free SVG Icons`
+      : `IconSearch ${config.name} — Launching Soon`,
     description,
     path: `/${config.slug}`,
     image: socialImage,
