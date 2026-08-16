@@ -8,6 +8,7 @@ import {
   Feather,
   Layers3,
   Orbit,
+  Quote,
   Search,
   ShieldCheck,
   Sparkles,
@@ -43,6 +44,13 @@ type ProductPath = {
   action: string
 }
 
+type Testimonial = {
+  name: string
+  role: string
+  initials: string
+  quote: string
+}
+
 const featuredSlugs = [
   'lucide-icons',
   'heroicons',
@@ -76,6 +84,39 @@ const productPaths: ProductPath[] = [
     title: 'Explore all libraries',
     description: 'Browse the complete catalog of open-source icon sets with live preview and customizer.',
     action: 'Browse catalog',
+  },
+]
+
+const testimonials: Testimonial[] = [
+  {
+    name: 'Marcus Vance',
+    role: 'Senior UI/UX Designer',
+    initials: 'MV',
+    quote: 'Iconsearch.info has completely eliminated the need to keep ten different icon library tabs open while I design. The ability to instantly copy raw SVG code straight into Figma saves me hours of tedious downloading during high-fidelity wireframing.',
+  },
+  {
+    name: 'Elena Rostova',
+    role: 'Lead Frontend Engineer',
+    initials: 'ER',
+    quote: 'Finding cohesive open-source icon sets for React components used to be a chore. This platform maps out exactly what I need across multiple repositories instantly, and the keyword matching is incredibly accurate.',
+  },
+  {
+    name: 'Devon Lane',
+    role: 'Freelance Full-Stack Developer',
+    initials: 'DL',
+    quote: 'The site is lightning fast and completely unbloated. I love that I can filter by style—like line, filled, or duotone—across different creators simultaneously without navigating separate external sites.',
+  },
+  {
+    name: 'Priya Sharma',
+    role: 'Creative Director',
+    initials: 'PS',
+    quote: 'We look for rapid prototyping assets daily. While I would love a built-in color customizer on the site, as a pure aggregator and directory, it is easily the most efficient search tool my design team uses.',
+  },
+  {
+    name: 'Jan De Backer',
+    role: 'Independent Web Creator',
+    initials: 'JB',
+    quote: 'An absolute lifesaver for developers who just want to grab a clean, lightweight icon quickly without downloading an entire bulky zip package. It became my default browser bookmark on day one.',
   },
 ]
 
@@ -244,6 +285,37 @@ export default function HomeExperience({ initialLibraries, recentItems }: HomeEx
               </Link>
             )
           })}
+        </div>
+      </section>
+
+      <section className={styles.testimonialsSection} aria-labelledby="testimonials-heading">
+        <div className={styles.sectionHeader}>
+          <div>
+            <p className={styles.kicker}>FROM PEOPLE BUILDING WITH IT</p>
+            <h2 id="testimonials-heading">Less icon hunting. More making.</h2>
+          </div>
+          <div className={styles.sectionSide}>
+            <p>Designers, engineers, and independent creators share how IconSearch fits into their everyday workflow.</p>
+          </div>
+        </div>
+
+        <div className={styles.testimonialGrid}>
+          {testimonials.map((testimonial, index) => (
+            <figure className={styles.testimonialCard} key={testimonial.name}>
+              <div className={styles.testimonialTop}>
+                <Quote size={19} strokeWidth={1.8} aria-hidden="true" />
+                <span>{String(index + 1).padStart(2, '0')}</span>
+              </div>
+              <blockquote>“{testimonial.quote}”</blockquote>
+              <figcaption className={styles.testimonialMeta}>
+                <span className={styles.testimonialAvatar} aria-hidden="true">{testimonial.initials}</span>
+                <span>
+                  <strong>{testimonial.name}</strong>
+                  <small>{testimonial.role}</small>
+                </span>
+              </figcaption>
+            </figure>
+          ))}
         </div>
       </section>
 
