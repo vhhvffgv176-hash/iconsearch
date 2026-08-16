@@ -64,10 +64,6 @@ export default function AgentGuidePage() {
           Connect once, search by interface intent, retrieve the exact SVG with licence metadata,
           and keep approved decisions in the repository.
         </p>
-        <a className={styles.releaseBanner} href={npmPackageUrl} target="_blank" rel="noopener noreferrer">
-          <span><CheckCircle2 size={17} /> Version {packageVersion} is live on npm under the MIT License</span>
-          View package <ExternalLink size={14} />
-        </a>
       </header>
 
       <div className={styles.layout}>
@@ -259,6 +255,12 @@ export default function AgentGuidePage() {
               <li>In a test repository, approve one icon, save it, and confirm that only <code>iconsearch.json</code> and <code>.iconsearch/icons</code> changed.</li>
               <li>Run <code>iconsearch_audit_project_icons</code> and review the report before committing.</li>
             </ol>
+            <p>
+              Technical verification only: inspect the{' '}
+              <a href={npmPackageUrl} target="_blank" rel="noopener noreferrer">
+                published IconSearch package on npm <ExternalLink size={13} />
+              </a>.
+            </p>
           </GuideSection>
 
           <GuideSection id="troubleshooting" number="10" title="Troubleshooting">
