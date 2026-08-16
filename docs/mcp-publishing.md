@@ -17,12 +17,15 @@ In the Supabase SQL editor, run:
 
 ```text
 supabase/migrations/202608150001_mcp_agent_workflow.sql
+supabase/migrations/202608160001_agent_api_keys.sql
 ```
 
 Then verify:
 
 - `agent_usage_limits` contains rows for `free` and `founder` search/retrieve limits.
 - `record_agent_usage` exists under **Database → Functions**.
+- `agent_api_keys` exists with row-level security enabled and no authenticated-user table grants.
+- `create_agent_api_key` can be executed only by the `service_role`.
 - Anonymous and authenticated database roles cannot execute the function directly.
 - The website's server-side Supabase secret remains configured only in server environment variables.
 

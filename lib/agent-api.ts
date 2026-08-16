@@ -11,7 +11,7 @@ export async function authenticateAgentRequest(request: Request): Promise<
 > {
   const context = await readExtensionSession(request)
   if (!context) {
-    return { ok: false, response: publicJson({ error: 'A valid IconSearch MCP session is required.' }, { status: 401 }) }
+    return { ok: false, response: publicJson({ error: 'A valid IconSearch API key or MCP session is required.' }, { status: 401 }) }
   }
 
   if (context.session.product !== AGENT_PRODUCT) {

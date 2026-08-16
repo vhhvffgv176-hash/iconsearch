@@ -9,10 +9,10 @@ import {
   ExternalLink,
   FileSearch,
   FolderHeart,
+  KeyRound,
   Search,
   ShieldCheck,
   Sparkles,
-  Terminal,
 } from 'lucide-react'
 import { ICONIFY_COLLECTION_COUNT, SEARCHABLE_ICON_COUNT } from '../../data/library-catalog'
 import { createPageMetadata, SITE_URL } from '../../lib/seo'
@@ -25,7 +25,7 @@ const packageVersion = '0.2.0'
 
 export const metadata: Metadata = createPageMetadata({
   title: 'IconSearch MCP for Coding Agents — Available on npm',
-  description: `Install the MIT-licensed IconSearch MCP server for semantic search, exact SVG retrieval, project-native icon memory, and repository audits across ${SEARCHABLE_ICON_COUNT.toLocaleString('en-US')} open-source icons.`,
+  description: `Generate an IconSearch API key and connect coding agents to semantic search, exact SVG retrieval, project-native icon memory, and repository audits across ${SEARCHABLE_ICON_COUNT.toLocaleString('en-US')} open-source icons.`,
   path: '/agents',
 })
 
@@ -82,7 +82,7 @@ export default function AgentsPage() {
           save approved SVGs with your code, and keep every screen visually consistent.
         </p>
         <div className={styles.actions}>
-          <Link className={styles.primaryAction} href="#install">Install the MCP server <ArrowRight size={17} /></Link>
+          <Link className={styles.primaryAction} href="/account#api-keys">Generate API key <ArrowRight size={17} /></Link>
           <Link className={styles.secondaryAction} href="/docs/agents">Read the setup guide</Link>
           <a className={styles.secondaryAction} href={npmPackageUrl} target="_blank" rel="noopener noreferrer">
             View npm package <ExternalLink size={15} />
@@ -136,7 +136,7 @@ export default function AgentsPage() {
           <CopyInstallCommand command={installCommand} />
           <p>
             Published on npm as <a href={npmPackageUrl} target="_blank" rel="noopener noreferrer">@iconsearch/mcp-server</a> under the MIT License.
-            Requires Node.js 20 or newer. Account connection uses a revocable browser device flow—no API key needs to be committed.
+            Requires Node.js 20 or newer. Generate a revocable API key from your account, keep it out of your repository, and use it to connect your agent.
           </p>
         </div>
       </section>
@@ -165,7 +165,7 @@ export default function AgentsPage() {
           <h2>Give your coding agent better visual judgment.</h2>
         </div>
         <div className={styles.actions}>
-          <Link className={styles.primaryAction} href="#install"><Terminal size={17} /> Install now</Link>
+          <Link className={styles.primaryAction} href="/account#api-keys"><KeyRound size={17} /> Generate API key</Link>
           <Link className={styles.darkSecondaryAction} href="/docs/agents"><Braces size={17} /> Open guide</Link>
         </div>
       </section>

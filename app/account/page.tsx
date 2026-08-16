@@ -3,7 +3,7 @@ import AccountClient from './AccountClient'
 
 export const metadata: Metadata = {
   title: 'Your IconSearch Account',
-  description: 'Manage IconSearch product access and connected extension sessions.',
+  description: 'Generate and revoke IconSearch Agent API keys, and manage product access.',
   robots: { index: false, follow: false },
 }
 

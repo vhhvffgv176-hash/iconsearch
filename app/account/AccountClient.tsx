@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import type { User } from '@supabase/supabase-js'
 import AuthModal from '@/app/components/AuthModal'
 import { createClient } from '@/lib/supabase'
+import ApiKeyPanel from './ApiKeyPanel'
 
 type Entitlement = {
   id: string
@@ -85,7 +86,7 @@ export default function AccountClient() {
   }
 
   return (
-    <main style={{ maxWidth: '900px', margin: '0 auto', padding: '56px 32px', minHeight: '70vh' }}>
+    <main id="api-keys" style={{ maxWidth: '900px', margin: '0 auto', padding: '56px 32px', minHeight: '70vh', scrollMarginTop: '32px' }}>
       <div style={{ color: 'var(--accent)', fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', letterSpacing: '0.16em', marginBottom: '12px' }}>
         {'// ACCOUNT'}
       </div>
@@ -95,9 +96,9 @@ export default function AccountClient() {
         <p style={{ color: 'var(--text-muted)' }}>Loading account...</p>
       ) : !user ? (
         <div style={cardStyle}>
-          <h2 style={{ marginTop: 0 }}>Sign in to view your products</h2>
+          <h2 style={{ marginTop: 0 }}>Sign in to generate your API key</h2>
           <p style={{ color: 'var(--text-muted)', lineHeight: 1.7 }}>
-            One account connects the website, VS Code extension, Figma plugin, Chrome extension, Framer plugin, Raycast extension, MCP server, JetBrains plugin, Storybook addon, Canva app, and Tailwind plugin.
+            Your API key is the private pass that connects a coding agent to IconSearch. The same account also manages your other IconSearch products.
           </p>
           <button suppressHydrationWarning type="button" onClick={() => setShowAuth(true)} style={buttonStyle}>
             Sign in or sign up
@@ -112,6 +113,8 @@ export default function AccountClient() {
             </div>
             <button suppressHydrationWarning type="button" onClick={signOut} style={secondaryButtonStyle}>Sign out</button>
           </div>
+
+          <ApiKeyPanel />
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px', marginTop: '18px' }}>
             {products.map((product) => {

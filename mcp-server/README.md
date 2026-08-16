@@ -10,11 +10,15 @@ Give coding agents semantic icon search, exact SVG retrieval, project-native ico
 
 ## Install in Codex
 
+Generate an API key at <https://iconsearch.info/account#api-keys>, then run the ready-made command shown by the account page. Its shape is:
+
 ```bash
-codex mcp add iconsearch -- npx -y @iconsearch/mcp-server
+codex mcp add iconsearch --env ICONSEARCH_TOKEN=YOUR_API_KEY -- npx -y @iconsearch/mcp-server
 ```
 
-Restart Codex and call `iconsearch_status`. If the server is disconnected:
+Keep the key out of repositories, screenshots, and messages. Restart Codex and call `iconsearch_status`.
+
+Browser device sign-in remains available as an alternative. If the server is disconnected and no API key is configured:
 
 1. Call `iconsearch_start_sign_in`.
 2. Open the returned verification URL and approve access.

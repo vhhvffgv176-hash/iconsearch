@@ -176,10 +176,14 @@ Editor. The first migration creates product counters, atomic first-500 Founder
 claims, short-lived device codes, hashed extension sessions, usage tables,
 audit events, and row-level-security policies.
 
-The agent workflow additionally requires
-`supabase/migrations/202608150001_mcp_agent_workflow.sql`. It adds database-backed
-daily search/retrieval limits and the service-role-only `record_agent_usage`
-function used by the versioned Agent API.
+The agent workflow additionally requires these migrations in order:
+
+1. `supabase/migrations/202608150001_mcp_agent_workflow.sql` adds database-backed
+   daily search/retrieval limits and the service-role-only `record_agent_usage`
+   function used by the versioned Agent API.
+2. `supabase/migrations/202608160001_agent_api_keys.sql` adds user-managed,
+   hashed, expiring API keys. Key records have RLS enabled and are accessible
+   only to the website's service-role routes.
 
 If email/password signup shows `Database error saving new user`, apply the
 latest migrations again. That error usually means Supabase Auth reached the
@@ -435,7 +439,7 @@ This project is connected to Vercel and deploys from the `main` branch (or your 
 3. **Domain:** `iconsearch.info` (Settings → Domains)
 4. **Supabase redirect URLs** include production domain (see [Supabase setup](#supabase-setup-auth--cloud-sync))
 5. **Canonical icon DB** is committed — no build-step required for search data
-6. **Agent API migration** `202608150001_mcp_agent_workflow.sql` is applied before the MCP package is published
+6. **Agent API migrations** `202608150001_mcp_agent_workflow.sql` and `202608160001_agent_api_keys.sql` are applied before enabling account key generation
 
 ### Build command
 
@@ -498,6 +502,7 @@ Vercel runs this automatically. The icon gzip file is included in the deployment
 - [ ] Distributed rate limiting (Vercel KV / Upstash)
 - [ ] Publish the authenticated Figma and VS Code marketplace builds
 - [x] Apply the production agent migration, deploy the Agent API, and publish `@iconsearch/mcp-server@0.2.0`
+- [x] Add secure, user-managed Agent API key generation and revocation
 
 ---
 
