@@ -112,4 +112,4 @@ Publication is intentionally separate from the source build. Maintainers should 
 
 ## Licence
 
-This package is currently distributed as `UNLICENSED`. Publishing it does not grant permission to copy or modify its source beyond rights provided separately by IconSearch.
+This package is distributed under the [MIT License](./LICENSE). Icon data returned by the service remains subject to each source collection's own licence and attribution requirements.

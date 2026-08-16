@@ -4,10 +4,10 @@ This checklist keeps database, website API, and package publication in the corre
 
 ## 1. Prepare npm ownership
 
-1. Create or confirm the `iconsearch` organization on npm.
+1. Create or confirm the `iconsearch` npm account or organization.
 2. Confirm your npm user can publish packages in the `@iconsearch` scope.
 3. Enable two-factor authentication on the maintainer account.
-4. Decide whether the source remains `UNLICENSED` or add an approved software licence before publication.
+4. Confirm the package is distributed under the MIT License.
 
 The package name cannot be published unless the npm account owns or belongs to the `@iconsearch` scope.
 

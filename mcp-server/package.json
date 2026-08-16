@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "type": "module",
   "description": "Project-aware icon search, SVG retrieval, memory, and repository audits for MCP coding agents.",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "homepage": "https://iconsearch.info/agents",
   "repository": {
     "type": "git",
@@ -26,7 +26,8 @@
   },
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
