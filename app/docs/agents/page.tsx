@@ -6,10 +6,27 @@ import { createPageMetadata } from '../../../lib/seo'
 import styles from './agents-docs.module.css'
 
 const apiKeyInstallCommand = 'codex mcp add iconsearch --env ICONSEARCH_TOKEN=YOUR_API_KEY -- npx -y @iconsearch/mcp-server'
+const codexCheckCommands = `codex --version
+codex mcp list`
+const windowsNpxLookupCommand = 'where.exe npx'
+const windowsOpenConfigCommand = `New-Item -ItemType Directory -Force "$env:USERPROFILE\\.codex" | Out-Null
+notepad "$env:USERPROFILE\\.codex\\config.toml"`
+const windowsCodexConfig = `[mcp_servers.iconsearch]
+command = "C:/Program Files/nodejs/npx.cmd"
+args = ["-y", "@iconsearch/mcp-server"]
+
+[mcp_servers.iconsearch.env]
+ICONSEARCH_TOKEN = "PASTE_YOUR_NEW_KEY_HERE"`
+const portableCodexConfig = `[mcp_servers.iconsearch]
+command = "npx"
+args = ["-y", "@iconsearch/mcp-server"]
+
+[mcp_servers.iconsearch.env]
+ICONSEARCH_TOKEN = "PASTE_YOUR_NEW_KEY_HERE"`
+const readOnlyTestPrompt = 'Use IconSearch to find five icons for settings navigation. Do not change any files.'
 const npmPackageUrl = 'https://www.npmjs.com/package/@iconsearch/mcp-server'
 const packageVersion = '0.2.0'
-const verificationCommands = `npm view @iconsearch/mcp-server version license
-codex mcp list`
+const verificationCommands = 'npm view @iconsearch/mcp-server version license'
 const genericConfig = `{
   "mcpServers": {
     "iconsearch": {
@@ -57,6 +74,7 @@ export default function AgentGuidePage() {
         <nav className={styles.toc} aria-label="Guide sections">
           <strong>On this page</strong>
           <a href="#quickstart">Quickstart</a>
+          <a href="#codex-setup">Codex setup options</a>
           <a href="#how-it-works">How it works</a>
           <a href="#other-clients">Other MCP clients</a>
           <a href="#workflow">Recommended workflow</a>
@@ -68,27 +86,99 @@ export default function AgentGuidePage() {
         </nav>
 
         <article className={styles.content}>
-          <GuideSection id="quickstart" number="01" title="Generate a key and connect Codex">
+          <GuideSection id="quickstart" number="01" title="Generate your private API key">
             <p>
               Requirements: Node.js 20 or newer, an MCP-capable Codex installation, and an IconSearch account.
-              First <Link href="/account#api-keys">generate an API key from your account</Link>. IconSearch shows the complete key once and gives you a ready-to-copy setup command.
+              First <Link href="/account#api-keys">generate an API key from your account</Link>. IconSearch shows the complete key only once and gives you a ready-to-copy setup command.
             </p>
-            <CodeBlock value={apiKeyInstallCommand} />
             <ol>
               <li>Sign in on the account page and press <strong>Generate API key</strong>.</li>
-              <li>Copy the complete setup command shown beside the new key and run it in your terminal.</li>
-              <li>Restart Codex, then ask it to call <code>iconsearch_status</code>.</li>
-              <li>Run <code>codex mcp list</code> if you need to confirm the server configuration.</li>
+              <li>Copy the new key immediately. It begins with <code>ics_live_</code>.</li>
+              <li>Choose one Codex setup option below. You do not need to use both.</li>
             </ol>
             <p className={styles.note}>
-              Keep the key private. Do not put it in your repository, screenshots, or messages. Codex stores MCP configuration in <code>~/.codex/config.toml</code>. See the{' '}
+              Treat the key like a password. Never put it in a project, GitHub commit, screenshot, chat message, or support ticket.
+            </p>
+          </GuideSection>
+
+          <GuideSection id="codex-setup" number="02" title="Connect Codex — choose one setup option">
+            <p>
+              Both options create the same global Codex connection. Set it up once on each computer, not once for every project.
+              You only need to edit it later if you replace or revoke the API key.
+            </p>
+
+            <div className={styles.methodCard}>
+              <span className={styles.methodLabel}>Option A · easiest when the Codex CLI works</span>
+              <h3>Use one command in PowerShell or Terminal</h3>
+              <p>
+                Use this option only when your computer recognizes the <code>codex</code> command. Run these commands in the Windows
+                PowerShell app, macOS Terminal, or your IDE terminal — not inside a Codex chat.
+              </p>
+              <ol>
+                <li>Open PowerShell or Terminal.</li>
+                <li>Run <code>codex --version</code>. If you see a version number, continue. If you see “not recognized,” use Option B.</li>
+                <li>Copy the complete command from your IconSearch account. It already contains your real key. If you use the example below, replace <code>YOUR_API_KEY</code>.</li>
+              </ol>
+              <CodeBlock label="PowerShell or Terminal" value={apiKeyInstallCommand} />
+              <ol start={4}>
+                <li>Run <code>codex mcp list</code>. The list should contain <code>iconsearch</code>.</li>
+                <li>Fully close Codex, including every open Codex window, then reopen it.</li>
+                <li>Start a new task, type <code>/mcp</code>, and confirm IconSearch appears.</li>
+              </ol>
+              <CodeBlock label="Optional checks" value={codexCheckCommands} />
+            </div>
+
+            <div className={styles.methodCard}>
+              <span className={styles.methodLabel}>Option B · use when “codex is not recognized”</span>
+              <h3>Edit the global Codex config file</h3>
+              <p>
+                This is the reliable Windows setup for the Codex desktop app. The file belongs to Codex on your computer;
+                it does not belong inside your website or another project.
+              </p>
+              <ol>
+                <li>Open Windows PowerShell.</li>
+                <li>Find the exact Node.js launcher path by running the command below. Use the result ending in <code>npx.cmd</code>.</li>
+              </ol>
+              <CodeBlock label="Windows PowerShell" value={windowsNpxLookupCommand} />
+              <ol start={3}>
+                <li>Open the global Codex configuration file with this command. If Notepad asks to create it, choose <strong>Yes</strong>.</li>
+              </ol>
+              <CodeBlock label="Windows PowerShell" value={windowsOpenConfigCommand} />
+              <ol start={4}>
+                <li>Keep any settings already in the file. Add the block below at the end.</li>
+                <li>Replace <code>PASTE_YOUR_NEW_KEY_HERE</code> with the complete key from your IconSearch account.</li>
+                <li>If <code>where.exe npx</code> showed a different location, replace the <code>command</code> path. Use forward slashes inside TOML.</li>
+              </ol>
+              <CodeBlock label="Windows · ~/.codex/config.toml" value={windowsCodexConfig} />
+              <p className={styles.note}>
+                This local config file now contains your private key. Do not upload, sync, share, or commit the file.
+              </p>
+              <ol start={7}>
+                <li>Make sure the file contains only one <code>[mcp_servers.iconsearch]</code> block, then save it.</li>
+                <li>Fully close every Codex window and reopen Codex. Configuration is loaded when Codex starts.</li>
+                <li>Start a new task, type <code>/mcp</code>, and confirm IconSearch appears.</li>
+              </ol>
+
+              <h3>macOS or Linux manual config</h3>
+              <p>
+                Open <code>~/.codex/config.toml</code> in a text editor and append this version. On these systems the command is normally just <code>npx</code>.
+              </p>
+              <CodeBlock label="macOS or Linux · ~/.codex/config.toml" value={portableCodexConfig} />
+            </div>
+
+            <h3>Safe first test</h3>
+            <p>In a new Codex task, paste this prompt. It searches only and explicitly prevents file changes:</p>
+            <CodeBlock label="Codex task" value={readOnlyTestPrompt} />
+            <p className={styles.note}>
+              Codex desktop, Codex CLI, and the Codex IDE extension share the global <code>~/.codex/config.toml</code> on the same computer.
+              Do not add this block to every repository. See the{' '}
               <a href="https://developers.openai.com/codex/mcp/" target="_blank" rel="noreferrer">
                 official Codex MCP documentation <ExternalLink size={13} />
               </a>.
             </p>
           </GuideSection>
 
-          <GuideSection id="how-it-works" number="02" title="How the system works">
+          <GuideSection id="how-it-works" number="03" title="How the system works">
             <div className={styles.flowGrid}>
               <FlowItem title="1. Codex starts IconSearch">The npm package runs locally and tells Codex which icon tools are available.</FlowItem>
               <FlowItem title="2. Your key proves access">The private API key identifies your account. It can be revoked from the account page at any time.</FlowItem>
@@ -97,7 +187,7 @@ export default function AgentGuidePage() {
             </div>
           </GuideSection>
 
-          <GuideSection id="other-clients" number="03" title="Configure another MCP client">
+          <GuideSection id="other-clients" number="04" title="Configure another MCP client">
             <p>Use this standard stdio configuration when your client accepts JSON MCP server settings:</p>
             <CodeBlock value={genericConfig} />
             <p>
@@ -107,7 +197,7 @@ export default function AgentGuidePage() {
             </p>
           </GuideSection>
 
-          <GuideSection id="workflow" number="04" title="Use the project-aware workflow">
+          <GuideSection id="workflow" number="05" title="Use the project-aware workflow">
             <ol>
               <li>Read <code>iconsearch_get_project_icons</code> before choosing a new icon.</li>
               <li>Reuse an existing semantic assignment when it already represents the requested purpose.</li>
@@ -117,7 +207,7 @@ export default function AgentGuidePage() {
             </ol>
           </GuideSection>
 
-          <GuideSection id="tools" number="05" title="All ten available tools">
+          <GuideSection id="tools" number="06" title="All ten available tools">
             <div className={styles.toolList}>
               <Tool name="iconsearch_start_sign_in">Start the secure browser device sign-in flow.</Tool>
               <Tool name="iconsearch_finish_sign_in">Finish an approved sign-in and store the revocable local session.</Tool>
@@ -132,7 +222,7 @@ export default function AgentGuidePage() {
             </div>
           </GuideSection>
 
-          <GuideSection id="project-manifest" number="06" title="Project manifest">
+          <GuideSection id="project-manifest" number="07" title="Project manifest">
             <p>
               The first save creates <code>iconsearch.json</code> and stores sanitized files under{' '}
               <code>.iconsearch/icons</code>. Commit both so teammates and agents share the same decisions.
@@ -144,7 +234,7 @@ export default function AgentGuidePage() {
             </p>
           </GuideSection>
 
-          <GuideSection id="security" number="07" title="Security model">
+          <GuideSection id="security" number="08" title="Security model">
             <div className={styles.securityGrid}>
               <SecurityItem title="Bounded writes">The save tool writes only the manifest and managed SVG directory inside a validated project root.</SecurityItem>
               <SecurityItem title="Symlink protection">Reads, writes, and audits refuse symlink traversal and filesystem-root projects.</SecurityItem>
@@ -158,11 +248,11 @@ export default function AgentGuidePage() {
             </p>
           </GuideSection>
 
-          <GuideSection id="verification" number="08" title="Verify that everything is working">
+          <GuideSection id="verification" number="09" title="Verify that everything is working">
             <CodeBlock value={verificationCommands} />
             <ol>
               <li>The npm command should report version <code>{packageVersion}</code> and licence <code>MIT</code>.</li>
-              <li><code>codex mcp list</code> should include a server named <code>iconsearch</code>.</li>
+              <li>If you used Option A, <code>codex mcp list</code> should include a server named <code>iconsearch</code>. If you used Option B, check with <code>/mcp</code> in a new Codex task.</li>
               <li>Ask Codex to call <code>iconsearch_status</code>; it should report <code>connected: true</code> without showing your key.</li>
               <li>Ask for “billing history.” Search should return relevant candidates such as a receipt or history icon.</li>
               <li>Return to your account page. The key should now say <strong>Last used</strong> with a recent date.</li>
@@ -171,10 +261,14 @@ export default function AgentGuidePage() {
             </ol>
           </GuideSection>
 
-          <GuideSection id="troubleshooting" number="09" title="Troubleshooting">
+          <GuideSection id="troubleshooting" number="10" title="Troubleshooting">
             <dl className={styles.faq}>
+              <dt>PowerShell says <code>codex</code> is not recognized.</dt>
+              <dd>The Codex CLI is not available in that terminal. Use the manual global config in Option B; the desktop app can still load IconSearch from that file.</dd>
               <dt>The <code>npx</code> command is missing or fails to start.</dt>
               <dd>Install Node.js 20 or newer, reopen the terminal, and run the install command again.</dd>
+              <dt>IconSearch does not appear after I changed <code>config.toml</code>.</dt>
+              <dd>Check for duplicate IconSearch blocks or a wrong <code>npx.cmd</code> path, save the file, fully exit Codex, and start a new task after reopening it.</dd>
               <dt>The server says the Agent API is not configured.</dt>
               <dd>The production Supabase project is missing the latest agent-usage migration. Apply it, then redeploy the website.</dd>
               <dt>Search says authentication is required.</dt>
@@ -195,10 +289,10 @@ function GuideSection({ id, number, title, children }: { id: string; number: str
   return <section className={styles.section} id={id}><span>{number}</span><h2>{title}</h2>{children}</section>
 }
 
-function CodeBlock({ value }: { value: string }) {
+function CodeBlock({ value, label }: { value: string; label?: string }) {
   return (
     <div className={styles.codeBlock}>
-      <div className={styles.codeBar}><Terminal size={14} /><span>{value.startsWith('{') ? 'configuration' : 'terminal'}</span></div>
+      <div className={styles.codeBar}><Terminal size={14} /><span>{label ?? (value.startsWith('{') ? 'configuration' : 'terminal')}</span></div>
       <pre><code>{value}</code></pre>
     </div>
   )
