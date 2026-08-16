@@ -50,14 +50,13 @@ export function getIconSourceSet(library: string) {
   return sourceSetsById.get(getIconSourceSetId(library))
 }
 
-export function enrichExtensionIcon(icon: Record<string, unknown>) {
+export function enrichExtensionIcon(icon: Record<string, unknown>, baseUrl?: string) {
   const library = typeof icon.library === 'string' ? icon.library : ''
   const name = typeof icon.name === 'string' ? icon.name : ''
   const sourceSet = getIconSourceSet(library)
   if (!sourceSet) return icon
 
   const safeIcon = { ...icon }
-  delete safeIcon.legalSafe
   const licenseNotice = [
     `${sourceSet.name} by ${sourceSet.authorName}.`,
     `License: ${sourceSet.license}.`,
@@ -79,6 +78,7 @@ export function enrichExtensionIcon(icon: Record<string, unknown>) {
     name && sourceSet.id
       ? `/api/svg/${encodeURIComponent(sourceSet.id)}/${encodeURIComponent(name.replace(/\.svg$/i, ''))}`
       : ''
+  const publicSvgUrl = publicSvgPath && baseUrl ? new URL(publicSvgPath, baseUrl).toString() : publicSvgPath
   const internalId = typeof icon.id === 'string' ? icon.id : `${library}:${name}`
 
   return {
@@ -96,10 +96,11 @@ export function enrichExtensionIcon(icon: Record<string, unknown>) {
     usageRequirements: sourceSet.usageRequirements,
     commercialUseAllowed: sourceSet.commercialUseAllowed,
     exportAllowed: sourceSet.exportAllowed,
+    legalSafe: sourceSet.commercialUseAllowed && sourceSet.exportAllowed,
     npmPackage: usesCatalogRuntime ? undefined : icon.npmPackage,
     reactImport: usesCatalogRuntime ? undefined : icon.reactImport,
     reactUsage: usesCatalogRuntime ? undefined : icon.reactUsage,
-    svgUrl: publicSvgPath || icon.svgUrl,
-    previewUrls: publicSvgPath ? [publicSvgPath] : icon.previewUrls,
+    svgUrl: publicSvgUrl || icon.svgUrl,
+    previewUrls: publicSvgUrl ? [publicSvgUrl] : icon.previewUrls,
   }
 }

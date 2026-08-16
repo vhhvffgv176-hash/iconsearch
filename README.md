@@ -176,6 +176,11 @@ Editor. The first migration creates product counters, atomic first-500 Founder
 claims, short-lived device codes, hashed extension sessions, usage tables,
 audit events, and row-level-security policies.
 
+The agent workflow additionally requires
+`supabase/migrations/202608150001_mcp_agent_workflow.sql`. It adds database-backed
+daily search/retrieval limits and the service-role-only `record_agent_usage`
+function used by the versioned Agent API.
+
 If email/password signup shows `Database error saving new user`, apply the
 latest migrations again. That error usually means Supabase Auth reached the
 `auth.users` insert but the `public.handle_new_user()` profile trigger failed.
@@ -408,6 +413,8 @@ Export formats in ZIP: `svg/`, `png/`, `react/`, `vue/`, `tailwind-html/`, `spri
 | `/stats` | Site statistics |
 | `/licenses` | License guide |
 | `/directory` | Full site directory |
+| `/agents` | IconSearch for coding agents and MCP install |
+| `/docs/agents` | MCP setup, project memory, tools, and security guide |
 | `/about`, `/contact`, `/privacy-policy`, `/terms` | Legal & contact |
 
 ---
@@ -428,6 +435,7 @@ This project is connected to Vercel and deploys from the `main` branch (or your 
 3. **Domain:** `iconsearch.info` (Settings → Domains)
 4. **Supabase redirect URLs** include production domain (see [Supabase setup](#supabase-setup-auth--cloud-sync))
 5. **Canonical icon DB** is committed — no build-step required for search data
+6. **Agent API migration** `202608150001_mcp_agent_workflow.sql` is applied before the MCP package is published
 
 ### Build command
 
@@ -449,6 +457,8 @@ Vercel runs this automatically. The icon gzip file is included in the deployment
 | `npm run lint` | Run ESLint |
 | `npm run build:icons` | Extract icons from npm packages → `data/icon-search.json` |
 | `node scripts/merge-and-canonicalize.js` | Merge local + Iconify → canonical `.gz` (manual) |
+| `cd mcp-server && npm test` | Run MCP protocol, project-memory, audit, and SVG safety tests |
+| `cd mcp-server && npm run check:pack` | Build and inspect the publishable npm package |
 
 ---
 
@@ -466,8 +476,8 @@ Vercel runs this automatically. The icon gzip file is included in the deployment
 
 ## Known limitations
 
-- **No automated tests** — manual QA only
-- **No CI/CD workflows** in `.github/`
+- Automated coverage currently focuses on the MCP server; the wider website still relies on lint, production builds, and browser smoke tests
+- The MCP package has an OIDC trusted-publishing workflow; the website continues to deploy through the configured Vercel integration
 - Supabase migrations are versioned in `supabase/migrations/`
 - **Freemium / Stripe not implemented** — all export formats available to everyone
 - **Rate limiting is in-memory** — not shared across Vercel serverless instances
@@ -487,6 +497,7 @@ Vercel runs this automatically. The icon gzip file is included in the deployment
 - [ ] Favicon asset (`favicon.svg` referenced in JSON-LD but missing from repo)
 - [ ] Distributed rate limiting (Vercel KV / Upstash)
 - [ ] Publish the authenticated Figma and VS Code marketplace builds
+- [ ] Apply the production agent migration, deploy the Agent API, and publish `@iconsearch/mcp-server`
 
 ---
 

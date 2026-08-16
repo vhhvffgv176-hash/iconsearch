@@ -1,9 +1,26 @@
 {
   "name": "@iconsearch/mcp-server",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.2.0",
   "type": "module",
-  "description": "MCP server for searching IconSearch and generating icon snippets.",
+  "description": "Project-aware icon search, SVG retrieval, memory, and repository audits for MCP coding agents.",
+  "license": "UNLICENSED",
+  "homepage": "https://iconsearch.info/agents",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vhhvffgv176-hash/iconsearch.git",
+    "directory": "mcp-server"
+  },
+  "bugs": {
+    "url": "https://github.com/vhhvffgv176-hash/iconsearch/issues"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "icons",
+    "svg",
+    "design-system",
+    "codex"
+  ],
   "bin": {
     "iconsearch-mcp": "./dist/index.js"
   },
@@ -14,7 +31,17 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsx src/index.ts",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "test": "tsx --test src/project/project.test.ts src/server.test.ts src/session.test.ts",
+    "check:pack": "npm pack --dry-run",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm test && npm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.0",

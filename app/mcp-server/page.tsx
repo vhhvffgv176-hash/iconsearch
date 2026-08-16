@@ -1,9 +1,5 @@
-import IntegrationPage from '../components/integrations/IntegrationPage'
-import { createIntegrationMetadata, integrationCatalog } from '../components/integrations/integration-catalog'
-
-const config = integrationCatalog['mcp-server']
-export const metadata = createIntegrationMetadata(config)
+import { permanentRedirect } from 'next/navigation'
 
 export default function McpServerPage() {
-  return <IntegrationPage config={config} />
+  permanentRedirect('/agents')
 }

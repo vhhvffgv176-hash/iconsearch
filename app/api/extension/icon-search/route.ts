@@ -28,7 +28,7 @@ export async function GET(request: Request) {
   }
 
   const searchUrl = new URL(request.url)
-  searchUrl.searchParams.set('legalOnly', '0')
+  if (!searchUrl.searchParams.has('legalOnly')) searchUrl.searchParams.set('legalOnly', '1')
   const response = await searchIcons(
     new Request(searchUrl, {
       method: 'GET',
@@ -57,7 +57,7 @@ export async function GET(request: Request) {
   return publicJson({
     ...payload,
     icons: Array.isArray(payload.icons)
-      ? payload.icons.map((icon) => (isRecord(icon) ? enrichExtensionIcon(icon) : icon))
+      ? payload.icons.map((icon) => (isRecord(icon) ? enrichExtensionIcon(icon, request.url) : icon))
       : [],
     facets,
     catalogStats,

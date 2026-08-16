@@ -14,6 +14,12 @@ import {
   ICON_SOURCE_SET_COUNT,
   ICON_SOURCE_SET_OPTIONS,
 } from '../../../lib/icon-source-sets'
+import {
+  buildIconSearchIntent,
+  describeIconSearchIntent,
+  iconMatchesIntent,
+  scoreIconIntent,
+} from '../../../lib/icon-intent'
 
 const LIBRARY_OPTIONS = allLibraries
   .map(({ id, name }) => ({ id, name }))
@@ -282,6 +288,7 @@ export async function GET(request: Request) {
   const defaultLimit = idsParam ? 200 : 80
   const limit = parseInt(searchParams.get('limit') || String(defaultLimit), 10)
   const sort = searchParams.get('sort') || 'relevance'
+  const searchIntent = buildIconSearchIntent(query)
 
   const allIcons = loadIcons()
 
@@ -429,38 +436,19 @@ export async function GET(request: Request) {
     
     // 4. Search Query Filter
     if (query) {
-      const qParts = query.split(/\s+/).filter(Boolean)
-      filtered = filtered.filter(icon => {
-        const name = icon.name.toLowerCase()
-        const tags = icon.tags ? icon.tags.map((t: string) => t.toLowerCase()) : []
-        return qParts.every(part => name.includes(part) || tags.some((t: string) => t.includes(part)))
-      })
+      filtered = filtered.filter((icon) => iconMatchesIntent(icon, searchIntent))
     }
   }
 
   // 5. Sorting
   if (sort === 'relevance' && query) {
+    const intentScores = new Map(filtered.map((icon) => [icon, scoreIconIntent(icon, searchIntent)]))
     filtered.sort((a, b) => {
-      const aName = a.name.toLowerCase()
-      const bName = b.name.toLowerCase()
-      
-      // 1. Exact Match
-      if (aName === query && bName !== query) return -1
-      if (bName === query && aName !== query) return 1
-      
-      // 2. Starts with Match
-      const aStarts = aName.startsWith(query)
-      const bStarts = bName.startsWith(query)
-      if (aStarts && !bStarts) return -1
-      if (bStarts && !aStarts) return 1
-      
-      // 3. Shorter name length (closer match)
-      if (aStarts && bStarts) {
-        return aName.length - bName.length
-      }
-      
-      // 4. Default Alphabetical
-      return aName.localeCompare(bName)
+      const scoreDifference = (intentScores.get(b) || 0) - (intentScores.get(a) || 0)
+      if (scoreDifference !== 0) return scoreDifference
+      const popularityDifference = (LIBRARY_POPULARITY[b.library] || 0) - (LIBRARY_POPULARITY[a.library] || 0)
+      if (popularityDifference !== 0) return popularityDifference
+      return a.name.localeCompare(b.name)
     })
   } else if (sort === 'popular') {
     // Since we are sorting, prevent mutating the global memory cache if no filters were applied
@@ -501,6 +489,10 @@ export async function GET(request: Request) {
       iconifyIcons: ICONIFY_ICON_COUNT,
       iconifyCollections: ICONIFY_COLLECTION_COUNT,
       sourceSets: ICON_SOURCE_SET_COUNT,
+    },
+    query: {
+      raw: query,
+      interpretedAs: describeIconSearchIntent(searchIntent),
     },
     facets: {
       libraries: facets?.libraries || [],

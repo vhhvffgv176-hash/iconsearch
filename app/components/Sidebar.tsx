@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import type { User } from '@supabase/supabase-js'
-import { Bookmark, Home, KeyRound, List, LogIn, Search, UserCheck } from 'lucide-react'
+import { Bookmark, Bot, Home, List, LogIn, Search, UserCheck } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import { createClient } from '@/lib/supabase'
 import { allLibraries, namedLibraries } from '../../data/library-catalog'
@@ -14,6 +14,7 @@ const AuthModal = dynamic(() => import('./AuthModal'), { ssr: false })
 
 
 const navLinks = [
+  { label: 'Icons for agents', href: '/agents', Icon: Bot, color: '#34d399' },
   { label: 'Home', href: '/', Icon: Home, color: '#9aa8ff' },
   { label: 'Search', href: '/icon-search', Icon: Search, color: '#53c9ff' },
   { label: 'Browse', href: '/free-svg-icons', Icon: List, color: '#50d3a2' },
@@ -32,7 +33,6 @@ const integrationLinks = [
   { label: 'Google Slides add-on', href: '/google-slides-addon', iconSrc: '/integration-logos/google-slides.svg' },
   { label: 'Raycast extension', href: '/raycast-extension', iconSrc: '/integration-logos/raycast.svg' },
   { label: 'Tailwind plugin', href: '/tailwind-plugin', iconSrc: '/integration-logos/tailwind.svg' },
-  { label: 'MCP server', href: '/mcp-server', iconSrc: '/integration-logos/mcp.svg' },
   { label: 'JetBrains plugin', href: '/jetbrains-plugin', iconSrc: '/integration-logos/jetbrains.svg' },
   { label: 'Storybook addon', href: '/storybook-addon', iconSrc: '/integration-logos/storybook.svg' },
   { label: 'Canva app', href: '/canva-app', iconSrc: '/integration-logos/canva.svg' },
@@ -46,7 +46,6 @@ export default function Sidebar() {
   const pathname = usePathname()
   const router = useRouter()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [iconifySets, setIconifySets] = useState<string[]>([])
   const [user, setUser] = useState<User | null>(null)
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
 
@@ -68,20 +67,6 @@ export default function Sidebar() {
     const timer = window.setTimeout(() => setMobileOpen(false), 0)
     return () => window.clearTimeout(timer)
   }, [pathname])
-
-  const [hasFetchedSets, setHasFetchedSets] = useState(false)
-
-  const fetchIconifySets = () => {
-    if (hasFetchedSets) return
-    setHasFetchedSets(true)
-    fetch('/api/icon-search?limit=1&legalOnly=0')
-      .then((response) => response.ok ? response.json() : Promise.reject(new Error(`Catalog returned ${response.status}`)))
-      .then((data) => {
-        const sets = Array.isArray(data?.facets?.iconifySets) ? data.facets.iconifySets : []
-        setIconifySets(sets)
-      })
-      .catch((error) => console.error('Could not load Iconify collections', error))
-  }
 
   const [cartCount, setCartCount] = useState(0)
 
