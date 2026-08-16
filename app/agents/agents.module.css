@@ -34,6 +34,13 @@
 
 .hero > * { position: relative; z-index: 1; }
 
+.heroMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
 .eyebrow,
 .sectionLabel {
   display: inline-flex;
@@ -54,6 +61,28 @@
   font-size: clamp(3rem, 6.6vw, 6.15rem);
   line-height: 0.95;
   letter-spacing: -0.065em;
+}
+
+.releaseBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(52, 211, 153, 0.32);
+  border-radius: 999px;
+  background: rgba(52, 211, 153, 0.09);
+  color: #a7f3d0;
+  padding: 7px 11px;
+  font-size: 11px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.releaseBadge > span {
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: #34d399;
+  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.12);
 }
 
 .heroLead {
@@ -143,6 +172,7 @@
 .terminalBar span:last-child { background: #34d399; }
 .terminal > code { display: block; overflow-wrap: anywhere; color: #dbeafe; font-size: 13px; line-height: 1.65; }
 .terminal > p { margin: 18px 0 0; color: #918b98; font-size: 12px; line-height: 1.55; }
+.terminal > p a { color: #a5b4fc; }
 .copyWrap { margin-top: 18px; }
 .copyButton { display: inline-flex; min-height: 40px; align-items: center; gap: 8px; border: 1px solid #45414b; border-radius: 9px; background: #211f26; color: #f8fafc; padding: 0 13px; font-weight: 750; cursor: pointer; }
 .copyButton:hover { border-color: #818cf8; }
@@ -175,6 +205,7 @@
   .page { padding: 24px 14px 70px; }
   .hero { border-radius: 22px; padding: 38px 18px 18px; }
   .hero h1 { font-size: 3rem; }
+  .heroMeta { align-items: flex-start; flex-direction: column; }
   .actions { align-items: stretch; flex-direction: column; }
   .primaryAction, .secondaryAction, .darkSecondaryAction { width: 100%; }
   .agentPreview { margin-top: 36px; }

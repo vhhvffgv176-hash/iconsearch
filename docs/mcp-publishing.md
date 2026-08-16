@@ -51,24 +51,14 @@ npm audit --omit=dev
 npm pack --dry-run
 ```
 
-Inspect the dry-run file list. It should contain only compiled `dist` files, `README.md`, and npm-generated package metadata. Never publish `.env` files, local sessions, source maps containing secrets, or test fixtures with credentials.
+Inspect the dry-run file list. It should contain only compiled `dist` files, `README.md`, `LICENSE`, and npm-generated package metadata. Never publish `.env` files, local sessions, source maps containing secrets, or test fixtures with credentials.
 
-## 5. First publication
+## 5. Current public release
 
-The direct first-release path is:
-
-```bash
-npm login
-npm whoami
-npm publish --access public
-```
-
-Scoped packages default to private visibility, so the first public publish needs `--access public`. The repository already sets `publishConfig.access` to `public`, but keeping the flag explicit on the first release makes intent clear.
-
-After publication:
+Version `0.2.0` was published publicly under the MIT License on 2026-08-16. Verify it with:
 
 ```bash
-npm view @iconsearch/mcp-server version dist.integrity
+npm view @iconsearch/mcp-server version license dist.integrity
 npx -y @iconsearch/mcp-server@0.2.0
 ```
 
@@ -76,7 +66,7 @@ The second command starts a stdio server and waits for an MCP client; exit it af
 
 ## 6. Recommended ongoing releases: npm trusted publishing
 
-This repository contains `.github/workflows/publish-mcp.yml`, which publishes tags matching `mcp-v*` from a GitHub-hosted runner using OIDC.
+The prepared `.github/workflows/publish-mcp.yml` publishes tags matching `mcp-v*` from a GitHub-hosted runner using OIDC. Commit that file using GitHub credentials with workflow permission before enabling trusted publishing.
 
 After the first package exists on npm:
 

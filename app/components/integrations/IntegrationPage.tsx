@@ -337,7 +337,7 @@ export default function IntegrationPage({ config }: { config: IntegrationConfig 
     '--integration-accent': config.accent,
     '--integration-accent-muted': config.accentMuted,
   } as CSSProperties
-  const isLive = config.status === 'Marketplace live'
+  const isLive = config.status !== 'Launching soon'
 
   return (
     <main className={styles.page} style={pageStyle}>

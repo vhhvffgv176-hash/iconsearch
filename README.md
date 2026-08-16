@@ -497,7 +497,7 @@ Vercel runs this automatically. The icon gzip file is included in the deployment
 - [ ] Favicon asset (`favicon.svg` referenced in JSON-LD but missing from repo)
 - [ ] Distributed rate limiting (Vercel KV / Upstash)
 - [ ] Publish the authenticated Figma and VS Code marketplace builds
-- [ ] Apply the production agent migration, deploy the Agent API, and publish `@iconsearch/mcp-server`
+- [x] Apply the production agent migration, deploy the Agent API, and publish `@iconsearch/mcp-server@0.2.0`
 
 ---
 

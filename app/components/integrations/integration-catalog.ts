@@ -33,7 +33,7 @@ export type IntegrationIcon =
   | 'brush'
   | 'gem'
 
-type IntegrationStatus = 'Marketplace live' | 'Launching soon'
+type IntegrationStatus = 'Marketplace live' | 'Available on npm' | 'Launching soon'
 
 type IntegrationPrimaryAction = {
   label: string
@@ -322,8 +322,8 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     platform: 'MCP clients',
     icon: 'radio',
     mark: 'MC',
-    status: 'Launching soon',
-    statusTone: 'development',
+    status: 'Available on npm',
+    statusTone: 'ready',
     eyebrow: 'ICONS FOR AI WORKFLOWS',
     title: 'Give coding agents a consistent icon system.',
     description: 'Search by UI intent, retrieve exact SVGs with attribution, remember approved choices in the repository, and audit icon usage before shipping.',
@@ -336,6 +336,11 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     account: 'Free account',
     dragAndDrop: false,
     capabilities: ['Semantic intent search', 'Project-native icon memory', 'Repository audits', 'stdio transport'],
+    primaryAction: {
+      label: 'View npm package',
+      href: 'https://www.npmjs.com/package/@iconsearch/mcp-server',
+      external: true,
+    },
     features: [
       { title: 'Search by intent', text: 'Agents can ask for a UI purpose such as billing history or a quiet empty state instead of guessing package exports.' },
       { title: 'Remember approved choices', text: 'Semantic assignments and sanitized SVGs live with the code in a readable, reviewable manifest.' },
@@ -345,8 +350,8 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
     workflow: ['Install the npm package in an MCP client', 'Complete browser device sign-in once', 'Read existing project icon memory', 'Search, retrieve, save approved icons, and audit before shipping'],
     requirements: ['Node.js 20 or newer', 'An MCP-compatible coding client', 'Free IconSearch account for search and retrieval'],
     setup: 'codex mcp add iconsearch -- npx -y @iconsearch/mcp-server',
-    releaseTitle: 'Package and production workflow prepared for publication.',
-    releaseText: 'The server includes versioned authenticated APIs, quota enforcement, sanitized repository writes, project memory, audits, protocol tests, and dry-package validation. Publish the package after applying the production Supabase migration and deploying the website.',
+    releaseTitle: 'Version 0.2.0 is live on npm.',
+    releaseText: 'The MIT-licensed package is publicly installable and includes versioned authenticated APIs, quota enforcement, sanitized repository writes, project memory, audits, and ten verified MCP tools.',
   },
   'jetbrains-plugin': {
     slug: 'jetbrains-plugin',
@@ -576,7 +581,7 @@ export const integrationCatalog: Record<IntegrationSlug, IntegrationConfig> = {
 
 export function createIntegrationMetadata(config: IntegrationConfig): Metadata {
   const iconCount = SEARCHABLE_ICON_COUNT.toLocaleString('en-US')
-  const isLive = config.status === 'Marketplace live'
+  const isLive = config.status !== 'Launching soon'
   const description = isLive
     ? `${config.description} Search ${iconCount} icons from ${NAMED_LIBRARY_COUNT} open-source libraries without leaving ${config.platform}.`
     : `IconSearch for ${config.platform} is launching soon. Search and customize ${iconCount} icons from ${NAMED_LIBRARY_COUNT} open-source libraries on IconSearch while we prepare the public release.`

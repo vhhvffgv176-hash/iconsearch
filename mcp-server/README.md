@@ -108,7 +108,7 @@ For website API development, set `ICONSEARCH_API_BASE=http://localhost:3000` in 
 
 ## Publishing
 
-Publication is intentionally separate from the source build. Maintainers should follow [`docs/mcp-publishing.md`](../docs/mcp-publishing.md), inspect `npm pack --dry-run`, and publish only after the production database migration and website deployment are complete.
+Version `0.2.0` is public on [npm](https://www.npmjs.com/package/@iconsearch/mcp-server). Maintainers should follow [`docs/mcp-publishing.md`](../docs/mcp-publishing.md), inspect `npm pack --dry-run`, and publish future immutable versions only after the production API and package checks pass.
 
 ## Licence
 

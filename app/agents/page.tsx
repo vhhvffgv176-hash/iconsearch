@@ -6,6 +6,7 @@ import {
   Bot,
   Braces,
   CheckCircle2,
+  ExternalLink,
   FileSearch,
   FolderHeart,
   Search,
@@ -19,10 +20,12 @@ import CopyInstallCommand from './CopyInstallCommand'
 import styles from './agents.module.css'
 
 const installCommand = 'codex mcp add iconsearch -- npx -y @iconsearch/mcp-server'
+const npmPackageUrl = 'https://www.npmjs.com/package/@iconsearch/mcp-server'
+const packageVersion = '0.2.0'
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Icons for Coding Agents — IconSearch MCP',
-  description: `Give coding agents semantic search, exact SVG retrieval, project-native icon memory, and repository audits across ${SEARCHABLE_ICON_COUNT.toLocaleString('en-US')} open-source icons.`,
+  title: 'IconSearch MCP for Coding Agents — Available on npm',
+  description: `Install the MIT-licensed IconSearch MCP server for semantic search, exact SVG retrieval, project-native icon memory, and repository audits across ${SEARCHABLE_ICON_COUNT.toLocaleString('en-US')} open-source icons.`,
   path: '/agents',
 })
 
@@ -57,6 +60,9 @@ export default function AgentsPage() {
             applicationCategory: 'DeveloperApplication',
             operatingSystem: 'Windows, macOS, Linux',
             url: `${SITE_URL}/agents`,
+            downloadUrl: npmPackageUrl,
+            softwareVersion: packageVersion,
+            license: 'https://opensource.org/license/mit',
             description: 'An MCP icon design system for coding agents.',
             offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
           }),
@@ -64,7 +70,12 @@ export default function AgentsPage() {
       />
 
       <section className={styles.hero}>
-        <div className={styles.eyebrow}><Sparkles size={16} /> Icon systems for coding agents</div>
+        <div className={styles.heroMeta}>
+          <div className={styles.eyebrow}><Sparkles size={16} /> Icon systems for coding agents</div>
+          <a className={styles.releaseBadge} href={npmPackageUrl} target="_blank" rel="noopener noreferrer">
+            <span /> Available on npm · v{packageVersion} <ExternalLink size={13} />
+          </a>
+        </div>
         <h1>Give your agent an icon system—not another guess.</h1>
         <p className={styles.heroLead}>
           Search {SEARCHABLE_ICON_COUNT.toLocaleString('en-US')} production-ready icons across {ICONIFY_COLLECTION_COUNT} collections,
@@ -73,6 +84,9 @@ export default function AgentsPage() {
         <div className={styles.actions}>
           <Link className={styles.primaryAction} href="#install">Install the MCP server <ArrowRight size={17} /></Link>
           <Link className={styles.secondaryAction} href="/docs/agents">Read the setup guide</Link>
+          <a className={styles.secondaryAction} href={npmPackageUrl} target="_blank" rel="noopener noreferrer">
+            View npm package <ExternalLink size={15} />
+          </a>
         </div>
 
         <div className={styles.agentPreview} aria-label="IconSearch agent workflow preview">
@@ -106,7 +120,7 @@ export default function AgentsPage() {
 
       <section className={styles.workflow} id="install">
         <div>
-          <div className={styles.sectionLabel}>One command, five workflow tools</div>
+          <div className={styles.sectionLabel}>One command, ten MCP tools</div>
           <h2>Your agent gets an icon workflow—not another search box.</h2>
           <ol className={styles.workflowList}>
             <li><strong>Read</strong> approved project icons and visual rules.</li>
@@ -120,7 +134,10 @@ export default function AgentsPage() {
           <div className={styles.terminalBar}><span /><span /><span /></div>
           <code>{installCommand}</code>
           <CopyInstallCommand command={installCommand} />
-          <p>Requires Node.js 20 or newer. Account connection uses a revocable browser device flow—no API key needs to be committed.</p>
+          <p>
+            Published on npm as <a href={npmPackageUrl} target="_blank" rel="noopener noreferrer">@iconsearch/mcp-server</a> under the MIT License.
+            Requires Node.js 20 or newer. Account connection uses a revocable browser device flow—no API key needs to be committed.
+          </p>
         </div>
       </section>
 
