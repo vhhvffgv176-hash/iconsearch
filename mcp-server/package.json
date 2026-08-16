@@ -22,7 +22,7 @@
     "codex"
   ],
   "bin": {
-    "iconsearch-mcp": "./dist/index.js"
+    "iconsearch-mcp": "dist/index.js"
   },
   "files": [
     "dist",
