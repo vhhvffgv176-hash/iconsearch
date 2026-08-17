@@ -587,13 +587,33 @@ export function createIntegrationMetadata(config: IntegrationConfig): Metadata {
     : `IconSearch for ${config.platform} is launching soon. Search and customize ${iconCount} icons from ${NAMED_LIBRARY_COUNT} open-source libraries on IconSearch while we prepare the public release.`
   const socialImage = config.socialImage || DEFAULT_OG_IMAGE
 
+  const platformKeywords: Record<string, string[]> = {
+    'PowerPoint': ['powerpoint icons', 'powerpoint icons library', 'icon library for powerpoint', 'free powerpoint icons', 'icons ppt', 'slides icons'],
+    'Google Slides': ['google slides icons', 'icons for google slides', 'icons in google slides', 'google slides svg', 'free icons for google slides'],
+    'WordPress': ['wordpress icons', 'icon in wordpress', 'wordpress icon svg', 'svg icons wordpress', 'wordpress plugin icon'],
+    'VS Code': ['vscode icons extension', 'icons for code', 'react icons', 'vue icons', 'svg from code'],
+    'Chrome': ['chrome extension icons', 'chrome app icon', 'svg browser extension'],
+    'Figma': ['figma icons svg', 'figma plugin for icons', 'free figma icons', 'vector icons library'],
+    'Canva': ['canva app icons', 'free vector symbols', 'app icons'],
+    'Obsidian': ['obsidian icons', 'markdown icons', 'vault svg icons'],
+  }
+
+  const keywords = platformKeywords[config.platform] || [
+    `${config.platform.toLowerCase()} icons`,
+    `${config.name.toLowerCase()}`,
+    'free svg icons',
+    'open source icons',
+  ]
+
   return createPageMetadata({
     title: isLive
-      ? `IconSearch ${config.name} — Search and Insert Free SVG Icons`
-      : `IconSearch ${config.name} — Launching Soon`,
+      ? `IconSearch for ${config.platform} — Search & Insert Free SVG Icons (2026)`
+      : `IconSearch for ${config.platform} — Launching Soon`,
     description,
     path: `/${config.slug}`,
     image: socialImage,
     imageAlt: `IconSearch ${config.name} for ${config.platform}`,
+    keywords,
   })
 }
+

@@ -34,6 +34,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { ICONIFY_COLLECTION_COUNT, NAMED_LIBRARY_COUNT, SEARCHABLE_ICON_COUNT } from '../../../data/library-catalog'
+import { generateBreadcrumbSchema, generateSoftwareAppSchema } from '../../../lib/seo'
 import type { IntegrationConfig, IntegrationIcon, IntegrationSlug } from './integration-catalog'
 import styles from './integration-page.module.css'
 
@@ -339,8 +340,32 @@ export default function IntegrationPage({ config }: { config: IntegrationConfig 
   } as CSSProperties
   const isLive = config.status !== 'Launching soon'
 
+  const softwareSchema = generateSoftwareAppSchema({
+    name: `IconSearch for ${config.platform}`,
+    description: config.description,
+    applicationCategory: 'DesignApplication',
+    operatingSystem: 'Web, macOS, Windows, Linux',
+    path: `/${config.slug}`,
+    featureList: [
+      `Search ${iconCount} open-source SVG icons directly in ${config.platform}`,
+      ...config.capabilities,
+    ],
+  })
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Integrations', url: '/directory' },
+    { name: `IconSearch for ${config.platform}`, url: `/${config.slug}` },
+  ])
+
   return (
     <main className={styles.page} style={pageStyle}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([softwareSchema, breadcrumbSchema]),
+        }}
+      />
       <section className={styles.hero}>
         <div className={styles.heroHeader}>
           <div className={styles.identity}>

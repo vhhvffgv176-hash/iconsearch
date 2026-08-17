@@ -82,11 +82,26 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const meta = resolveLibraryMeta(slug)
   if (!meta) return {}
 
+  const count = meta.iconCount.toLocaleString('en-US')
+  const title = `${meta.name} (${count} Free SVG Icons) — ${meta.license} License`
+  const description = `Browse ${count} open-source ${meta.name} SVG icons under the ${meta.license} license. Customize color and stroke width, then copy React JSX or download SVG, PNG, and WebP.`
+
   return createPageMetadata({
-    title: `${meta.name}: ${meta.license} License & ${meta.iconCount.toLocaleString('en-US')} Free SVG Icons`,
-    description: `Browse ${meta.iconCount.toLocaleString('en-US')} ${meta.name} SVG icons under the ${meta.license} license. Customize color and stroke width, then copy JSX or download SVG, PNG, and WebP.`,
+    title,
+    description,
     path: `/icons/${meta.slug}`,
     imageAlt: `${meta.name} SVG icon collection on IconSearch`,
+    keywords: [
+      meta.name,
+      `${meta.name} icons`,
+      `${meta.name} svg`,
+      `free ${meta.name}`,
+      `download ${meta.name} svg`,
+      `${meta.name} react icons`,
+      'free svg icons',
+      'vector icons library',
+      'open source icons',
+    ],
   })
 }
 

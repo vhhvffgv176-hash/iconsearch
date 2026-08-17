@@ -224,7 +224,7 @@ export default function LogoMakerStudio({ initialIcons }: { initialIcons?: Studi
         }
 
         if (isMounted && rawText) {
-          let cleaned = rawText
+          const cleaned = rawText
             .replace(/<\?xml.*?\?>/i, '')
             .replace(/<!DOCTYPE.*?>/i, '')
           setSvgContent(cleaned)

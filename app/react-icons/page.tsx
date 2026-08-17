@@ -1,6 +1,6 @@
 import { icons } from '../../lib/icons'
 import Link from 'next/link'
-import { createPageMetadata, SITE_URL } from '../../lib/seo'
+import { createPageMetadata } from '../../lib/seo'
 
 export const metadata = createPageMetadata({
   title: 'React Icons Guide 2026 — Top Free SVG Icon Libraries & Tree-Shaking',

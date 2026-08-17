@@ -6,8 +6,22 @@ const allowPaths = [
   '/api/svg/',
   '/api/icon-search',
   '/api/icons',
+  '/icons/',
+  '/free-svg-icons',
+  '/logo-maker',
+  '/react-icons',
+  '/nextjs-icons',
+  '/vue-icons',
+  '/svelte-icons',
+  '/tailwind-icons',
+  '/typescript-icons',
+  '/agents',
+  '/docs/',
+  '/directory',
+  '/stats',
+  '/licenses',
 ]
-const disallowPaths = ['/api/', '/auth/', '/icon-search?']
+const disallowPaths = ['/api/', '/auth/', '/account/', '/oauth/']
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -22,6 +36,11 @@ export default function robots(): MetadataRoute.Robots {
         disallow: disallowPaths,
       },
       {
+        userAgent: ['GPTBot', 'ClaudeBot', 'PerplexityBot', 'Google-Extended', 'Applebot-Extended'],
+        allow: allowPaths,
+        disallow: disallowPaths,
+      },
+      {
         userAgent: '*',
         allow: allowPaths,
         disallow: disallowPaths,
@@ -30,3 +49,4 @@ export default function robots(): MetadataRoute.Robots {
     sitemap: `${SITE_URL}/sitemap.xml`,
   }
 }
+

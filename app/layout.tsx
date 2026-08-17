@@ -8,10 +8,13 @@ import Script from 'next/script'
 import { Analytics } from "@vercel/analytics/next"
 import { NAMED_LIBRARY_COUNT, SEARCHABLE_ICON_COUNT } from '../data/library-catalog'
 import {
+  DEFAULT_KEYWORDS,
   DEFAULT_OG_IMAGE,
   DEFAULT_TWITTER_IMAGE,
   SITE_NAME,
   SITE_URL,
+  generateOrganizationSchema,
+  generateWebSiteSchema,
 } from '../lib/seo'
 
 const jetbrainsMono = JetBrains_Mono({
@@ -28,8 +31,12 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: `Free SVG Icons — Search ${SEARCHABLE_ICON_COUNT.toLocaleString('en-US')} Icons | IconSearch`,
+  title: {
+    default: `Free SVG Icons — Search ${SEARCHABLE_ICON_COUNT.toLocaleString('en-US')} Icons | IconSearch`,
+    template: `%s | ${SITE_NAME}`,
+  },
   description: `Search, customize, and download ${SEARCHABLE_ICON_COUNT.toLocaleString('en-US')} free SVG icons from ${NAMED_LIBRARY_COUNT} open-source icon libraries.`,
+  keywords: DEFAULT_KEYWORDS,
   applicationName: SITE_NAME,
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,
@@ -91,39 +98,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify([
-              {
-                "@context": "https://schema.org",
-                "@type": "WebSite",
-                "@id": `${SITE_URL}/#website`,
-                "name": "IconSearch",
-                "alternateName": "IconSearch",
-                "url": SITE_URL,
-                "description": `Search ${SEARCHABLE_ICON_COUNT.toLocaleString('en-US')} free SVG icons across ${NAMED_LIBRARY_COUNT} open-source icon libraries.`,
-                "inLanguage": "en",
-                "publisher": {
-                  "@id": `${SITE_URL}/#organization`
-                },
-                "potentialAction": {
-                  "@type": "SearchAction",
-                  "target": `${SITE_URL}/icon-search?q={search_term_string}`,
-                  "query-input": "required name=search_term_string"
-                }
-              },
-              {
-                "@context": "https://schema.org",
-                "@type": "Organization",
-                "@id": `${SITE_URL}/#organization`,
-                "name": "IconSearch",
-                "url": SITE_URL,
-                "description": `An independent discovery platform for ${NAMED_LIBRARY_COUNT} open-source SVG icon libraries.`,
-                "logo": {
-                  "@type": "ImageObject",
-                  "url": `${SITE_URL}/iconsearch-logomark-900.png`,
-                  "width": 900,
-                  "height": 900
-                }
-              }
-            ])
+              generateWebSiteSchema(),
+              generateOrganizationSchema(),
+            ]),
           }}
         />
         <Script id="strip-extension-hydration-attrs" strategy="beforeInteractive">
