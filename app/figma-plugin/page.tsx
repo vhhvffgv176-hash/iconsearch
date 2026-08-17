@@ -214,7 +214,7 @@ export default function FigmaPluginPage() {
       </section>
 
       <section className={styles.sectionHeader}>
-        <span>{'// BUILT FOR DESIGN WORK'}</span>
+        <span>BUILT FOR DESIGN WORK</span>
         <h2>A focused icon workflow inside Figma.</h2>
         <p>
           IconSearch keeps the searching, filtering, previewing, and insertion flow close to the canvas,
@@ -234,7 +234,7 @@ export default function FigmaPluginPage() {
 
       <section className={styles.workflowSection}>
         <div className={styles.sectionHeader}>
-          <span>{'// HOW IT WORKS'}</span>
+          <span>HOW IT WORKS</span>
           <h2>Four steps from search to canvas.</h2>
         </div>
 
@@ -250,7 +250,7 @@ export default function FigmaPluginPage() {
 
       <section className={styles.handoffSection}>
         <div>
-          <span>{'// HANDOFF READY'}</span>
+          <span>HANDOFF READY</span>
           <h2>One icon source for designers and developers.</h2>
           <p>
             The Figma plugin uses the same IconSearch catalog as the website and the{' '}

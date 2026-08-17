@@ -139,7 +139,7 @@ export default function ConnectClient({ product, code, authError }: ConnectClien
 
       <section className="connect-card" aria-labelledby="connect-title">
         <div className="connect-card-main">
-          <div className="connect-kicker">{'// SECURE DEVICE CONNECTION'}</div>
+          <div className="connect-kicker">SECURE DEVICE CONNECTION</div>
           <h1 id="connect-title">Connect IconSearch</h1>
           <p className="connect-lede">
             <strong>{productLabel}</strong> is requesting access to your IconSearch account.

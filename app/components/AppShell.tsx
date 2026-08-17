@@ -10,7 +10,7 @@ const CartDrawer = dynamic(() => import('./CartDrawer'), { ssr: false })
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const standalone = pathname === '/connect' || pathname === '/framer-template'
+  const standalone = pathname === '/connect' || pathname === '/framer-template' || pathname === '/logo-maker'
 
   if (standalone) {
     return <div className="standalone-main">{children}</div>
@@ -50,7 +50,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
             <div style={{ borderTop: '1px solid var(--border)', paddingTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
               <span style={{ color: 'var(--text-muted)', fontSize: '12px', fontFamily: 'JetBrains Mono, monospace' }}>
-                <span style={{ color: 'var(--accent)' }}>{'// '}</span>
                 IconSearch is an independent resource not affiliated with any icon library project.
               </span>
               <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>

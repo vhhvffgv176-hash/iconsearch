@@ -48,7 +48,7 @@ export default function ResetPasswordClient({ next }: { next: string }) {
       <div className="connect-bg-grid" aria-hidden="true" />
       <section className="connect-card" style={{ maxWidth: 620 }} aria-labelledby="reset-title">
         <div className="connect-card-main">
-          <div className="connect-kicker">{'// ACCOUNT RECOVERY'}</div>
+          <div className="connect-kicker">ACCOUNT RECOVERY</div>
           <h1 id="reset-title">Choose a new password</h1>
           <p className="connect-lede">Set a new password, then continue where you left off.</p>
 

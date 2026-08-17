@@ -26,7 +26,7 @@ export default function BrowsePageClient({ libraries, totalIconCount }: Props) {
       {/* Header */}
       <section style={{ marginBottom: '36px', paddingBottom: '36px', borderBottom: '1px solid var(--border)' }}>
         <div style={{ fontSize: '12px', color: 'var(--accent)', fontFamily: 'var(--font-mono, monospace)', letterSpacing: '2px', marginBottom: '12px' }}>
-          // BROWSE DIRECTORY
+          BROWSE DIRECTORY
         </div>
         <h1 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 800, lineHeight: 1.1, marginBottom: '16px', color: 'var(--text)' }}>
           Free SVG Icons <span style={{ color: 'var(--accent)' }}>for Web Projects</span>

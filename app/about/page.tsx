@@ -17,7 +17,7 @@ export default function AboutPage() {
 
       <section style={{ marginBottom: '48px', paddingBottom: '48px', borderBottom: '1px solid var(--border)' }}>
         <div style={{ fontSize: '12px', color: 'var(--accent)', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '2px', marginBottom: '12px' }}>
-          // ABOUT
+          ABOUT
         </div>
         <h1 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: 800, lineHeight: 1.1, marginBottom: '16px' }}>
           About <span style={{ color: 'var(--accent)' }}>IconSearch</span>
@@ -51,8 +51,6 @@ export default function AboutPage() {
             {[
               { value: SEARCHABLE_ICON_COUNT.toLocaleString('en-US'), label: 'Searchable icons' },
               { value: NAMED_LIBRARY_COUNT.toString(), label: 'Icon libraries' },
-              { value: '10', label: 'Icon category guides' },
-              { value: '10', label: 'Use case guides' },
               { value: '6', label: 'Framework guides' },
             ].map(stat => (
               <div key={stat.label} style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '8px', padding: '16px 20px' }}>
@@ -93,24 +91,9 @@ export default function AboutPage() {
                 desc: `Search ${SEARCHABLE_ICON_COUNT.toLocaleString('en-US')} free SVG icons from ${NAMED_LIBRARY_COUNT} open-source libraries. No npm install required.`,
               },
               {
-                title: 'SVG Customizer Sandbox',
-                link: '/icon-search',
-                desc: 'Adjust icon size, stroke weight, and color palette in real-time. Copy output as a React JSX component or raw SVG markup instantly.',
-              },
-              {
-                title: 'Best For You Quiz',
-                link: '/best-for-you',
-                desc: 'A 7-question guided quiz that recommends the exact right library for your framework, project type, design style, and license requirements.',
-              },
-              {
-                title: 'Stats Dashboard',
+                title: 'Stats Dashboard & Benchmarks',
                 link: '/stats',
-                desc: 'Live rankings by GitHub stars, weekly npm downloads, and icon count. Full feature matrix for TypeScript, tree-shaking, Figma support, and framework compatibility.',
-              },
-              {
-                title: 'Bundle Size Benchmarks',
-                link: '/stats',
-                desc: 'Real gzip measurements for 10, 50, and 100 icons across all libraries in Next.js 15 with Turbopack.',
+                desc: 'Live rankings by GitHub stars, weekly npm downloads, icon count, and real gzip bundle size benchmarks.',
               },
               {
                 title: 'License Guide',
@@ -118,9 +101,9 @@ export default function AboutPage() {
                 desc: 'Clear breakdown of MIT, ISC, Apache 2.0, CC0, and CC BY 4.0 licenses — with official GitHub source links for every library.',
               },
               {
-                title: 'Framework & Use Case Guides',
-                link: '/use-cases',
-                desc: 'Dedicated guides for React, Next.js App Router, Vue 3, Svelte, Tailwind CSS, and TypeScript. Plus 10 use-case guides covering SaaS, dashboards, mobile, dark mode, and more.',
+                title: 'Framework Guides',
+                link: '/react-icons',
+                desc: 'Dedicated guides for React, Next.js App Router, Vue 3, Svelte, Tailwind CSS, and TypeScript with live code examples.',
               },
             ].map(item => (
               <div key={item.title} style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '8px', padding: '16px 20px', display: 'flex', gap: '16px', alignItems: 'flex-start' }}>

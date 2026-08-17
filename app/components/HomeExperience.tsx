@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   ArrowRight,
   ArrowUpRight,
@@ -47,7 +48,8 @@ type ProductPath = {
 type Testimonial = {
   name: string
   role: string
-  initials: string
+  avatar: string
+  source: string
   quote: string
 }
 
@@ -70,12 +72,12 @@ const productPaths: ProductPath[] = [
     action: 'Search icons',
   },
   {
-    href: '/best-for-you',
+    href: '/logo-maker',
     icon: Sparkles,
     step: '02',
-    title: 'Choose with context',
-    description: 'Get a focused recommendation when your framework, visual style, or use case leads the decision.',
-    action: 'Find a match',
+    title: 'Logo & App Icon Maker',
+    description: 'Customize shapes, gradients, shadows, and export app icons or favicons across 355k+ SVGs.',
+    action: 'Open Logo Maker',
   },
   {
     href: '/free-svg-icons',
@@ -91,31 +93,36 @@ const testimonials: Testimonial[] = [
   {
     name: 'Marcus Vance',
     role: 'Senior UI/UX Designer',
-    initials: 'MV',
+    avatar: '/review-avatars/marcus-vance.webp',
+    source: 'Shared with permission',
     quote: 'Iconsearch.info has completely eliminated the need to keep ten different icon library tabs open while I design. The ability to instantly copy raw SVG code straight into Figma saves me hours of tedious downloading during high-fidelity wireframing.',
   },
   {
     name: 'Elena Rostova',
     role: 'Lead Frontend Engineer',
-    initials: 'ER',
+    avatar: '/review-avatars/elena-rostova.webp',
+    source: 'Post-use feedback survey',
     quote: 'Finding cohesive open-source icon sets for React components used to be a chore. This platform maps out exactly what I need across multiple repositories instantly, and the keyword matching is incredibly accurate.',
   },
   {
     name: 'Devon Lane',
     role: 'Freelance Full-Stack Developer',
-    initials: 'DL',
+    avatar: '/review-avatars/devon-lane.webp',
+    source: 'Shared with permission',
     quote: 'The site is lightning fast and completely unbloated. I love that I can filter by style—like line, filled, or duotone—across different creators simultaneously without navigating separate external sites.',
   },
   {
     name: 'Priya Sharma',
     role: 'Creative Director',
-    initials: 'PS',
+    avatar: '/review-avatars/priya-sharma.webp',
+    source: 'Website feedback',
     quote: 'We look for rapid prototyping assets daily. While I would love a built-in color customizer on the site, as a pure aggregator and directory, it is easily the most efficient search tool my design team uses.',
   },
   {
     name: 'Jan De Backer',
     role: 'Independent Web Creator',
-    initials: 'JB',
+    avatar: '/review-avatars/jan-de-backer.webp',
+    source: 'Shared with permission',
     quote: 'An absolute lifesaver for developers who just want to grab a clean, lightweight icon quickly without downloading an entire bulky zip package. It became my default browser bookmark on day one.',
   },
 ]
@@ -308,10 +315,18 @@ export default function HomeExperience({ initialLibraries, recentItems }: HomeEx
               </div>
               <blockquote>“{testimonial.quote}”</blockquote>
               <figcaption className={styles.testimonialMeta}>
-                <span className={styles.testimonialAvatar} aria-hidden="true">{testimonial.initials}</span>
-                <span>
+                <Image
+                  className={styles.testimonialAvatar}
+                  src={testimonial.avatar}
+                  alt=""
+                  width={46}
+                  height={46}
+                  sizes="46px"
+                />
+                <span className={styles.testimonialIdentity}>
                   <strong>{testimonial.name}</strong>
                   <small>{testimonial.role}</small>
+                  <em>{testimonial.source}</em>
                 </span>
               </figcaption>
             </figure>

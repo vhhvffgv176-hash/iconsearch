@@ -47,7 +47,7 @@ export default async function IconSearchServerPage() {
           Search, customize, and export icons from {NAMED_LIBRARY_COUNT} open-source libraries. Copy SVG or generate production-ready React, Vue, and Svelte code.
         </p>
       </header>
-      <Suspense fallback={<div style={{ padding: '48px', textAlign: 'center', fontFamily: 'JetBrains Mono, monospace', color: 'var(--accent)' }}>// Booting Icon Engine...</div>}>
+      <Suspense fallback={<div style={{ padding: '48px', textAlign: 'center', fontFamily: 'JetBrains Mono, monospace', color: 'var(--accent)' }}>Booting Icon Engine...</div>}>
         <IconSearchClient initialData={initialData} />
       </Suspense>
     </>

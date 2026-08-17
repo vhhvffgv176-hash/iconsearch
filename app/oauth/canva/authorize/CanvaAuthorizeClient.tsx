@@ -64,7 +64,7 @@ export default function CanvaAuthorizeClient({ requestQuery }: Props) {
       <div className="connect-bg-grid" aria-hidden="true" />
       <section className="connect-card" style={{ maxWidth: 760 }} aria-labelledby="oauth-title">
         <div className="connect-card-main">
-          <div className="connect-kicker">{'// CANVA CONNECTION'}</div>
+          <div className="connect-kicker">CANVA CONNECTION</div>
           <h1 id="oauth-title">Connect IconSearch</h1>
           <p className="connect-lede">
             Canva is requesting permission to search the IconSearch catalog using your account.

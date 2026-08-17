@@ -88,7 +88,7 @@ export default function AccountClient() {
   return (
     <main id="api-keys" style={{ maxWidth: '900px', margin: '0 auto', padding: '56px 32px', minHeight: '70vh', scrollMarginTop: '32px' }}>
       <div style={{ color: 'var(--accent)', fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', letterSpacing: '0.16em', marginBottom: '12px' }}>
-        {'// ACCOUNT'}
+        ACCOUNT
       </div>
       <h1 style={{ fontSize: 'clamp(34px, 6vw, 56px)', margin: '0 0 14px' }}>Your IconSearch access</h1>
 

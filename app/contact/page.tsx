@@ -12,7 +12,7 @@ export default function ContactPage() {
 
       <section style={{ marginBottom: '48px', paddingBottom: '48px', borderBottom: '1px solid var(--border)' }}>
         <div style={{ fontSize: '12px', color: 'var(--accent)', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '2px', marginBottom: '12px' }}>
-          // CONTACT
+          CONTACT
         </div>
         <h1 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: 800, lineHeight: 1.1, marginBottom: '16px' }}>
           Get in Touch
@@ -68,8 +68,8 @@ export default function ContactPage() {
               📍 LOCATION
             </div>
             <p style={{ color: 'var(--text-muted)', fontSize: '14px', lineHeight: 1.8 }}>
-              United States <br />
-              Operating globally · Remote team
+              India <br />
+              Solo Founder (Independent Builder)
             </p>
           </div>
 
@@ -79,7 +79,7 @@ export default function ContactPage() {
             </div>
             <p style={{ color: 'var(--text-muted)', fontSize: '14px', lineHeight: 1.8 }}>
               Monday – Friday<br />
-              9:00 AM – 6:00 PM <br />
+              9:00 AM – 6:00 PM IST (UTC+5:30)<br />
               Typically within 48 hours
             </p>
           </div>
@@ -94,9 +94,9 @@ export default function ContactPage() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {[
-            { q: 'Can I suggest a new icon library to be added?', a: 'Yes! Email us at hello@iconsearch.info with the library name, GitHub link, and why you think it should be featured. We review all suggestions.' },
-            { q: 'I found incorrect data on your site. How do I report it?', a: 'Please email errors@iconsearch.info with the specific page URL and the correct information. We aim to fix errors within 24 hours.' },
-            { q: 'Can I advertise on IconSearch?', a: 'We currently serve ads through Google AdSense. For direct partnerships or sponsored content enquiries, contact partners@iconsearch.dev.' },
+            { q: 'Can I suggest a new icon library to be added?', a: 'Yes! Email us at iconsearchinfo@gmail.com with the library name, GitHub link, and why you think it should be featured. We review all suggestions.' },
+            { q: 'I found incorrect data on your site. How do I report it?', a: 'Please email iconsearchinfo@gmail.com with the specific page URL and the correct information. We aim to fix errors within 24 hours.' },
+            { q: 'Can I advertise on IconSearch?', a: 'We currently serve ads through Google AdSense. For direct partnerships or sponsored content enquiries, contact iconsearchinfo@gmail.com.' },
             { q: 'Can I use your content on my site?', a: 'Our content is original and copyrighted. You may quote small excerpts with attribution and a link back to the original page. Full reproduction is not permitted.' },
           ].map((faq, i) => (
             <div key={i} style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '8px', padding: '20px' }}>

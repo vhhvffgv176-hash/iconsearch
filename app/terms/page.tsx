@@ -12,7 +12,7 @@ export default function TermsPage() {
 
       <section style={{ marginBottom: '48px', paddingBottom: '48px', borderBottom: '1px solid var(--border)' }}>
         <div style={{ fontSize: '12px', color: 'var(--accent)', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '2px', marginBottom: '12px' }}>
-          {'// LEGAL'}
+          LEGAL
         </div>
         <h1 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: 800, lineHeight: 1.1, marginBottom: '16px' }}>
           Terms and Conditions
@@ -93,7 +93,7 @@ While we take rigorous measures to maintain >99.9% uptime, fast-path search resp
           },
           {
             title: '11. Governing Law & Dispute Resolution',
-            content: `These Terms are governed by the laws of the State of Delaware, United States. Any disputes shall first be addressed informally by contacting iconsearchinfo@gmail.com. Unresolved disputes shall be settled through binding arbitration in accordance with standard American Arbitration Association rules.`,
+            content: `These Terms shall be governed by and construed in accordance with applicable laws. Any disputes shall first be addressed informally by contacting iconsearchinfo@gmail.com.`,
           },
           {
             title: '12. Contact Information',
@@ -101,7 +101,7 @@ While we take rigorous measures to maintain >99.9% uptime, fast-path search resp
 
 📧 Email: iconsearchinfo@gmail.com
 🌐 Web: https://iconsearch.info/contact
-📍 Operating from: United States`,
+📍 Operating from: India (Solo Founder / Independent Builder)`,
           },
         ].map(section => (
           <div key={section.title}>

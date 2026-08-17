@@ -666,22 +666,23 @@
 }
 
 .testimonialAvatar {
-  display: grid;
   flex: 0 0 auto;
-  width: 35px;
-  height: 35px;
-  place-items: center;
+  width: 46px;
+  height: 46px;
   border: 1px solid #42485c;
   border-radius: 50%;
   background: #1b1e28;
-  color: #c8cdff;
-  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.68rem;
-  font-weight: 700;
+  object-fit: cover;
+  box-shadow: 0 0 0 3px rgb(109 114 235 / 10%);
+}
+
+.testimonialIdentity {
+  min-width: 0;
 }
 
 .testimonialMeta strong,
-.testimonialMeta small {
+.testimonialMeta small,
+.testimonialMeta em {
   display: block;
 }
 
@@ -695,6 +696,34 @@
   margin-top: 3px;
   color: #7f899b;
   font-size: 0.7rem;
+}
+
+.testimonialMeta em {
+  margin-top: 5px;
+  color: #697487;
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.58rem;
+  font-style: normal;
+  letter-spacing: 0.025em;
+}
+
+.testimonialDisclosure {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 15px 0 0;
+  color: #6f798b;
+  font-size: 0.69rem;
+  line-height: 1.5;
+}
+
+.testimonialDisclosure::before {
+  width: 5px;
+  height: 5px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #6d72eb;
+  content: '';
 }
 
 .resourcesSection {

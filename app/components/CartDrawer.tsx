@@ -796,7 +796,7 @@ export default function CartDrawer() {
 
             <div>
               <label style={{ fontSize: '10px', color: '#888', display: 'block', marginBottom: '6px', letterSpacing: '1px' }}>
-                // PACKAGE FILE NAME
+                PACKAGE FILE NAME
               </label>
               <input suppressHydrationWarning
                 type="text"
@@ -891,7 +891,7 @@ export default function CartDrawer() {
 
             <div>
               <label style={{ fontSize: '10px', color: '#888', display: 'block', marginBottom: '8px', letterSpacing: '1px' }}>
-                // SELECT EXPORT FORMATS
+                SELECT EXPORT FORMATS
               </label>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '10px' }}>
                 {[

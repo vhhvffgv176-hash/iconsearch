@@ -12,7 +12,7 @@ export default function PrivacyPolicyPage() {
 
       <section style={{ marginBottom: '48px', paddingBottom: '48px', borderBottom: '1px solid var(--border)' }}>
         <div style={{ fontSize: '12px', color: 'var(--accent)', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '2px', marginBottom: '12px' }}>
-          {'// LEGAL'}
+          LEGAL
         </div>
         <h1 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: 800, lineHeight: 1.1, marginBottom: '16px' }}>
           Privacy Policy
@@ -42,23 +42,23 @@ export default function PrivacyPolicyPage() {
           },
           {
             title: '5. Google AdSense & Advertising',
-            content: 'IconSearch displays contextual advertisements through Google AdSense to support server costs. AdSense may use cookies to serve relevant ads based on non-personally identifiable browsing patterns. You can manage personalized ad preferences through Google Ads Settings (adssettings.google.com) or opt out through optout.networkadvertising.org.'
+            content: 'IconSearch partners with Google AdSense to display contextual advertisements across the platform to help fund server bandwidth and maintenance of our free open-source database. Google AdSense may use cookies, web beacons, and unique advertising identifiers to serve ads based on prior visits to our website or other sites on the internet. Users may opt out of personalized advertising by visiting Google Ad Settings (adssettings.google.com) or the Network Advertising Initiative (optout.networkadvertising.org).'
           },
           {
-            title: '6. How We Use Your Data',
-            content: 'We process personal information strictly for legitimate operational purposes:\n\n• Authenticating your identity and managing account sessions.\n• Allocating and verifying lifetime Founder Access entitlements across our 18 product integrations.\n• Authorizing connected extensions, plugins, and MCP servers.\n• Synchronizing cloud-saved icon packs and customizer presets upon request.\n• Protecting our infrastructure from IP abuse and high-frequency scraping.\n\nWe do NOT sell, rent, trade, or monetize your personal data to third parties.'
+            title: '6. How We Use Your Information',
+            content: 'Collected data is used strictly for:\n\n• Providing fast in-memory icon search and SVG customizer services.\n• Authenticating accounts and synchronizing icon packs and presets across devices.\n• Fulfilling Founder Access entitlements for official developer extensions.\n• Protecting the Platform from malicious DDoS traffic, automated scraping, and bot attacks.\n• Understanding aggregated site performance and popular icon search terms.'
           },
           {
-            title: '7. Third-Party Links & Open Source Assets',
-            content: 'IconSearch links to third-party resources including GitHub repositories, npm registries, Figma community assets, and documentation. We are not responsible for the privacy practices or content of external sites. Indexed SVG icons remain governed by their respective open-source licenses (MIT, Apache 2.0, ISC, CC0, etc.).'
+            title: '7. Data Sharing and Third Parties',
+            content: 'We do not sell, rent, or trade your personal information. We share minimal necessary data only with trusted infrastructure providers:\n\n• Supabase Inc.: Database storage and authentication.\n• Google Analytics & Google AdSense: Aggregated traffic measurement and contextual ad serving.\n• Cloudflare / Vercel: Edge routing, caching, and DDoS mitigation.'
           },
           {
             title: '8. Data Retention and Deletion Rights',
-            content: 'We retain account and cloud sync data for as long as your account remains active. You have the right to request full export or permanent deletion of your account, cloud icon packs, presets, and device authorizations. To request account deletion, email us at iconsearchinfo@gmail.com. All associated database records will be permanently purged within 7 business days.'
+            content: 'We retain account and sync data for as long as your account remains active. You have the full right to:\n\n• Request a complete export of your account data.\n• Revoke authorized device sessions at any time via /api/device/revoke.\n• Request permanent account and data deletion by emailing iconsearchinfo@gmail.com. Account deletion will be processed within 14 business days.'
           },
           {
-            title: '9. Regional Rights (CCPA & GDPR)',
-            content: '• California Residents (CCPA): You have the right to request disclosure of personal data collected, request deletion, and opt out of any data sales (IconSearch does not sell personal data).\n\n• EEA / UK Residents (GDPR): You have the right to access, rectify, port, or erase your personal data, and to restrict or object to processing based on legitimate interests. You may lodge a complaint with your local Data Protection Authority.'
+            title: '9. GDPR & CCPA/CPRA Privacy Rights',
+            content: 'If you reside in the European Economic Area (EEA), United Kingdom, or California, you have statutory rights under GDPR and CCPA, including rights to access, rectify, port, or erase your data, and to restrict or object to certain processing. To exercise these rights, contact us at iconsearchinfo@gmail.com.'
           },
           {
             title: '10. Children\'s Privacy',
@@ -70,7 +70,7 @@ export default function PrivacyPolicyPage() {
           },
           {
             title: '12. Contact Us',
-            content: 'For privacy inquiries, data deletion requests, or security reports:\n\n📧 Email: iconsearchinfo@gmail.com\n🌐 Contact Form: https://iconsearch.info/contact\n📍 Operating from: United States'
+            content: 'For privacy inquiries, data deletion requests, or security reports:\n\n📧 Email: iconsearchinfo@gmail.com\n🌐 Contact Form: https://iconsearch.info/contact\n📍 Operating from: India (Solo Founder / Independent Builder)'
           },
         ].map(section => (
           <div key={section.title}>

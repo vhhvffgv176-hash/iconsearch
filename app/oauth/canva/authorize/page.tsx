@@ -38,7 +38,7 @@ function AuthorizeError({ message }: { message: string }) {
     <main className="connect-page">
       <section className="connect-card" style={{ maxWidth: 620 }}>
         <div className="connect-card-main">
-          <div className="connect-kicker">{'// CANVA CONNECTION'}</div>
+          <div className="connect-kicker">CANVA CONNECTION</div>
           <h1>Could not connect IconSearch</h1>
           <p className="connect-lede">{message}</p>
           <p className="connect-disclosure">Close this window and start the connection again from Canva.</p>

@@ -14,6 +14,7 @@ type PageMetadataOptions = {
   imageAlt?: string
   imageWidth?: number
   imageHeight?: number
+  robots?: Metadata['robots']
 }
 
 export function createPageMetadata({
@@ -25,12 +26,14 @@ export function createPageMetadata({
   imageAlt = 'IconSearch — search, customize, and download open-source SVG icons',
   imageWidth = 1200,
   imageHeight = 630,
+  robots,
 }: PageMetadataOptions): Metadata {
   const canonical = new URL(path, SITE_URL).toString()
 
   return {
     title,
     description,
+    ...(robots ? { robots } : {}),
     alternates: {
       canonical,
     },

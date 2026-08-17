@@ -49,7 +49,7 @@ export default function StatsClient() {
       {/* Header */}
       <header style={{ marginBottom: '48px', paddingBottom: '32px', borderBottom: '1px solid var(--border)' }}>
         <div style={{ fontSize: '12px', color: 'var(--accent)', fontFamily: 'var(--font-mono, monospace)', letterSpacing: '2px', marginBottom: '12px', textTransform: 'uppercase' }}>
-          // ECOSYSTEM ANALYTICS & RANKINGS
+          ECOSYSTEM ANALYTICS & RANKINGS
         </div>
         <h1 style={{ fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 800, lineHeight: 1.1, marginBottom: '16px', letterSpacing: '-0.02em' }}>
           Icon Library<br />

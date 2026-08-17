@@ -50,7 +50,7 @@ export default function FramerPluginPage() {
     <main className="framer-page">
       <section className="hero-section">
         <div className="hero-copy">
-          <div className="eyebrow">{'// NOW LIVE IN THE FRAMER MARKETPLACE'}</div>
+          <div className="eyebrow">NOW LIVE IN THE FRAMER MARKETPLACE</div>
           <h1>Search and insert SVG icons inside Framer.</h1>
           <p>
             A compact icon command center for Framer designers: search the live IconSearch catalog,
@@ -127,7 +127,7 @@ export default function FramerPluginPage() {
 
       <section className="section-block split-section">
         <div className="section-heading">
-          <span>{'// BUILT FOR FRAMER'}</span>
+          <span>BUILT FOR FRAMER</span>
           <h2>Icon search that feels native to visual building.</h2>
           <p>
             Framer projects need fast, polished icons for navs, feature cards, dashboards,
@@ -148,7 +148,7 @@ export default function FramerPluginPage() {
 
       <section className="workflow-panel">
         <div>
-          <span className="eyebrow">{'// WORKFLOW'}</span>
+          <span className="eyebrow">WORKFLOW</span>
           <h2>From search to canvas in one click.</h2>
         </div>
         <div className="workflow-list">
@@ -163,7 +163,7 @@ export default function FramerPluginPage() {
 
       <section className="launch-card">
         <div>
-          <span className="eyebrow">{'// STATUS'}</span>
+          <span className="eyebrow">STATUS</span>
           <h2>Live on the Framer Marketplace.</h2>
           <p>
             IconSearch is available free from the official Framer Marketplace. Install it to

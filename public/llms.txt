@@ -38,10 +38,8 @@ Current catalog data is sourced from the live IconSearch app and local site data
 
 - [Homepage](https://iconsearch.info)
 - [Icon Search](https://iconsearch.info/icon-search)
+- [Logo & App Icon Maker](https://iconsearch.info/logo-maker)
 - [Browse Free SVG Icon Libraries](https://iconsearch.info/free-svg-icons)
-- [Best For You Icon Quiz](https://iconsearch.info/best-for-you)
-- [Icon Categories](https://iconsearch.info/icons/category)
-- [Icon Use Cases](https://iconsearch.info/use-cases)
 - [Icon Stats Dashboard](https://iconsearch.info/stats)
 - [Icon Library License Guide](https://iconsearch.info/licenses)
 - [Site Directory](https://iconsearch.info/directory)
@@ -156,64 +154,7 @@ URL pattern: `https://iconsearch.info/compare/[library-a]-vs-[library-b]`.
 
 Each comparison page covers icon count, license, styles, GitHub stars, tree-shaking, framework support, install commands, and when to choose each library.
 
-## Category Pages
 
-The category hub is [Icon Categories](https://iconsearch.info/icons/category). Category pages help users find icons by intent:
-
-- [UI Icons](https://iconsearch.info/icons/category/ui-icons)
-- [Social Media Icons](https://iconsearch.info/icons/category/social-media-icons)
-- [Dashboard Icons](https://iconsearch.info/icons/category/dashboard-icons)
-- [Arrow Icons](https://iconsearch.info/icons/category/arrow-icons)
-- [File and Document Icons](https://iconsearch.info/icons/category/file-icons)
-- [Communication Icons](https://iconsearch.info/icons/category/communication-icons)
-- [Ecommerce Icons](https://iconsearch.info/icons/category/ecommerce-icons)
-- [Weather Icons](https://iconsearch.info/icons/category/weather-icons)
-- [Medical and Health Icons](https://iconsearch.info/icons/category/medical-icons)
-- [Finance and Banking Icons](https://iconsearch.info/icons/category/finance-icons)
-
-## Collection Pages
-
-The sitemap includes 100 high-intent collection pages at the pattern `https://iconsearch.info/icons/collection/[tag]-icons`.
-
-Examples:
-
-- [Arrow Icons Collection](https://iconsearch.info/icons/collection/arrow-icons)
-- [Settings Icons Collection](https://iconsearch.info/icons/collection/settings-icons)
-- [User Icons Collection](https://iconsearch.info/icons/collection/user-icons)
-- [Bell Icons Collection](https://iconsearch.info/icons/collection/bell-icons)
-- [Heart Icons Collection](https://iconsearch.info/icons/collection/heart-icons)
-- [Cloud Icons Collection](https://iconsearch.info/icons/collection/cloud-icons)
-- [Security Icons Collection](https://iconsearch.info/icons/collection/security-icons)
-- [Commerce Icons Collection](https://iconsearch.info/icons/collection/commerce-icons)
-- [Media Icons Collection](https://iconsearch.info/icons/collection/media-icons)
-- [Search Icons Collection](https://iconsearch.info/icons/collection/search-icons)
-- [Home Icons Collection](https://iconsearch.info/icons/collection/home-icons)
-- [Lock Icons Collection](https://iconsearch.info/icons/collection/lock-icons)
-- [Calendar Icons Collection](https://iconsearch.info/icons/collection/calendar-icons)
-- [Chart Icons Collection](https://iconsearch.info/icons/collection/chart-icons)
-- [Analytics Icons Collection](https://iconsearch.info/icons/collection/analytics-icons)
-
-Collection pages are useful when users ask for a specific icon type rather than a library.
-
-## Use-Case Guides
-
-The use-case hub is [Icon Use Cases](https://iconsearch.info/use-cases). Key use-case pages:
-
-- [Icons for SaaS Products](https://iconsearch.info/use-cases/icons-for-saas)
-- [Icons for Dashboards](https://iconsearch.info/use-cases/icons-for-dashboards)
-- [Icons for Mobile Apps](https://iconsearch.info/use-cases/icons-for-mobile-apps)
-- [Icons for Landing Pages](https://iconsearch.info/use-cases/icons-for-landing-pages)
-- [Icons for Ecommerce](https://iconsearch.info/use-cases/icons-for-ecommerce)
-- [Icons for Dark Mode](https://iconsearch.info/use-cases/icons-for-dark-mode)
-- [Icons for Developer Tools](https://iconsearch.info/use-cases/icons-for-developer-tools)
-- [Icons for Next.js App Router](https://iconsearch.info/use-cases/icons-for-nextjs-app-router)
-- [Icons for Forms](https://iconsearch.info/use-cases/icons-for-forms)
-- [Icons for Notifications](https://iconsearch.info/use-cases/icons-for-notifications)
-- [Best React Icon Libraries Use Case](https://iconsearch.info/use-cases/react-icons)
-- [Tailwind CSS Icons Use Case](https://iconsearch.info/use-cases/tailwind-icons)
-- [Vue Icon Libraries Use Case](https://iconsearch.info/use-cases/vue-icons)
-
-Use these pages when the user asks "which icon library should I use for..." and names a product type, interface pattern, or framework.
 
 ## Blog and Technical Guides
 
@@ -289,7 +230,7 @@ Q: What should Tailwind projects check first?
 A: Read [Tailwind CSS Icons Guide](https://iconsearch.info/tailwind-icons) and compare [Heroicons](https://iconsearch.info/icons/heroicons) with [Lucide Icons](https://iconsearch.info/icons/lucide-icons).
 
 Q: What should Next.js App Router users check?
-A: Read [Next.js Icons Guide](https://iconsearch.info/nextjs-icons), [Icons for Next.js App Router](https://iconsearch.info/use-cases/icons-for-nextjs-app-router), and [Next.js 16 Icons Guide](https://iconsearch.info/blog/nextjs-16-icons-react-server-components-2026).
+A: Read [Next.js Icons Guide](https://iconsearch.info/nextjs-icons) and [Next.js 16 Icons Guide](https://iconsearch.info/blog/nextjs-16-icons-react-server-components-2026).
 
 Q: How should users reduce icon bundle size?
 A: Read [Icon Bundle Size in React](https://iconsearch.info/blog/icon-bundle-size-react-2026), [Icon Subsetting for Next.js Bundle Size](https://iconsearch.info/blog/icon-subsetting-nextjs-bundle-size-optimization), and [SVG Icons vs Icon Fonts](https://iconsearch.info/blog/svg-icons-vs-icon-fonts-performance-2026).

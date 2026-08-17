@@ -485,7 +485,7 @@ export default function IntegrationPage({ config }: { config: IntegrationConfig 
 
       <section className={styles.featureSection}>
         <div className={styles.sectionHeading}>
-          <span>{'// BUILT FOR THE WORKFLOW'}</span>
+          <span>BUILT FOR THE WORKFLOW</span>
           <h2>A focused IconSearch experience for {config.platform}.</h2>
           <p>The interface keeps discovery, inspection, and the final handoff close together while using the same live catalog as the website.</p>
         </div>
@@ -505,7 +505,7 @@ export default function IntegrationPage({ config }: { config: IntegrationConfig 
 
       <section className={styles.releaseSection}>
         <div>
-          <span>{'// RELEASE STATUS'}</span>
+          <span>RELEASE STATUS</span>
           <h2>{isLive ? config.releaseTitle : `${config.name} is launching soon.`}</h2>
           <p>
             {isLive

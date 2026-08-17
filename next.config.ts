@@ -90,7 +90,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/blog/how-to-choose-right-icons-for-ui",
-        destination: "/best-for-you",
+        destination: "/free-svg-icons",
+        permanent: true,
+      },
+      {
+        source: "/best-for-you",
+        destination: "/free-svg-icons",
         permanent: true,
       },
       {
@@ -100,7 +105,37 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/blog/svg-icons-dark-mode-react-nextjs-2026",
-        destination: "/use-cases/icons-for-dark-mode",
+        destination: "/tailwind-icons",
+        permanent: true,
+      },
+      {
+        source: "/use-cases/:slug*",
+        destination: "/free-svg-icons",
+        permanent: true,
+      },
+      {
+        source: "/use-cases",
+        destination: "/free-svg-icons",
+        permanent: true,
+      },
+      {
+        source: "/icons/category/:slug*",
+        destination: "/free-svg-icons",
+        permanent: true,
+      },
+      {
+        source: "/icons/category",
+        destination: "/free-svg-icons",
+        permanent: true,
+      },
+      {
+        source: "/icons/collection/:slug*",
+        destination: "/free-svg-icons",
+        permanent: true,
+      },
+      {
+        source: "/icons/collection",
+        destination: "/free-svg-icons",
         permanent: true,
       },
       {

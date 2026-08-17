@@ -91,13 +91,57 @@ const licenseData = [
   },
 ]
 
+const faqs = [
+  {
+    q: 'Can I use Heroicons in a commercial project?',
+    a: 'Yes. Heroicons is MIT licensed by Tailwind Labs. You can use it freely in any personal or commercial project without attribution. The license is available on the official GitHub repository at github.com/tailwindlabs/heroicons.',
+  },
+  {
+    q: 'Can I use Tabler Icons commercially?',
+    a: 'Yes. Tabler Icons is MIT licensed. You can use all 5,500+ icons in commercial projects without attribution. The MIT license is confirmed on the official GitHub repository.',
+  },
+  {
+    q: 'Does Remix Icon require attribution?',
+    a: 'Yes. Remix Icon uses the Apache 2.0 license which requires attribution. You must include a notice that the icons are from Remix Icon. All other major icon libraries on this list do not require attribution.',
+  },
+  {
+    q: 'What is the difference between MIT and ISC license for icons?',
+    a: 'For practical purposes there is no difference. Both MIT and ISC licenses allow free use in commercial projects, modification, and distribution without attribution. Lucide Icons uses the ISC license which is functionally identical to MIT.',
+  },
+  {
+    q: 'Can I modify MIT licensed icons?',
+    a: 'Yes. MIT license explicitly allows modification. You can change colors, sizes, stroke widths, and shapes of any MIT-licensed icon. You can also create derivative works and distribute them.',
+  },
+  {
+    q: 'Do I need to include license files when using icon libraries?',
+    a: 'When distributing software that includes icon libraries as bundled assets, you should include the license file. However, for most web applications where icons are loaded as npm packages, the license files are included in node_modules automatically and no additional action is required.',
+  },
+]
+
 export default function LicensesPage() {
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.a,
+      },
+    })),
+  }
+
   return (
     <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px 48px' }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, '\\u003c') }}
+      />
 
       <section style={{ marginBottom: '48px', paddingBottom: '48px', borderBottom: '1px solid var(--border)' }}>
         <div style={{ fontSize: '12px', color: 'var(--accent)', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '2px', marginBottom: '12px' }}>
-          // LICENSES
+          LICENSES
         </div>
         <h1 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: 800, lineHeight: 1.1, marginBottom: '16px' }}>
           Icon Library Licenses<br />
@@ -108,7 +152,7 @@ export default function LicensesPage() {
         </p>
         <div style={{ background: 'var(--accent-dim)', border: '1px solid var(--accent)', borderRadius: '8px', padding: '14px 18px', display: 'inline-block' }}>
           <span style={{ fontSize: '13px', color: 'var(--accent)', fontFamily: 'JetBrains Mono, monospace' }}>
-            // TL;DR — All major icon libraries are free for commercial use. Only Remix Icon requires attribution.
+            TL;DR — All major icon libraries are free for commercial use. Only Remix Icon requires attribution.
           </span>
         </div>
       </section>
@@ -122,7 +166,7 @@ export default function LicensesPage() {
           <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '600px' }}>
             <thead>
               <tr style={{ background: 'var(--bg-secondary)' }}>
-                {['Library', 'License', 'Commercial Use', 'Attribution Required', 'Official Source'].map(h => (
+                {['Library', 'License', 'Commercial Use', 'Attribution Required', 'Official Source'].map((h) => (
                   <th key={h} style={{ padding: '12px 16px', fontSize: '11px', color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '1px', textAlign: 'left', borderBottom: '1px solid var(--border)', fontWeight: 600 }}>
                     {h}
                   </th>
@@ -166,7 +210,7 @@ export default function LicensesPage() {
           DETAILED LICENSE BREAKDOWN
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', background: 'var(--border)', border: '1px solid var(--border)', borderRadius: '12px', overflow: 'hidden' }}>
-          {licenseData.map(lib => (
+          {licenseData.map((lib) => (
             <div id={lib.slug} key={lib.slug} style={{ background: 'var(--bg-card)', padding: '24px 28px', scrollMarginTop: '24px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', flexWrap: 'wrap', gap: '12px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -203,33 +247,8 @@ export default function LicensesPage() {
           Frequently Asked Questions
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-          {[
-            {
-              q: 'Can I use Heroicons in a commercial project?',
-              a: 'Yes. Heroicons is MIT licensed by Tailwind Labs. You can use it freely in any personal or commercial project without attribution. The license is available on the official GitHub repository at github.com/tailwindlabs/heroicons.',
-            },
-            {
-              q: 'Can I use Tabler Icons commercially?',
-              a: 'Yes. Tabler Icons is MIT licensed. You can use all 5,500+ icons in commercial projects without attribution. The MIT license is confirmed on the official GitHub repository.',
-            },
-            {
-              q: 'Does Remix Icon require attribution?',
-              a: 'Yes. Remix Icon uses the Apache 2.0 license which requires attribution. You must include a notice that the icons are from Remix Icon. All other major icon libraries on this list do not require attribution.',
-            },
-            {
-              q: 'What is the difference between MIT and ISC license for icons?',
-              a: 'For practical purposes there is no difference. Both MIT and ISC licenses allow free use in commercial projects, modification, and distribution without attribution. Lucide Icons uses the ISC license which is functionally identical to MIT.',
-            },
-            {
-              q: 'Can I modify MIT licensed icons?',
-              a: 'Yes. MIT license explicitly allows modification. You can change colors, sizes, stroke widths, and shapes of any MIT-licensed icon. You can also create derivative works and distribute them.',
-            },
-            {
-              q: 'Do I need to include license files when using icon libraries?',
-              a: 'When distributing software that includes icon libraries as bundled assets, you should include the license file. However, for most web applications where icons are loaded as npm packages, the license files are included in node_modules automatically and no additional action is required.',
-            },
-          ].map((faq, i) => (
-            <div key={i} style={{ borderBottom: i < 5 ? '1px solid var(--border)' : 'none', paddingBottom: i < 5 ? '24px' : '0' }}>
+          {faqs.map((faq, i) => (
+            <div key={i} style={{ borderBottom: i < faqs.length - 1 ? '1px solid var(--border)' : 'none', paddingBottom: i < faqs.length - 1 ? '24px' : '0' }}>
               <h3 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '10px', color: 'var(--text)' }}>
                 {faq.q}
               </h3>
@@ -247,7 +266,7 @@ export default function LicensesPage() {
           EXPLORE LIBRARIES
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '10px' }}>
-          {licenseData.map(lib => (
+          {licenseData.map((lib) => (
             <Link key={lib.slug} href={`/icons/${lib.slug}`} style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '8px', padding: '14px 18px', textDecoration: 'none', color: 'var(--text)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontWeight: 600, fontSize: '14px' }}>{lib.name}</span>
               <span style={{ color: 'var(--accent)', fontFamily: 'JetBrains Mono, monospace', fontSize: '12px' }}>{lib.license}</span>
@@ -255,7 +274,6 @@ export default function LicensesPage() {
           ))}
         </div>
       </section>
-
     </main>
   )
 }

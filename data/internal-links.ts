@@ -31,31 +31,19 @@ export const internalLinkGroups: InternalLinkGroup[] = [
     ],
   },
   {
-    title: 'USE CASES',
-    links: [
-      { label: 'Icons for SaaS', href: '/use-cases/icons-for-saas' },
-      { label: 'Icons for Dashboards', href: '/use-cases/icons-for-dashboards' },
-      { label: 'Icons for Mobile', href: '/use-cases/icons-for-mobile-apps' },
-      { label: 'Icons for Dark Mode', href: '/use-cases/icons-for-dark-mode' },
-      { label: 'All Use Cases', href: '/use-cases' },
-    ],
-  },
-  {
     title: 'RESOURCES',
     links: [
+      { label: 'Logo Maker', href: '/logo-maker' },
       { label: 'Icons for Agents', href: '/agents' },
       { label: 'Agent Setup Guide', href: '/docs/agents' },
       { label: 'Browse', href: '/free-svg-icons' },
       { label: 'Site Directory', href: '/directory' },
-      { label: 'Best For You', href: '/best-for-you' },
       { label: 'VS Code Extension', href: '/vscode-extension' },
       { label: 'Figma Plugin', href: '/figma-plugin' },
       { label: 'Chrome Extension', href: '/chrome-extension' },
       { label: 'Framer Plugin', href: '/framer-plugin' },
-      { label: 'Categories', href: '/icons/category' },
       { label: 'License Guide', href: '/licenses' },
-      { label: 'Use Cases', href: '/use-cases' },
-      { label: 'Stats', href: '/stats' },
+      { label: 'Stats & Benchmarks', href: '/stats' },
     ],
   },
 ]
@@ -63,7 +51,6 @@ export const internalLinkGroups: InternalLinkGroup[] = [
 export const footerLegalLinks: InternalLink[] = [
   { label: 'Account', href: '/account' },
   { label: 'About', href: '/about' },
-  { label: 'Best For You', href: '/best-for-you' },
   { label: 'Privacy Policy', href: '/privacy-policy' },
   { label: 'Terms', href: '/terms' },
   { label: 'Contact', href: '/contact' },

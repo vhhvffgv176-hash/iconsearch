@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import type { User } from '@supabase/supabase-js'
-import { Bookmark, Bot, Home, List, LogIn, Search, UserCheck } from 'lucide-react'
+import { Bookmark, Bot, Home, List, LogIn, Search, Sparkles, UserCheck } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import { createClient } from '@/lib/supabase'
 import { allLibraries, namedLibraries } from '../../data/library-catalog'
@@ -18,6 +18,7 @@ const navLinks = [
   { label: 'Home', href: '/', Icon: Home, color: '#9aa8ff' },
   { label: 'Search', href: '/icon-search', Icon: Search, color: '#53c9ff' },
   { label: 'Browse', href: '/free-svg-icons', Icon: List, color: '#50d3a2' },
+  { label: 'Logo Maker', href: '/logo-maker', Icon: Sparkles, color: '#e41540' },
   { label: 'Bookmarks', href: '/bookmarks', Icon: Bookmark, color: '#f43f5e' },
 ]
 

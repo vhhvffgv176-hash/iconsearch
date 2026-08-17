@@ -77,9 +77,8 @@ icon-hub/
 │   │   └── IconSearchClient.tsx  # Search UI, cart, export, auth sync
 │   ├── components/               # Navbar, AuthModal, DynamicHome, …
 │   ├── blog/                     # Blog index + [slug] pages
-│   ├── icons/                    # Library, category, collection pages
+│   ├── icons/                    # Individual library pages
 │   ├── compare/                  # Comparison hub + [pair] pages
-│   ├── use-cases/                # Use-case guides
 │   ├── layout.tsx                # Root layout, footer, analytics
 │   ├── sitemap.ts                # Dynamic sitemap
 │   └── robots.ts
@@ -88,7 +87,7 @@ icon-hub/
 │   ├── canonical-icon-search.json.gz   # Production search index (committed)
 │   ├── icon-search.snapshot.json       # Build stats / license breakdown
 │   ├── icon-search (1).json            # SSR seed payload for /icon-search
-│   ├── categories.ts, usecases.ts, static-pages.ts
+│   ├── static-pages.ts
 │   └── libraries/                      # Per-library detail modules (16 files)
 ├── lib/
 │   ├── icons.ts                  # Library definitions + comparison pairs
@@ -405,15 +404,12 @@ Export formats in ZIP: `svg/`, `png/`, `react/`, `vue/`, `tailwind-html/`, `spri
 |-------|---------|
 | `/` | Homepage with search, library comparison, stats |
 | `/icon-search` | Main icon search engine |
+| `/logo-maker` | Interactive SVG Logo Builder & App Icon Generator |
 | `/free-svg-icons` | Browse all libraries |
 | `/icons/[slug]` | Individual library guide (17 libraries) |
 | `/compare` and `/compare/[pair]` | Library comparisons (136 pairs) |
-| `/icons/category` and `/icons/category/[slug]` | Icon categories |
-| `/icons/collection/[tag]` | Tag-based icon collections |
-| `/use-cases` and `/use-cases/[slug]` | Use-case guides |
 | `/blog` and `/blog/[slug]` | Technical blog |
 | `/react-icons`, `/nextjs-icons`, … | Framework landing pages |
-| `/best-for-you` | Recommendation wizard |
 | `/stats` | Site statistics |
 | `/licenses` | License guide |
 | `/directory` | Full site directory |

@@ -1593,7 +1593,7 @@ export default function IconSearchClient({ initialData }: { initialData?: ApiRes
 
             <div>
               <label style={{ fontSize: '11px', color: 'var(--text-muted)', display: 'block', marginBottom: '6px', fontFamily: 'JetBrains Mono, monospace' }}>
-                // PACKAGE FILE NAME
+                PACKAGE FILE NAME
               </label>
               <input suppressHydrationWarning 
                 type="text" 
@@ -1683,7 +1683,7 @@ export default function IconSearchClient({ initialData }: { initialData?: ApiRes
 
             <div>
               <label style={{ fontSize: '11px', color: 'var(--text-muted)', display: 'block', marginBottom: '8px', fontFamily: 'JetBrains Mono, monospace' }}>
-                // SELECT EXPORT FORMATS
+                SELECT EXPORT FORMATS
               </label>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '10px' }}>
                 {[

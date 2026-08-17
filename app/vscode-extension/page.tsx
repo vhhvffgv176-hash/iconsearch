@@ -60,7 +60,7 @@ export default function VSCodeExtensionPage() {
     <main className="vscode-page">
       <section className="hero-section">
         <div className="hero-copy">
-          <div className="eyebrow">{'// LIVE VS CODE EXTENSION'}</div>
+          <div className="eyebrow">LIVE VS CODE EXTENSION</div>
           <h1>
             Search SVG icons inside VS Code.
           </h1>
@@ -137,7 +137,7 @@ export default function VSCodeExtensionPage() {
 
       <section className="section-block">
         <div className="section-heading">
-          <span>{'// HOW IT WORKS'}</span>
+          <span>HOW IT WORKS</span>
           <h2>Install once, search from your editor.</h2>
         </div>
         <div className="steps-grid">
@@ -153,7 +153,7 @@ export default function VSCodeExtensionPage() {
 
       <section className="section-block split-section">
         <div className="section-heading">
-          <span>{'// BUILT FOR HANDOFF'}</span>
+          <span>BUILT FOR HANDOFF</span>
           <h2>Professional icon search for real codebases.</h2>
           <p>
             The extension is designed for fast implementation work: fewer browser tabs, fewer copied
@@ -173,7 +173,7 @@ export default function VSCodeExtensionPage() {
 
       <section className="security-banner">
         <div>
-          <span>{'// SECURITY MODEL'}</span>
+          <span>SECURITY MODEL</span>
           <h2>Your password stays out of the extension.</h2>
           <p>
             IconSearch opens a browser approval flow on iconsearch.info. VS Code receives only an opaque,
@@ -187,7 +187,7 @@ export default function VSCodeExtensionPage() {
 
       <section className="final-cta">
         <div>
-          <span className="eyebrow">{'// READY'}</span>
+          <span className="eyebrow">READY</span>
           <h2>Add IconSearch to VS Code today.</h2>
           <p>
             Start with the free extension and keep your icon workflow in the same place you write code.

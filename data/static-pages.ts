@@ -6,6 +6,11 @@ export type RecentItem = {
 
 export const staticPages: RecentItem[] = [
   {
+    label: "Free SVG Logo Maker & App Icon Generator",
+    href: "/logo-maker",
+    date: "2026-08-17"
+  },
+  {
     label: "IconSearch Framer Plugin",
     href: "/framer-plugin",
     date: "2026-06-28"
@@ -29,15 +34,5 @@ export const staticPages: RecentItem[] = [
     label: "Interactive Icon Stats & Size Comparisons",
     href: "/stats",
     date: "2026-05-18"
-  },
-  {
-    label: "Best Icons For You — Interactive Wizard",
-    href: "/best-for-you",
-    date: "2026-05-15"
-  },
-  {
-    label: "Common SVG Icon Use Cases in Production",
-    href: "/use-cases",
-    date: "2026-05-10"
   }
 ];

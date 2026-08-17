@@ -59,7 +59,7 @@ export default function ChromeExtensionPage() {
     <main className="chrome-page">
       <section className="chrome-hero">
         <div className="hero-copy">
-          <div className="eyebrow">{'// CHROME EXTENSION - LAUNCHING SOON'}</div>
+          <div className="eyebrow">CHROME EXTENSION - LAUNCHING SOON</div>
           <h1>Chrome icon search is launching soon.</h1>
           <p>
             A polished browser popup for finding, previewing, copying, and downloading clean SVG icons
@@ -143,7 +143,7 @@ export default function ChromeExtensionPage() {
 
       <section className="section-block split">
         <div className="section-heading">
-          <span>{'// WHY CHROME'}</span>
+          <span>WHY CHROME</span>
           <h2>One icon search layer for design, docs, no-code, and web apps.</h2>
           <p>
             Chrome is where designers and builders already move between Canva, docs, dashboards,
@@ -163,7 +163,7 @@ export default function ChromeExtensionPage() {
 
       <section className="workflow-panel">
         <div>
-          <span className="eyebrow">{'// WORKFLOW'}</span>
+          <span className="eyebrow">WORKFLOW</span>
           <h2>Fast enough for daily icon work.</h2>
         </div>
         <div className="workflow-list">
@@ -178,7 +178,7 @@ export default function ChromeExtensionPage() {
 
       <section className="install-panel">
         <div className="section-heading">
-          <span>{'// LAUNCH PLAN'}</span>
+          <span>LAUNCH PLAN</span>
           <h2>Chrome Web Store launch is next.</h2>
           <p>
             The extension page is staying in launch-soon mode until the official Chrome Web Store
@@ -197,7 +197,7 @@ export default function ChromeExtensionPage() {
 
       <section className="launch-card">
         <div>
-          <span className="eyebrow">{'// STATUS'}</span>
+          <span className="eyebrow">STATUS</span>
           <h2>Launching soon after store approval.</h2>
           <p>
             The extension uses restricted host access, a revocable IconSearch account token,
