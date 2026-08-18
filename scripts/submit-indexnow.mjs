@@ -103,24 +103,32 @@ async function main() {
       urlList: batch,
     }
 
-    try {
-      const res = await fetch('https://api.indexnow.org/indexnow', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-        },
-        body: JSON.stringify(payload),
-      })
+    const endpoints = [
+      'https://www.bing.com/indexnow',
+      'https://api.indexnow.org/indexnow',
+    ]
 
-      console.log(`[IndexNow] Response status: ${res.status} ${res.statusText}`)
-      if (res.status === 200 || res.status === 202) {
-        console.log(`[IndexNow] Batch ${Math.floor(i / BATCH_SIZE) + 1} successfully submitted!`)
-      } else {
-        const text = await res.text()
-        console.warn(`[IndexNow] Response body:`, text)
+    for (const endpoint of endpoints) {
+      try {
+        console.log(`[IndexNow] Pinging ${endpoint}...`)
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+          },
+          body: JSON.stringify(payload),
+        })
+
+        console.log(`[IndexNow] ${endpoint} -> ${res.status} ${res.statusText}`)
+        if (res.status === 200 || res.status === 202) {
+          console.log(`[IndexNow] Batch ${Math.floor(i / BATCH_SIZE) + 1} (${batch.length} URLs) accepted by ${endpoint}!`)
+        } else {
+          const text = await res.text()
+          console.warn(`[IndexNow] Response body:`, text)
+        }
+      } catch (err) {
+        console.error(`[IndexNow] Submission error (${endpoint}):`, err.message)
       }
-    } catch (err) {
-      console.error(`[IndexNow] Submission error:`, err.message)
     }
   }
 
