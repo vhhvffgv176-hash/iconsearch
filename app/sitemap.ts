@@ -38,6 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry('/typescript-icons', knownPageDates.get('/typescript-icons'), 'weekly', 0.8),
     entry('/agents', knownPageDates.get('/agents'), 'weekly', 0.8),
     entry('/docs/agents', knownPageDates.get('/docs/agents'), 'weekly', 0.8),
+    entry('/mcp-server', knownPageDates.get('/mcp-server'), 'weekly', 0.8),
     entry('/directory', catalogModified, 'weekly', 0.8),
     entry('/stats', catalogModified, 'weekly', 0.75),
     entry('/licenses', knownPageDates.get('/licenses'), 'monthly', 0.7),

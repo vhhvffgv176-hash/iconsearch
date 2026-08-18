@@ -5,7 +5,7 @@ import { createPageMetadata } from '../../lib/seo'
 
 export const metadata = createPageMetadata({
   title: 'IconSearch Directory — Icon Libraries, Guides and Tools',
-  description: 'Browse every IconSearch icon library, framework guide, use-case guide, category, search tool, and open-source license resource.',
+  description: 'Browse every IconSearch icon library, framework guide, search tool, logo maker, and open-source license resource.',
   path: '/directory',
 })
 
@@ -29,7 +29,7 @@ export default function DirectoryPage() {
           Explore the Full Site
         </h1>
         <p style={{ color: 'var(--text-muted)', fontSize: '16px', maxWidth: '600px', lineHeight: 1.8 }}>
-          A complete index of every icon library, framework guide, category, search tool, and use-case resource available on IconSearch.
+          A complete index of every icon library, framework guide, search tool, logo maker, and license resource available on IconSearch.
         </p>
       </section>
 
@@ -79,8 +79,24 @@ export default function DirectoryPage() {
           </div>
         </section>
 
-
-
+        {/* Integrations & Plugins */}
+        <section>
+          <h2 style={{ fontSize: '14px', color: 'var(--text)', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '1px', marginBottom: '20px', borderBottom: '1px solid var(--border)', paddingBottom: '8px' }}>
+            INTEGRATIONS & EXTENSIONS
+          </h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <Link href="/agents" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px' }}>Icons for AI Agents</Link>
+            <Link href="/docs/agents" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px' }}>Agent Setup & MCP Guide</Link>
+            <Link href="/vscode-extension" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px' }}>VS Code Extension</Link>
+            <Link href="/figma-plugin" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px' }}>Figma Plugin</Link>
+            <Link href="/chrome-extension" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px' }}>Chrome Extension</Link>
+            <Link href="/framer-plugin" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px' }}>Framer Plugin</Link>
+            <Link href="/raycast-extension" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px' }}>Raycast Extension</Link>
+            <Link href="/jetbrains-plugin" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px' }}>JetBrains Plugin</Link>
+            <Link href="/penpot-plugin" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px' }}>Penpot Plugin</Link>
+            <Link href="/sketch-plugin" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px' }}>Sketch Plugin</Link>
+          </div>
+        </section>
 
         {/* Legal & About */}
         <section>

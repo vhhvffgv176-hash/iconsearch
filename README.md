@@ -2,7 +2,7 @@
 
 **Live site:** [https://iconsearch.info](https://iconsearch.info)
 
-IconSearch is a Next.js application for discovering, comparing, and exporting free SVG icon libraries. It combines a large programmatic SEO surface (library guides, comparisons, blog, use cases) with a production icon search engine backed by **354,000+** indexed icons, workspace carts, style presets, ZIP export, and optional Supabase cloud sync for signed-in users.
+IconSearch is a Next.js application for discovering, comparing, and exporting free SVG icon libraries. It combines technical guides, framework integrations, comparisons, and an interactive Logo Maker with a production icon search engine backed by **355,000+** indexed icons, workspace carts, style presets, ZIP export, and optional Supabase cloud sync for signed-in users.
 
 ---
 

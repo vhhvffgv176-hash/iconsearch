@@ -7,6 +7,7 @@ const allowPaths = [
   '/api/icon-search',
   '/api/icons',
   '/icons/',
+  '/icon-search',
   '/free-svg-icons',
   '/logo-maker',
   '/react-icons',
@@ -20,8 +21,31 @@ const allowPaths = [
   '/directory',
   '/stats',
   '/licenses',
+  '/about',
+  '/contact',
+  '/privacy-policy',
+  '/terms',
+  '/figma-plugin',
+  '/vscode-extension',
+  '/chrome-extension',
+  '/framer-plugin',
+  '/raycast-extension',
+  '/jetbrains-plugin',
+  '/obsidian-plugin',
+  '/penpot-plugin',
+  '/sketch-plugin',
+  '/webflow-extension',
+  '/canva-app',
+  '/adobe-plugin',
+  '/shopify-extension',
+  '/wordpress-plugin',
+  '/tailwind-plugin',
+  '/storybook-addon',
+  '/powerpoint-addin',
+  '/google-slides-addon',
+  '/mcp-server',
 ]
-const disallowPaths = ['/api/', '/auth/', '/account/', '/oauth/']
+const disallowPaths = ['/api/', '/auth/', '/account/', '/oauth/', '/connect']
 
 export default function robots(): MetadataRoute.Robots {
   return {

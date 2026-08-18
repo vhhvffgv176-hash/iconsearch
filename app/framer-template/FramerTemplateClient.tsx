@@ -496,7 +496,7 @@ export default function FramerTemplateClient({
             on paper, gets tested at 16 pixels, and earns its place one curve at
             a time.
           </p>
-          <a href="mailto:hello@example.com">
+          <a href="mailto:iconsearchinfo@gmail.com">
             Start a project
             <ArrowRight size={18} />
           </a>

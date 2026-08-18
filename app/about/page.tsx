@@ -91,6 +91,11 @@ export default function AboutPage() {
                 desc: `Search ${SEARCHABLE_ICON_COUNT.toLocaleString('en-US')} free SVG icons from ${NAMED_LIBRARY_COUNT} open-source libraries. No npm install required.`,
               },
               {
+                title: 'Free SVG Logo Maker & App Icon Generator',
+                link: '/logo-maker',
+                desc: 'Customize vector shapes, gradient backgrounds, strokes, and drop shadows to generate production app icons and favicons.',
+              },
+              {
                 title: 'Stats Dashboard & Benchmarks',
                 link: '/stats',
                 desc: 'Live rankings by GitHub stars, weekly npm downloads, icon count, and real gzip bundle size benchmarks.',
