@@ -2,7 +2,7 @@ import { createPageMetadata } from '../../lib/seo'
 
 export const metadata = createPageMetadata({
   title: 'Contact — IconSearch',
-  description: 'Get in touch with the IconSearch team. We welcome feedback, suggestions, and partnership inquiries.',
+  description: 'Contact the IconSearch team for support, feature suggestions, partnership opportunities, or feedback on our open-source SVG icon search engine.',
   path: '/contact',
 })
 

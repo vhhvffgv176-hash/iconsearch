@@ -2,7 +2,7 @@ import { createPageMetadata } from '../../lib/seo'
 
 export const metadata = createPageMetadata({
   title: 'Privacy Policy — IconSearch',
-  description: 'Privacy policy for IconSearch. Learn how we collect, use, and protect your data when you use iconsearch.info.',
+  description: 'Privacy policy for IconSearch. Learn how we collect, use, and safeguard your data when using our vector SVG search platform and developer integrations.',
   path: '/privacy-policy',
 })
 

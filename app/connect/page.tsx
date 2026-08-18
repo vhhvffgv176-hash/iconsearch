@@ -3,7 +3,7 @@ import ConnectClient from './ConnectClient'
 
 export const metadata: Metadata = {
   title: 'Connect IconSearch',
-  description: 'Securely connect your IconSearch account to IconSearch extensions and plugins.',
+  description: 'Securely pair your IconSearch account with design plugins, browser extensions, and developer CLI tools to access and sync your favorite SVG icons.',
   robots: { index: false, follow: false },
 }
 

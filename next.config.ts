@@ -52,11 +52,6 @@ const nextConfig: NextConfig = {
         destination: "/sitemap.xml",
         permanent: true,
       },
-      {
-        source: "/icons/:slug((?!category|collection|icon-sitemaps|page-sitemaps)[^/]+)/:iconName",
-        destination: "/icons/:slug",
-        permanent: true,
-      },
       ...libraryAliasRedirects,
       {
         source: "/icons/react-icons",

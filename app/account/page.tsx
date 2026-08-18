@@ -3,7 +3,7 @@ import AccountClient from './AccountClient'
 
 export const metadata: Metadata = {
   title: 'Your IconSearch Account',
-  description: 'Generate and revoke IconSearch Agent API keys, and manage product access.',
+  description: 'Manage your IconSearch account, create or revoke AI coding agent API keys, and configure integrations for Figma, Canva, Penpot, and CLI tools.',
   robots: { index: false, follow: false },
 }
 

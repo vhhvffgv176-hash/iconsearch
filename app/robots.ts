@@ -31,7 +31,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       },
       {
-        userAgent: 'Googlebot',
+        userAgent: ['Googlebot', 'Bingbot', 'bingbot', 'MSNBot'],
         allow: allowPaths,
         disallow: disallowPaths,
       },
